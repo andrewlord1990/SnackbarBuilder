@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2015 Andrew Lord
+  ~ Copyright (C) 2016 Andrew Lord
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License.
   ~ You may obtain a copy of the License at
@@ -12,5 +12,6 @@
   -->
 
 <resources>
-    <string name="test">Test</string>
+    <dimen name="icon_margin_start_default">12dp</dimen>
+    <dimen name="icon_margin_end_default">8dp</dimen>
 </resources>

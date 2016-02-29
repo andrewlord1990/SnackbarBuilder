@@ -18,6 +18,11 @@
 
 package com.github.andrewlord1990.toastbuilder;
 
+import android.content.Context;
+import android.content.res.Resources;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.StringRes;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -27,19 +32,34 @@ import android.widget.Toast;
 
 import com.github.andrewlord1990.snackbarbuilder.R;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.annotation.Config;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(shadows = {CustomShadowToast.class})
 public class ToastBuilderTest {
 
     private ToastBuilder builderUnderTest;
+
+    @Mock
+    Context context;
+
+    @Mock
+    Resources resources;
+
+    @Before
+    public void before() {
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void whenCreated_thenMessageTextColorFromCustomThemeAttribute() {
@@ -106,9 +126,10 @@ public class ToastBuilderTest {
     public void whenMessageWithStringResource_thenMessageSet() {
         //Given
         createBuilder();
+        @StringRes int stringResId = getStringResourceId("Test");
 
         //When
-        builderUnderTest.message(R.string.test);
+        builderUnderTest.message(stringResId);
 
         //Then
         assertThat(builderUnderTest.message).isEqualTo("Test");
@@ -118,12 +139,13 @@ public class ToastBuilderTest {
     public void whenMessageTextColorRes_thenMessageTextColorSet() {
         //Given
         createBuilder();
+        @ColorRes int colorResId = getColorResourceId(0xFF223344);
 
         //When
-        builderUnderTest.messageTextColorRes(R.color.test);
+        builderUnderTest.messageTextColorRes(colorResId);
 
         //Then
-        assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF444444);
+        assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF223344);
     }
 
     @Test
@@ -267,6 +289,27 @@ public class ToastBuilderTest {
     private void createBuilder() {
         RuntimeEnvironment.application.setTheme(R.style.AppTheme);
         builderUnderTest = new ToastBuilder(RuntimeEnvironment.application);
+    }
+
+    @ColorRes
+    private int getColorResourceId(@ColorInt int color) {
+        if (builderUnderTest != null) {
+            builderUnderTest.context = context;
+        }
+        @ColorRes int colorResId = 50;
+        when(context.getResources()).thenReturn(resources);
+        when(resources.getColor(colorResId)).thenReturn(color);
+        return colorResId;
+    }
+
+    @StringRes
+    private int getStringResourceId(String string) {
+        if (builderUnderTest != null) {
+            builderUnderTest.context = context;
+        }
+        @StringRes int stringResId = 50;
+        when(context.getString(stringResId)).thenReturn(string);
+        return stringResId;
     }
 
 }

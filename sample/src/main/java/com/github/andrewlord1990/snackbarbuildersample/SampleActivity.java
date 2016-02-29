@@ -158,6 +158,19 @@ public class SampleActivity extends AppCompatActivity {
                         .show();
             }
         });
+        samples.put("Icon", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .icon(R.drawable.ic_android_24dp)
+                        .iconMarginStart(R.dimen.snackbarIconMargin)
+                        .iconMarginEnd(R.dimen.snackbarIconMargin)
+                        .message("This has an icon on it")
+                        .duration(Snackbar.LENGTH_LONG)
+                        .build()
+                        .show();
+            }
+        });
         samples.put("Toast with red text", new OnClickListener() {
             @Override
             public void onClick(View v) {

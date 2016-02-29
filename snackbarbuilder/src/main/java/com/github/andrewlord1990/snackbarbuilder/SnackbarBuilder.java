@@ -15,16 +15,23 @@ package com.github.andrewlord1990.snackbarbuilder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Duration;
+import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.support.v4.content.ContextCompat;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
@@ -44,11 +51,13 @@ public class SnackbarBuilder {
     Snackbar.Callback callback;
     SnackbarCallback snackbarCallback;
     boolean actionAllCaps = true;
-
     int backgroundColor;
     int actionTextColor;
     int messageTextColor;
     int parentViewId;
+    Drawable icon;
+    int iconMarginStartPixels;
+    int iconMarginEndPixels;
 
     public SnackbarBuilder(View view) {
         parentView = view;
@@ -137,6 +146,37 @@ public class SnackbarBuilder {
         return this;
     }
 
+    public SnackbarBuilder icon(@DrawableRes int iconResId) {
+        icon = getDrawable(iconResId);
+        return this;
+    }
+
+    public SnackbarBuilder icon(Drawable icon) {
+        this.icon = icon;
+        return this;
+    }
+
+    public SnackbarBuilder iconMarginStartPixels(int iconMarginStartPixels) {
+        this.iconMarginStartPixels = iconMarginStartPixels;
+        return this;
+    }
+
+    public SnackbarBuilder iconMarginStart(@DimenRes int iconMarginStart) {
+        return iconMarginStartPixels(
+                context.getResources().getDimensionPixelSize(iconMarginStart));
+    }
+
+    public SnackbarBuilder iconMarginEndPixels(int iconMarginEndPixels) {
+        this.iconMarginEndPixels = iconMarginEndPixels;
+        return this;
+    }
+
+    public SnackbarBuilder iconMarginEnd(@DimenRes int iconMarginEnd) {
+        return iconMarginEndPixels(
+                context.getResources().getDimensionPixelSize(iconMarginEnd));
+    }
+
+
     public Snackbar build() {
         Snackbar snackbar = Snackbar.make(parentView, message, duration);
 
@@ -146,6 +186,7 @@ public class SnackbarBuilder {
         setAction(snackbar);
         setCallback(snackbar);
         setActionAllCaps(snackbar);
+        setIconImageView(snackbar);
 
         return snackbar;
     }
@@ -197,12 +238,38 @@ public class SnackbarBuilder {
         }
     }
 
+    private void setIconImageView(Snackbar snackbar) {
+        if (icon != null) {
+            ImageView iconView = new ImageView(context);
+            LayoutParams params = getIconViewLayoutParams();
+            iconView.setLayoutParams(params);
+            iconView.setImageDrawable(icon);
+
+            SnackbarLayout view = (SnackbarLayout) snackbar.getView();
+            view.addView(iconView, 0);
+        }
+    }
+
+    private LayoutParams getIconViewLayoutParams() {
+        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
+                LayoutParams.WRAP_CONTENT);
+        params.gravity = Gravity.CENTER_VERTICAL;
+        params.weight = 0;
+        params.leftMargin = iconMarginStartPixels;
+        params.rightMargin = iconMarginEndPixels;
+        return params;
+    }
+
     private boolean isApiAtLeast14() {
         return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
     private int getColor(@ColorRes int color) {
         return ContextCompat.getColor(context, color);
+    }
+
+    private Drawable getDrawable(@DrawableRes int drawableResId) {
+        return ContextCompat.getDrawable(context, drawableResId);
     }
 
     private void loadThemeAttributes() {
@@ -254,6 +321,14 @@ public class SnackbarBuilder {
         }
         if (actionTextColor == 0) {
             actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
+        }
+        if (iconMarginStartPixels == 0) {
+            iconMarginStartPixels = context.getResources()
+                    .getDimensionPixelSize(R.dimen.icon_margin_start_default);
+        }
+        if (iconMarginEndPixels == 0) {
+            iconMarginEndPixels = context.getResources()
+                    .getDimensionPixelSize(R.dimen.icon_margin_end_default);
         }
     }
 

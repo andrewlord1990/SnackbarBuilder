@@ -11,5 +11,10 @@ android:
 
 script: ./gradlew clean assembleDebug testDebug
 
+branches:
+  only:
+  - master
+  - dev
+
 after_success:
   - ./gradlew jacocoTestReport coveralls

@@ -18,15 +18,27 @@
 
 package com.github.andrewlord1990.snackbarbuilder;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
+import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
@@ -56,10 +68,16 @@ public class SnackbarBuilderTest {
     Activity activity;
 
     @Mock
+    Resources resources;
+
+    @Mock
     Callback callback;
 
     @Mock
     SnackbarCallback snackbarCallback;
+
+    @Mock
+    Drawable drawable;
 
     @Before
     public void before() {
@@ -191,9 +209,10 @@ public class SnackbarBuilderTest {
     public void whenMessageWithStringResource_thenMessageSet() {
         //Given
         createBuilder();
+        @StringRes int stringResId = getStringResourceId("Test");
 
         //When
-        builderUnderTest.message(R.string.test);
+        builderUnderTest.message(stringResId);
 
         //Then
         assertThat(builderUnderTest.message).isEqualTo("Test");
@@ -203,9 +222,10 @@ public class SnackbarBuilderTest {
     public void whenMessageTextColorRes_thenMessageTextColorSet() {
         //Given
         createBuilder();
+        @ColorRes int colorResId = getColorResourceId(0xFF444444);
 
         //When
-        builderUnderTest.messageTextColorRes(R.color.test);
+        builderUnderTest.messageTextColorRes(colorResId);
 
         //Then
         assertThat(builderUnderTest.messageTextColor).isEqualTo(0xFF444444);
@@ -239,9 +259,10 @@ public class SnackbarBuilderTest {
     public void whenActionTextColorRes_thenActionTextColorSet() {
         //Given
         createBuilder();
+        @ColorRes int colorResId = getColorResourceId(0xFF444444);
 
         //When
-        builderUnderTest.actionTextColorRes(R.color.test);
+        builderUnderTest.actionTextColorRes(colorResId);
 
         //Then
         assertThat(builderUnderTest.actionTextColor).isEqualTo(0xFF444444);
@@ -275,9 +296,10 @@ public class SnackbarBuilderTest {
     public void whenActionTextWithStringResource_thenActionTextSet() {
         //Given
         createBuilder();
+        @StringRes int stringResId = getStringResourceId("Test");
 
         //When
-        builderUnderTest.actionText(R.string.test);
+        builderUnderTest.actionText(stringResId);
 
         //Then
         assertThat(builderUnderTest.actionText).isEqualTo("Test");
@@ -287,9 +309,10 @@ public class SnackbarBuilderTest {
     public void whenBackgroundColorRes_thenBackgroundColorSet() {
         //Given
         createBuilder();
+        @ColorRes int colorResId = getColorResourceId(0xFF444444);
 
         //When
-        builderUnderTest.backgroundColorRes(R.color.test);
+        builderUnderTest.backgroundColorRes(colorResId);
 
         //Then
         assertThat(builderUnderTest.backgroundColor).isEqualTo(0xFF444444);
@@ -369,6 +392,89 @@ public class SnackbarBuilderTest {
     }
 
     @Test
+    public void whenIconWithDrawableResource_thenIconSet() {
+        //Given
+        createBuilder();
+        @DrawableRes int drawableResId = 50;
+        Drawable testDrawable = getDrawable(drawableResId);
+
+        //When
+        builderUnderTest.icon(drawableResId);
+
+        //Then
+        assertThat(builderUnderTest.icon).isEqualTo(testDrawable);
+    }
+
+    @Test
+    public void whenIconWithDrawable_thenIconSet() {
+        //Given
+        createBuilder();
+        @DrawableRes int drawableResId = 50;
+        Drawable testDrawable = getDrawable(drawableResId);
+
+        //When
+        builderUnderTest.icon(testDrawable);
+
+        //Then
+        assertThat(builderUnderTest.icon).isEqualTo(testDrawable);
+    }
+
+    @Test
+    public void whenIconMarginStartPixels_thenIconMarinStartSet() {
+        //Given
+        createBuilder();
+        int iconMarginStart = 100;
+
+        //When
+        builderUnderTest.iconMarginStartPixels(iconMarginStart);
+
+        //Then
+        assertThat(builderUnderTest.iconMarginStartPixels).isEqualTo(iconMarginStart);
+    }
+
+    @Test
+    public void whenIconMarginStart_thenIconMarinStartSet() {
+        //Given
+        createBuilder();
+        int iconMarginStart = 100;
+        @DimenRes int dimenResId = getDimensionPixelSize(iconMarginStart);
+
+        //When
+        builderUnderTest.iconMarginStart(dimenResId);
+
+        //Then
+        assertThat(builderUnderTest.iconMarginStartPixels).isEqualTo(iconMarginStart);
+    }
+
+    @Test
+    public void whenIconMarginEndPixels_thenIconMarinEndSet() {
+        //Given
+        createBuilder();
+        int iconMarginEnd = 100;
+
+        //When
+        builderUnderTest.iconMarginEndPixels(iconMarginEnd);
+
+        //Then
+        assertThat(builderUnderTest.iconMarginEndPixels).isEqualTo(iconMarginEnd);
+    }
+
+    @Test
+    public void whenIconMarginEnd_thenIconMarinStartSet() {
+        //Given
+        createBuilder();
+        int iconMarginEnd = 100;
+        @DimenRes int dimenResId = getDimensionPixelSize(iconMarginEnd);
+
+        //When
+        builderUnderTest.iconMarginEnd(dimenResId);
+
+        //Then
+        assertThat(builderUnderTest.iconMarginEndPixels).isEqualTo(iconMarginEnd);
+    }
+
+    @Test
+    @TargetApi(11)
     public void whenBuild_thenSnackbarSetup() {
         //Given
         int messageTextColor = 0xFF111111;
@@ -385,7 +491,7 @@ public class SnackbarBuilderTest {
                 .message(message)
                 .actionText(action)
                 .duration(Snackbar.LENGTH_INDEFINITE)
-                .backgroundColorRes(R.color.test)
+                .backgroundColor(0xFF777777)
                 .lowercaseAction()
                 .build();
 
@@ -395,6 +501,9 @@ public class SnackbarBuilderTest {
         TextView textView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
         assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
         assertThat(textView.getText().toString()).isEqualTo(message);
+
+        ColorDrawable backgroundColor = (ColorDrawable) snackbar.getView().getBackground();
+        assertThat(backgroundColor.getColor()).isEqualTo(0xFF777777);
 
         Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
         assertThat(button.getCurrentTextColor()).isEqualTo(actionTextColor);
@@ -461,9 +570,72 @@ public class SnackbarBuilderTest {
         assertThat(button.getTransformationMethod()).isNotNull();
     }
 
+    @Test
+    public void givenIcon_whenBuild_thenIconAddedToSnackbar() {
+        //Given
+        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
+
+        //When
+        Snackbar snackbar = new SnackbarBuilder(parent)
+                .message("messsage")
+                .icon(drawable)
+                .iconMarginStartPixels(10)
+                .iconMarginEndPixels(20)
+                .build();
+
+        //Then
+        SnackbarLayout layout = (SnackbarLayout) snackbar.getView();
+        View firstChildView = layout.getChildAt(0);
+        assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
+        ImageView iconView = (ImageView) firstChildView;
+        assertThat(iconView.getDrawable()).isEqualTo(drawable);
+        SnackbarLayout.LayoutParams layoutParams = (LayoutParams) iconView.getLayoutParams();
+        assertThat(layoutParams.leftMargin).isEqualTo(10);
+        assertThat(layoutParams.rightMargin).isEqualTo(20);
+    }
+
     private void createBuilder() {
         RuntimeEnvironment.application.setTheme(R.style.AppTheme);
         builderUnderTest = new SnackbarBuilder(parentView);
+    }
+
+    @ColorRes
+    private int getColorResourceId(@ColorInt int color) {
+        setMockContext();
+        @ColorRes int colorResId = 50;
+        when(resources.getColor(colorResId)).thenReturn(color);
+        return colorResId;
+    }
+
+    @StringRes
+    private int getStringResourceId(String string) {
+        setMockContext();
+        @StringRes int stringResId = 50;
+        when(activity.getString(stringResId)).thenReturn(string);
+        return stringResId;
+    }
+
+    @TargetApi(21)
+    private Drawable getDrawable(@DrawableRes int drawableResId) {
+        setMockContext();
+        when(activity.getDrawable(drawableResId)).thenReturn(drawable);
+        return drawable;
+    }
+
+    @DimenRes
+    private int getDimensionPixelSize(int pixels) {
+        setMockContext();
+        @DimenRes int dimenResId = 50;
+        when(resources.getDimensionPixelSize(dimenResId)).thenReturn(pixels);
+        return dimenResId;
+    }
+
+    private void setMockContext() {
+        if (builderUnderTest != null) {
+            builderUnderTest.context = activity;
+        }
+        when(activity.getResources()).thenReturn(resources);
     }
 
 }
