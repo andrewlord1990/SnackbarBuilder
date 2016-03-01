@@ -171,6 +171,21 @@ public class SampleActivity extends AppCompatActivity {
                         .show();
             }
         });
+        samples.put("Multicolour", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("this")
+                        .appendMessageWithColor(" message", Color.RED)
+                        .appendMessageWithColor(" has", Color.GREEN)
+                        .appendMessageWithColor(" lots", Color.BLUE)
+                        .appendMessageWithColor(" of", Color.GRAY)
+                        .appendMessageWithColor(" colors", Color.MAGENTA)
+                        .duration(Snackbar.LENGTH_LONG)
+                        .build()
+                        .show();
+            }
+        });
         samples.put("Toast with red text", new OnClickListener() {
             @Override
             public void onClick(View v) {

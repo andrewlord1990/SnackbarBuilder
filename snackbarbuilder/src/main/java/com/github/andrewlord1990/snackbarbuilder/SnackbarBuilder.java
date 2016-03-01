@@ -18,6 +18,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
@@ -26,6 +27,10 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Duration;
 import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.support.v4.content.ContextCompat;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -41,6 +46,7 @@ public class SnackbarBuilder {
 
     Context context;
     View parentView;
+    SpannableStringBuilder appendMessages;
     CharSequence message;
 
     @Duration
@@ -89,6 +95,39 @@ public class SnackbarBuilder {
     public SnackbarBuilder messageTextColor(int messageTextColor) {
         this.messageTextColor = messageTextColor;
         return this;
+    }
+
+    public SnackbarBuilder appendMessage(String message) {
+        initialiseAppendMessages();
+        appendMessages.append(message);
+        return this;
+    }
+
+    public SnackbarBuilder appendMessage(@StringRes int messageResId) {
+        return appendMessage(context.getString(messageResId));
+    }
+
+    public SnackbarBuilder appendMessageWithColor(String message, @ColorInt int color) {
+        initialiseAppendMessages();
+        Spannable spannable = new SpannableString(message);
+        spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        appendMessages.append(spannable);
+        return this;
+    }
+
+    public SnackbarBuilder appendMessageWithColorRes(String message, @ColorRes int colorResId) {
+        return appendMessageWithColor(message, getColor(colorResId));
+    }
+
+    public SnackbarBuilder appendMessageResWithColor(@StringRes int messageResId,
+                                                     @ColorInt int color) {
+        return appendMessageWithColor(context.getString(messageResId), color);
+    }
+
+    public SnackbarBuilder appendMessageResWithColorRes(@StringRes int messageResId,
+                                                        @ColorRes int colorResId) {
+        return appendMessageWithColor(context.getString(messageResId), getColor(colorResId));
     }
 
     public SnackbarBuilder duration(@Duration int duration) {
@@ -180,7 +219,7 @@ public class SnackbarBuilder {
     public Snackbar build() {
         Snackbar snackbar = Snackbar.make(parentView, message, duration);
 
-        setMessageTextColor(snackbar);
+        customiseMessage(snackbar);
         setActionTextColor(snackbar);
         setBackgroundColor(snackbar);
         setAction(snackbar);
@@ -191,11 +230,18 @@ public class SnackbarBuilder {
         return snackbar;
     }
 
-    private void setMessageTextColor(Snackbar snackbar) {
+    private void customiseMessage(Snackbar snackbar) {
         if (messageTextColor != 0) {
-            TextView messageView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
+            TextView messageView = getMessageView(snackbar);
             messageView.setTextColor(messageTextColor);
+            if (appendMessages != null) {
+                messageView.append(appendMessages);
+            }
         }
+    }
+
+    private TextView getMessageView(Snackbar snackbar) {
+        return (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
     }
 
     private void setActionTextColor(Snackbar snackbar) {
@@ -258,6 +304,12 @@ public class SnackbarBuilder {
         params.leftMargin = iconMarginStartPixels;
         params.rightMargin = iconMarginEndPixels;
         return params;
+    }
+
+    private void initialiseAppendMessages() {
+        if (appendMessages == null) {
+            appendMessages = new SpannableStringBuilder();
+        }
     }
 
     private boolean isApiAtLeast14() {
