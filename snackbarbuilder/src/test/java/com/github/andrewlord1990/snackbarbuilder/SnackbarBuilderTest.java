@@ -33,6 +33,7 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
 import android.support.design.widget.Snackbar.SnackbarLayout;
+import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Pair;
@@ -209,6 +210,25 @@ public class SnackbarBuilderTest {
 
         //Then
         assertThat(builderUnderTest.message).isEqualTo("message");
+    }
+
+    @Test
+    public void givenSpan_whenMessage_thenMessageSet() {
+        //Given
+        createBuilder();
+        Spannable spannable = new SpannableString("testMessage");
+        spannable.setSpan(new ForegroundColorSpan(Color.CYAN), 0, spannable.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        //When
+        builderUnderTest.message(spannable);
+
+        //Then
+        assertThat(builderUnderTest.message.toString()).isEqualTo("testMessage");
+        SpannableString actual = SpannableString.valueOf(builderUnderTest.message);
+        ForegroundColorSpan[] spans = actual.getSpans(0, spannable.length(), ForegroundColorSpan.class);
+        assertThat(spans).hasSize(1);
+        assertThat(spans[0].getForegroundColor()).isEqualTo(Color.CYAN);
     }
 
     @Test

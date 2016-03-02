@@ -97,7 +97,7 @@ public class SnackbarBuilder {
         return this;
     }
 
-    public SnackbarBuilder appendMessage(String message) {
+    public SnackbarBuilder appendMessage(CharSequence message) {
         initialiseAppendMessages();
         appendMessages.append(message);
         return this;
@@ -107,7 +107,7 @@ public class SnackbarBuilder {
         return appendMessage(context.getString(messageResId));
     }
 
-    public SnackbarBuilder appendMessageWithColor(String message, @ColorInt int color) {
+    public SnackbarBuilder appendMessageWithColor(CharSequence message, @ColorInt int color) {
         initialiseAppendMessages();
         Spannable spannable = new SpannableString(message);
         spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
@@ -116,7 +116,7 @@ public class SnackbarBuilder {
         return this;
     }
 
-    public SnackbarBuilder appendMessageWithColorRes(String message, @ColorRes int colorResId) {
+    public SnackbarBuilder appendMessageWithColorRes(CharSequence message, @ColorRes int colorResId) {
         return appendMessageWithColor(message, getColor(colorResId));
     }
 
@@ -150,7 +150,7 @@ public class SnackbarBuilder {
         return this;
     }
 
-    public SnackbarBuilder actionText(String actionText) {
+    public SnackbarBuilder actionText(CharSequence actionText) {
         this.actionText = actionText;
         return this;
     }
