@@ -35,6 +35,8 @@ The library is available on Bintray (JCenter) and Maven Central.
 - Dismiss callbacks with separate methods for each type of dismiss event.
 - Theme attribute for the default view ID in an activity to attach Snackbars to, so you don't need to provide the parent view each time you wish to show one.
 - Set the default duration to use through a theme attribute.
+- Append text, which allows you to have multiple text colours.
+- Add an icon to the Snackbar if you wish.
 - A ToastBuilder to create Toast messages, with a builder pattern and global theme attributes.
 
 ## Usage
