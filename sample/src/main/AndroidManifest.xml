@@ -23,7 +23,7 @@
         <activity
             android:name=".SampleActivity"
             android:label="@string/app_name"
-            android:theme="@style/TestSnackbarBuilder_AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
