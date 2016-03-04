@@ -29,7 +29,7 @@ class SnackbarIconBuilder {
 
     SnackbarIconBuilder(Snackbar snackbar) {
         this.snackbar = snackbar;
-        iconView = (ImageView) snackbar.getView().findViewById(R.id.snackbar_icon);
+        iconView = (ImageView) snackbar.getView().findViewById(R.id.snackbarbuilder_icon);
     }
 
     SnackbarIconBuilder icon(Drawable icon) {
@@ -51,7 +51,7 @@ class SnackbarIconBuilder {
         LayoutParams params = getIconViewLayoutParams();
         if (iconView == null) {
             iconView = new ImageView(snackbar.getView().getContext());
-            iconView.setId(R.id.snackbar_icon);
+            iconView.setId(R.id.snackbarbuilder_icon);
 
             SnackbarLayout view = (SnackbarLayout) snackbar.getView();
             view.addView(iconView, 0);

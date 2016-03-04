@@ -73,7 +73,7 @@ public class SnackbarWrapperTest {
     public void before() {
         MockitoAnnotations.initMocks(this);
 
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         CoordinatorLayout layout = new CoordinatorLayout(RuntimeEnvironment.application);
         snackbar = Snackbar.make(layout, "SomeText", Snackbar.LENGTH_LONG);
         wrapper = new SnackbarWrapper(snackbar);
@@ -95,7 +95,7 @@ public class SnackbarWrapperTest {
     @Test
     public void whenSetActionTextWithResource_thenActionTextUpdated() {
         //When
-        wrapper.setActionText(R.string.snackbar_action_undo);
+        wrapper.setActionText(R.string.snackbarbuilder_action_undo);
 
         //Then
         Assertions.assertThat(getActionView()).hasText("Undo");
@@ -129,7 +129,7 @@ public class SnackbarWrapperTest {
     @Test
     public void givenNullClickListener_whenSetActionWithResource_thenActionHidden() {
         //When
-        wrapper.setAction(R.string.snackbar_action_undo, null);
+        wrapper.setAction(R.string.snackbarbuilder_action_undo, null);
 
         //Then
         Assertions.assertThat(getActionView()).isNotVisible();
@@ -141,7 +141,7 @@ public class SnackbarWrapperTest {
         TestClickListener clickListener = new TestClickListener();
 
         //When
-        wrapper.setAction(R.string.snackbar_action_undo, clickListener);
+        wrapper.setAction(R.string.snackbarbuilder_action_undo, clickListener);
 
         //Then
         Assertions.assertThat(getActionView())
@@ -203,7 +203,7 @@ public class SnackbarWrapperTest {
     @Test
     public void whenSetActionTextColorResId_thenActionTextColorSet() {
         //When
-        wrapper.setActionTextColorResId(R.color.default_message);
+        wrapper.setActionTextColorResId(R.color.snackbarbuilder_default_message);
 
         //Then
         assertThat(wrapper.getActionCurrentTextColor())
@@ -266,7 +266,7 @@ public class SnackbarWrapperTest {
     @Test
     public void whenSetTextWithResource_thenMessageSet() {
         //When
-        wrapper.setText(R.string.snackbar_action_undo);
+        wrapper.setText(R.string.snackbarbuilder_action_undo);
 
         //Then
         assertThat(wrapper.getText())
@@ -302,7 +302,7 @@ public class SnackbarWrapperTest {
     @Test
     public void whenSetTextColorResId_thenMessageColorSet() {
         //When
-        wrapper.setTextColorResId(R.color.default_message);
+        wrapper.setTextColorResId(R.color.snackbarbuilder_default_message);
 
         //Then
         assertThat(wrapper.getCurrentTextColor())
@@ -328,7 +328,7 @@ public class SnackbarWrapperTest {
         wrapper.setText("startingText");
 
         //When
-        wrapper.appendMessage(R.string.snackbar_action_undo);
+        wrapper.appendMessage(R.string.snackbarbuilder_action_undo);
 
         //Then
         assertThat(wrapper.getText()).isEqualTo("startingTextUndo");
@@ -338,7 +338,7 @@ public class SnackbarWrapperTest {
     public void whenAppendMessagesWithColors_thenTextWithColorsAppendedToMessage() {
         //When
         wrapper.setText("start")
-                .appendMessage(R.string.snackbar_action_undo, R.color.default_message)
+                .appendMessage(R.string.snackbarbuilder_action_undo, R.color.snackbarbuilder_default_message)
                 .appendMessage("second_in_blue", Color.BLUE)
                 .appendMessage("third_in_dark_grey", Color.DKGRAY);
 
@@ -397,7 +397,7 @@ public class SnackbarWrapperTest {
     @Test
     public void whenSetBackgroundColorResId_thenBackgroundColorSet() {
         //When
-        wrapper.setBackgroundColorResId(R.color.default_message);
+        wrapper.setBackgroundColorResId(R.color.snackbarbuilder_default_message);
 
         //Then
         Assertions.assertThat((ColorDrawable) wrapper.getView().getBackground())
@@ -452,12 +452,12 @@ public class SnackbarWrapperTest {
     public void whenSetIconMarginsWithResource_thenIconMarginsSet() {
         //Given
         Resources resources = RuntimeEnvironment.application.getResources();
-        int start = resources.getDimensionPixelSize(R.dimen.icon_margin_end_default);
-        int end = resources.getDimensionPixelSize(R.dimen.icon_margin_start_default);
+        int start = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
+        int end = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
 
         //When
-        wrapper.setIconMarginStart(R.dimen.icon_margin_end_default)
-                .setIconMarginEnd(R.dimen.icon_margin_start_default);
+        wrapper.setIconMarginStart(R.dimen.snackbarbuilder_icon_margin_end_default)
+                .setIconMarginEnd(R.dimen.snackbarbuilder_icon_margin_start_default);
 
         //Then
         assertThatIconMarginsEqualTo(start, end);
@@ -514,7 +514,7 @@ public class SnackbarWrapperTest {
     }
 
     private ImageView getIconView() {
-        return (ImageView) snackbar.getView().findViewById(R.id.snackbar_icon);
+        return (ImageView) snackbar.getView().findViewById(R.id.snackbarbuilder_icon);
     }
 
     private ColorStateList createColorStateList() {

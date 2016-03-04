@@ -43,7 +43,7 @@ public class SnackbarIconBuilderTest {
     public void before() {
         MockitoAnnotations.initMocks(this);
 
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         snackbarParentView = new CoordinatorLayout(RuntimeEnvironment.application);
     }
 
@@ -98,7 +98,7 @@ public class SnackbarIconBuilderTest {
     }
 
     private ImageView getIconView(Snackbar snackbar) {
-        return (ImageView) snackbar.getView().findViewById(R.id.snackbar_icon);
+        return (ImageView) snackbar.getView().findViewById(R.id.snackbarbuilder_icon);
     }
 
 }

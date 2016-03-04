@@ -103,9 +103,9 @@ public class SnackbarBuilderTest {
     public void givenActivity_whenCreated_thenParentViewFoundUsingParentViewId() {
         //Given
         Activity activity = Robolectric.setupActivity(Activity.class);
-        activity.setTheme(R.style.CustomAttrTheme);
+        activity.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
         LinearLayout layout = new LinearLayout(activity);
-        layout.setId(R.id.snackbar_icon);
+        layout.setId(R.id.snackbarbuilder_icon);
         activity.setContentView(layout);
 
         //When
@@ -121,7 +121,7 @@ public class SnackbarBuilderTest {
     @Test
     public void whenCreated_thenActionTextColorFromCustomThemeAttribute() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
 
         //When
         SnackbarBuilder builder = new SnackbarBuilder(parentView);
@@ -133,7 +133,7 @@ public class SnackbarBuilderTest {
     @Test
     public void givenNoCustomThemeAttribute_whenCreated_thenActionTextColorFromColorAccentThemeAttribute() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.FallbackAttrTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_FallbackTheme);
 
         //When
         SnackbarBuilder builder = new SnackbarBuilder(parentView);
@@ -145,7 +145,7 @@ public class SnackbarBuilderTest {
     @Test
     public void whenCreated_thenMessageTextColorFromCustomThemeAttribute() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
 
         //When
         SnackbarBuilder builder = new SnackbarBuilder(parentView);
@@ -166,7 +166,7 @@ public class SnackbarBuilderTest {
     @Test
     public void whenCreated_thenDurationFromCustomThemeAttribute() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
 
         //When
         SnackbarBuilder builder = new SnackbarBuilder(parentView);
@@ -187,7 +187,7 @@ public class SnackbarBuilderTest {
     @Test
     public void whenCreated_thenBackgroundColorFromCustomThemeAttribute() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
 
         //When
         SnackbarBuilder builder = new SnackbarBuilder(parentView);
@@ -233,7 +233,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = createBuilder();
 
         //When
-        builder.message(R.string.snackbar_action_undo);
+        builder.message(R.string.snackbarbuilder_action_undo);
 
         //Then
         assertThat(builder.message).isEqualTo("Undo");
@@ -245,7 +245,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = createBuilder();
 
         //When
-        builder.messageTextColorRes(R.color.default_message);
+        builder.messageTextColorRes(R.color.snackbarbuilder_default_message);
 
         //Then
         assertThat(builder.messageTextColor).isEqualTo(Color.WHITE);
@@ -297,7 +297,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = createBuilder();
 
         //When
-        builder.appendMessage(R.string.snackbar_action_undo);
+        builder.appendMessage(R.string.snackbarbuilder_action_undo);
 
         //Then
         assertThat(builder.appendMessages.toString()).isEqualTo("Undo");
@@ -311,7 +311,7 @@ public class SnackbarBuilderTest {
         builder.appendMessage(starting);
 
         //When
-        builder.appendMessage(R.string.snackbar_action_undo);
+        builder.appendMessage(R.string.snackbarbuilder_action_undo);
 
         //Then
         assertThat(builder.appendMessages.toString()).isEqualTo("startingMessageUndo");
@@ -348,7 +348,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = createBuilder();
 
         //When
-        builder.appendMessage(R.string.snackbar_action_undo, R.color.default_message);
+        builder.appendMessage(R.string.snackbarbuilder_action_undo, R.color.snackbarbuilder_default_message);
 
         //Then
         assertThatMessagesWithColorsAppended(builder, "Undo", Color.WHITE);
@@ -383,7 +383,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = createBuilder();
 
         //When
-        builder.actionTextColorRes(R.color.default_message);
+        builder.actionTextColorRes(R.color.snackbarbuilder_default_message);
 
         //Then
         assertThat(builder.actionTextColor).isEqualTo(Color.WHITE);
@@ -419,7 +419,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = createBuilder();
 
         //When
-        builder.actionText(R.string.snackbar_action_undo);
+        builder.actionText(R.string.snackbarbuilder_action_undo);
 
         //Then
         assertThat(builder.actionText).isEqualTo("Undo");
@@ -431,7 +431,7 @@ public class SnackbarBuilderTest {
         SnackbarBuilder builder = createBuilder();
 
         //When
-        builder.backgroundColorRes(R.color.default_message);
+        builder.backgroundColorRes(R.color.snackbarbuilder_default_message);
 
         //Then
         assertThat(builder.backgroundColor).isEqualTo(Color.WHITE);
@@ -597,7 +597,7 @@ public class SnackbarBuilderTest {
     @Test
     public void WhenBuildWrapper_thenSnackbarWrapperSetup() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
         //When
@@ -621,7 +621,7 @@ public class SnackbarBuilderTest {
         int actionTextColor = 0xFF999999;
         String message = "message";
         String action = "action";
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
         //When
@@ -654,7 +654,7 @@ public class SnackbarBuilderTest {
     @Test
     public void givenCallback_whenBuild_thenCallbackSet() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
         //When
@@ -674,7 +674,7 @@ public class SnackbarBuilderTest {
     @Test
     public void givenSnackbarCallback_whenBuild_thenSnackbarCallbackSet() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
         //When
@@ -694,7 +694,7 @@ public class SnackbarBuilderTest {
     @Test
     public void givenNotLowercaseAction_whenBuild_thenActionAllCaps() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
         //When
@@ -713,7 +713,7 @@ public class SnackbarBuilderTest {
     @Test
     public void givenIcon_whenBuild_thenIconAddedToSnackbar() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
         //When
@@ -738,7 +738,7 @@ public class SnackbarBuilderTest {
     @Test
     public void givenAppendedMessages_whenBuild_thenMessagesAppendedToMainMessage() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
 
         //When
@@ -759,7 +759,7 @@ public class SnackbarBuilderTest {
     }
 
     private SnackbarBuilder createBuilder() {
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         return new SnackbarBuilder(parentView);
     }
 

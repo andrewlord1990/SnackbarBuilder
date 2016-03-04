@@ -355,18 +355,18 @@ public final class SnackbarBuilder {
 
     private void loadFallbackAttributes(TypedArray attrs) {
         if (messageTextColor == 0) {
-            messageTextColor = getColor(R.color.default_message);
+            messageTextColor = getColor(R.color.snackbarbuilder_default_message);
         }
         if (actionTextColor == 0) {
             actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
         }
         if (iconMarginStartPixels == 0) {
             iconMarginStartPixels = context.getResources()
-                    .getDimensionPixelSize(R.dimen.icon_margin_start_default);
+                    .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
         }
         if (iconMarginEndPixels == 0) {
             iconMarginEndPixels = context.getResources()
-                    .getDimensionPixelSize(R.dimen.icon_margin_end_default);
+                    .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
         }
     }
 

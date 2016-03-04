@@ -21,7 +21,7 @@
         <item name="toastBuilderStyle">@style/SampleToastStyle</item>
     </style>
 
-    <style name="AppTheme.NoActionBar">
+    <style name="TestSnackbarBuilder_AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>

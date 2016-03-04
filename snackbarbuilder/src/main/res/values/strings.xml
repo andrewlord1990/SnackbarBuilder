@@ -12,5 +12,5 @@
   -->
 
 <resources>
-    <string name="snackbar_action_undo">Undo</string>
+    <string name="snackbarbuilder_action_undo">Undo</string>
 </resources>

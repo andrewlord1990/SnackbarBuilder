@@ -13,6 +13,6 @@
 
 <resources>
 
-    <color name="default_message">@android:color/white</color>
+    <color name="snackbarbuilder_default_message">@android:color/white</color>
 
 </resources>
