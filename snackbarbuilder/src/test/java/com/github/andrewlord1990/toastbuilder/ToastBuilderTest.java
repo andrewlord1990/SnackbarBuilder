@@ -104,10 +104,10 @@ public class ToastBuilderTest {
         createBuilder();
 
         //When
-        builderUnderTest.customViewMessageViewId(R.id.test_id);
+        builderUnderTest.customViewMessageViewId(R.id.snackbar_icon);
 
         //Then
-        assertThat(builderUnderTest.customViewMessageViewId).isEqualTo(R.id.test_id);
+        assertThat(builderUnderTest.customViewMessageViewId).isEqualTo(R.id.snackbar_icon);
     }
 
     @Test
@@ -263,7 +263,7 @@ public class ToastBuilderTest {
         TextView messageView = new TextView(RuntimeEnvironment.application);
         messageView.setLayoutParams(new LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        messageView.setId(R.id.test_id);
+        messageView.setId(R.id.snackbar_icon);
         customView.addView(messageView);
         int messageTextColor = 0xFF111111;
         String message = "message";
@@ -271,7 +271,7 @@ public class ToastBuilderTest {
         //When
         Toast toast = new ToastBuilder(RuntimeEnvironment.application)
                 .customView(customView)
-                .customViewMessageViewId(R.id.test_id)
+                .customViewMessageViewId(R.id.snackbar_icon)
                 .messageTextColor(messageTextColor)
                 .message(message)
                 .duration(Toast.LENGTH_LONG)
@@ -281,7 +281,7 @@ public class ToastBuilderTest {
         assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_LONG);
         assertThat(toast.getView()).isEqualTo(customView);
 
-        TextView textView = (TextView) toast.getView().findViewById(R.id.test_id);
+        TextView textView = (TextView) toast.getView().findViewById(R.id.snackbar_icon);
         assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
         assertThat(textView.getText().toString()).isEqualTo(message);
     }

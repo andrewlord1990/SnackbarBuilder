@@ -101,7 +101,7 @@ public final class SnackbarBuilder {
         return appendMessage(context.getString(messageResId));
     }
 
-    public SnackbarBuilder appendMessageWithColor(CharSequence message, @ColorInt int color) {
+    public SnackbarBuilder appendMessage(CharSequence message, @ColorInt int color) {
         initialiseAppendMessages();
         Spannable spannable = new SpannableString(message);
         spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
@@ -110,18 +110,9 @@ public final class SnackbarBuilder {
         return this;
     }
 
-    public SnackbarBuilder appendMessageWithColorRes(CharSequence message, @ColorRes int colorResId) {
-        return appendMessageWithColor(message, getColor(colorResId));
-    }
-
-    public SnackbarBuilder appendMessageResWithColor(@StringRes int messageResId,
-                                                     @ColorInt int color) {
-        return appendMessageWithColor(context.getString(messageResId), color);
-    }
-
-    public SnackbarBuilder appendMessageResWithColorRes(@StringRes int messageResId,
-                                                        @ColorRes int colorResId) {
-        return appendMessageWithColor(context.getString(messageResId), getColor(colorResId));
+    public SnackbarBuilder appendMessage(@StringRes int messageResId,
+                                         @ColorRes int colorResId) {
+        return appendMessage(context.getString(messageResId), getColor(colorResId));
     }
 
     public SnackbarBuilder duration(@Duration int duration) {
@@ -149,6 +140,11 @@ public final class SnackbarBuilder {
         return this;
     }
 
+    public SnackbarBuilder actionClickListener(OnClickListener actionClickListener) {
+        this.actionClickListener = actionClickListener;
+        return this;
+    }
+
     public SnackbarBuilder backgroundColorRes(@ColorRes int backgroundColor) {
         this.backgroundColor = getColor(backgroundColor);
         return this;
@@ -156,11 +152,6 @@ public final class SnackbarBuilder {
 
     public SnackbarBuilder backgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
-        return this;
-    }
-
-    public SnackbarBuilder actionClickListener(OnClickListener actionClickListener) {
-        this.actionClickListener = actionClickListener;
         return this;
     }
 

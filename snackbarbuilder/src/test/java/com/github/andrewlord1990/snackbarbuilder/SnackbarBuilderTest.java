@@ -24,10 +24,8 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
@@ -46,6 +44,7 @@ import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 
+import org.assertj.android.api.Assertions;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -106,7 +105,7 @@ public class SnackbarBuilderTest {
         Activity activity = Robolectric.setupActivity(Activity.class);
         activity.setTheme(R.style.CustomAttrTheme);
         LinearLayout layout = new LinearLayout(activity);
-        layout.setId(R.id.test_id);
+        layout.setId(R.id.snackbar_icon);
         activity.setContentView(layout);
 
         //When
@@ -232,26 +231,24 @@ public class SnackbarBuilderTest {
     public void whenMessageWithStringResource_thenMessageSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        @StringRes int stringResId = getResourceCreator(builder).getStringResourceId("Test");
 
         //When
-        builder.message(stringResId);
+        builder.message(R.string.snackbar_action_undo);
 
         //Then
-        assertThat(builder.message).isEqualTo("Test");
+        assertThat(builder.message).isEqualTo("Undo");
     }
 
     @Test
     public void whenMessageTextColorRes_thenMessageTextColorSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        @ColorRes int colorResId = getResourceCreator(builder).getColorResourceId(0xFF444444);
 
         //When
-        builder.messageTextColorRes(colorResId);
+        builder.messageTextColorRes(R.color.default_message);
 
         //Then
-        assertThat(builder.messageTextColor).isEqualTo(0xFF444444);
+        assertThat(builder.messageTextColor).isEqualTo(Color.WHITE);
     }
 
     @Test
@@ -298,37 +295,35 @@ public class SnackbarBuilderTest {
     public void whenAppendMessageWithStringResource_thenMessageAdded() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        @StringRes int message = getResourceCreator(builder).getStringResourceId("testMessage");
 
         //When
-        builder.appendMessage(message);
+        builder.appendMessage(R.string.snackbar_action_undo);
 
         //Then
-        assertThat(builder.appendMessages.toString()).isEqualTo("testMessage");
+        assertThat(builder.appendMessages.toString()).isEqualTo("Undo");
     }
 
     @Test
     public void givenMessageAlreadyAppended_whenAppendMessageWithStringResource_thenMessageAdded() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        @StringRes int message = getResourceCreator(builder).getStringResourceId("testMessage");
         String starting = "startingMessage";
         builder.appendMessage(starting);
 
         //When
-        builder.appendMessage(message);
+        builder.appendMessage(R.string.snackbar_action_undo);
 
         //Then
-        assertThat(builder.appendMessages.toString()).isEqualTo("startingMessagetestMessage");
+        assertThat(builder.appendMessages.toString()).isEqualTo("startingMessageUndo");
     }
 
     @Test
-    public void whenAppendMessageWithColor_thenMessageWithForegroundColorAdded() {
+    public void whenAppendMessage_thenMessageWithForegroundColorAdded() {
         //Given
         SnackbarBuilder builder = createBuilder();
 
         //When
-        builder.appendMessageWithColor("message", Color.RED);
+        builder.appendMessage("message", Color.RED);
 
         //Then
         assertThatMessagesWithColorsAppended(builder, "message", Color.RED);
@@ -338,55 +333,25 @@ public class SnackbarBuilderTest {
     public void givenMessageAlreadyAppended_whenAppendMessageWithColor_thenMessagesWithForegroundColorsAdded() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        builder.appendMessageWithColor("first", Color.BLACK);
+        builder.appendMessage("first", Color.BLACK);
 
         //When
-        builder.appendMessageWithColor("second", Color.MAGENTA);
+        builder.appendMessage("second", Color.MAGENTA);
 
         //Then
         assertThatMessagesWithColorsAppended(builder, "firstsecond", Color.BLACK, Color.MAGENTA);
     }
 
     @Test
-    public void whenAppendMessageWithColorRes_thenMessageWithForegroundColorAdded() {
-        //Given
-        SnackbarBuilder builder = createBuilder();
-        @ColorRes int colorResId = getResourceCreator(builder).getColorResourceId(Color.BLUE);
-
-        //When
-        builder.appendMessageWithColorRes("blahblah", colorResId);
-
-        //Then
-        assertThatMessagesWithColorsAppended(builder, "blahblah", Color.BLUE);
-    }
-
-    @Test
-    public void whenAppendMessageResWithColor_thenMessageWithForegroundColorAdded() {
-        //Given
-        SnackbarBuilder builder = createBuilder();
-        @StringRes int messageResId = getResourceCreator(builder)
-                .getStringResourceId("testingtimewithaprettylongstring");
-
-        //When
-        builder.appendMessageResWithColor(messageResId, Color.RED);
-
-        //Then
-        assertThatMessagesWithColorsAppended(builder, "testingtimewithaprettylongstring", Color.RED);
-    }
-
-    @Test
     public void whenAppendMessageResWithColorRes_thenMessageWithForegroundColorAdded() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        @StringRes int messageResId = getResourceCreator(builder)
-                .getStringResourceId("thisisanotherstring");
-        @ColorRes int colorResId = getResourceCreator(builder).getColorResourceId(Color.CYAN);
 
         //When
-        builder.appendMessageResWithColorRes(messageResId, colorResId);
+        builder.appendMessage(R.string.snackbar_action_undo, R.color.default_message);
 
         //Then
-        assertThatMessagesWithColorsAppended(builder, "thisisanotherstring", Color.CYAN);
+        assertThatMessagesWithColorsAppended(builder, "Undo", Color.WHITE);
     }
 
     private void assertThatMessagesWithColorsAppended(SnackbarBuilder builder, String expected, int... colors) {
@@ -416,13 +381,12 @@ public class SnackbarBuilderTest {
     public void whenActionTextColorRes_thenActionTextColorSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        @ColorRes int colorResId = getResourceCreator(builder).getColorResourceId(0xFF444444);
 
         //When
-        builder.actionTextColorRes(colorResId);
+        builder.actionTextColorRes(R.color.default_message);
 
         //Then
-        assertThat(builder.actionTextColor).isEqualTo(0xFF444444);
+        assertThat(builder.actionTextColor).isEqualTo(Color.WHITE);
     }
 
     @Test
@@ -453,26 +417,24 @@ public class SnackbarBuilderTest {
     public void whenActionTextWithStringResource_thenActionTextSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        @StringRes int stringResId = getResourceCreator(builder).getStringResourceId("Test");
 
         //When
-        builder.actionText(stringResId);
+        builder.actionText(R.string.snackbar_action_undo);
 
         //Then
-        assertThat(builder.actionText).isEqualTo("Test");
+        assertThat(builder.actionText).isEqualTo("Undo");
     }
 
     @Test
     public void whenBackgroundColorRes_thenBackgroundColorSet() {
         //Given
         SnackbarBuilder builder = createBuilder();
-        @ColorRes int colorResId = getResourceCreator(builder).getColorResourceId(0xFF444444);
 
         //When
-        builder.backgroundColorRes(colorResId);
+        builder.backgroundColorRes(R.color.default_message);
 
         //Then
-        assertThat(builder.backgroundColor).isEqualTo(0xFF444444);
+        assertThat(builder.backgroundColor).isEqualTo(Color.WHITE);
     }
 
     @Test
@@ -676,15 +638,15 @@ public class SnackbarBuilderTest {
         //Then
         assertThat(snackbar.getDuration()).isEqualTo(Snackbar.LENGTH_INDEFINITE);
 
-        TextView textView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
-        assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
-        assertThat(textView.getText().toString()).isEqualTo(message);
+        Assertions.assertThat((TextView) snackbar.getView().findViewById(R.id.snackbar_text))
+                .hasCurrentTextColor(messageTextColor)
+                .hasText(message);
 
-        ColorDrawable backgroundColor = (ColorDrawable) snackbar.getView().getBackground();
-        assertThat(backgroundColor.getColor()).isEqualTo(0xFF777777);
+        Assertions.assertThat((ColorDrawable) snackbar.getView().getBackground())
+                .hasColor(0xFF777777);
 
         Button button = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
-        assertThat(button.getCurrentTextColor()).isEqualTo(actionTextColor);
+        Assertions.assertThat(button).hasCurrentTextColor(actionTextColor);
         button.performClick();
         assertThat(button.getTransformationMethod()).isNull();
     }
@@ -783,8 +745,8 @@ public class SnackbarBuilderTest {
         Snackbar snackbar = new SnackbarBuilder(parent)
                 .message("start")
                 .appendMessage("first_added")
-                .appendMessageWithColor("second_in_blue", Color.BLUE)
-                .appendMessageWithColor("third_in_dark_grey", Color.DKGRAY)
+                .appendMessage("second_in_blue", Color.BLUE)
+                .appendMessage("third_in_dark_grey", Color.DKGRAY)
                 .build();
 
         //Then
@@ -793,28 +755,7 @@ public class SnackbarBuilderTest {
         expected.add(new Pair<>("first_added", 0));
         expected.add(new Pair<>("second_in_blue", Color.BLUE));
         expected.add(new Pair<>("third_in_dark_grey", Color.DKGRAY));
-        assertThatMessagesWithColorsAppended(snackbar, expected);
-    }
-
-    private void assertThatMessagesWithColorsAppended(Snackbar snackbar,
-                                                      List<Pair<String, Integer>> expected) {
-        TextView messageView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
-        SpannableString message = SpannableString.valueOf(messageView.getText());
-        int size = expected.size();
-        for (int i = 0; i < size; i++) {
-            Pair<String, Integer> pair = expected.get(i);
-            int length = pair.first.length();
-            assertThat(message.subSequence(0, length).toString()).isEqualTo(pair.first);
-            ForegroundColorSpan[] spans = message
-                    .getSpans(0, length, ForegroundColorSpan.class);
-            if (pair.second == 0) {
-                assertThat(spans).isEmpty();
-            } else {
-                assertThat(spans).hasSize(1);
-                assertThat(spans[0].getForegroundColor()).isEqualTo(pair.second);
-            }
-            message = SpannableString.valueOf(message.subSequence(length, message.length()));
-        }
+        SnackbarCustomAssert.assertThat(snackbar).hasMessagesAppended(expected);
     }
 
     private SnackbarBuilder createBuilder() {

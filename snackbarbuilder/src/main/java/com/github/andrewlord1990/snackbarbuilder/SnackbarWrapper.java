@@ -191,7 +191,7 @@ public final class SnackbarWrapper {
      *
      * @return The action text color.
      */
-    public ColorStateList getActionTextColorStateList() {
+    public ColorStateList getActionTextColors() {
         return actionView.getTextColors();
     }
 
@@ -201,7 +201,7 @@ public final class SnackbarWrapper {
      * @return The action text color.
      */
     @ColorInt
-    public int getActionTextColor() {
+    public int getActionCurrentTextColor() {
         return actionView.getCurrentTextColor();
     }
 
@@ -310,9 +310,28 @@ public final class SnackbarWrapper {
      * @param colorResId The message text color resource.
      * @return This instance.
      */
-    public SnackbarWrapper setTetColorRes(@ColorRes int colorResId) {
+    public SnackbarWrapper setTextColorResId(@ColorRes int colorResId) {
         messageView.setTextColor(ContextCompat.getColor(context, colorResId));
         return this;
+    }
+
+    /**
+     * Get the text color for the message on the {@link Snackbar}.
+     *
+     * @return The message text color.
+     */
+    public ColorStateList getTextColors() {
+        return messageView.getTextColors();
+    }
+
+    /**
+     * Get the text color for the message on the {@link Snackbar}.
+     *
+     * @return The message text color.
+     */
+    @ColorInt
+    public int getCurrentTextColor() {
+        return messageView.getCurrentTextColor();
     }
 
     /**
@@ -343,7 +362,7 @@ public final class SnackbarWrapper {
      * @param color   The color to apply to the text.
      * @return This instance.
      */
-    public SnackbarWrapper appendMessageWithColor(CharSequence message, @ColorInt int color) {
+    public SnackbarWrapper appendMessage(CharSequence message, @ColorInt int color) {
         Spannable spannable = new SpannableString(message);
         spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -354,36 +373,13 @@ public final class SnackbarWrapper {
     /**
      * Append text in the specified color to the {@link Snackbar}.
      *
-     * @param message    The text to append.
-     * @param colorResId The color resource to apply to the text.
-     * @return This instance.
-     */
-    public SnackbarWrapper appendMessageWithColorRes(CharSequence message, @ColorRes int colorResId) {
-        return appendMessageWithColor(message, ContextCompat.getColor(context, colorResId));
-    }
-
-    /**
-     * Append text in the specified color to the {@link Snackbar}.
-     *
-     * @param messageResId The resource of the text to append.
-     * @param color        The color to apply to the text.
-     * @return This instance.
-     */
-    public SnackbarWrapper appendMessageResWithColor(@StringRes int messageResId,
-                                                     @ColorInt int color) {
-        return appendMessageWithColor(context.getString(messageResId), color);
-    }
-
-    /**
-     * Append text in the specified color to the {@link Snackbar}.
-     *
      * @param messageResId The resource of the text to append.
      * @param colorResId   The color resource to apply to the text.
      * @return This instance.
      */
-    public SnackbarWrapper appendMessageResWithColorRes(@StringRes int messageResId,
-                                                        @ColorRes int colorResId) {
-        return appendMessageWithColor(context.getString(messageResId),
+    public SnackbarWrapper appendMessage(@StringRes int messageResId,
+                                         @ColorRes int colorResId) {
+        return appendMessage(context.getString(messageResId),
                 ContextCompat.getColor(context, colorResId));
     }
 
@@ -458,7 +454,7 @@ public final class SnackbarWrapper {
      * @param colorResId The background color resource.
      * @return This instance.
      */
-    public SnackbarWrapper setBackgroundColorRes(@ColorRes int colorResId) {
+    public SnackbarWrapper setBackgroundColorResId(@ColorRes int colorResId) {
         getView().setBackgroundColor(ContextCompat.getColor(context, colorResId));
         return this;
     }

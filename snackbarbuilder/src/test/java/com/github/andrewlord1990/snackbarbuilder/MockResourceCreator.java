@@ -16,11 +16,8 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.StringRes;
 
 import static org.mockito.Mockito.when;
 
@@ -51,22 +48,6 @@ class MockResourceCreator {
     MockResourceCreator withResources(Resources resources) {
         this.resources = resources;
         return this;
-    }
-
-    @ColorRes
-    int getColorResourceId(@ColorInt int color) {
-        setMockContext();
-        @ColorRes int colorResId = 50;
-        when(resources.getColor(colorResId)).thenReturn(color);
-        return colorResId;
-    }
-
-    @StringRes
-    int getStringResourceId(String string) {
-        setMockContext();
-        @StringRes int stringResId = 50;
-        when(context.getString(stringResId)).thenReturn(string);
-        return stringResId;
     }
 
     @TargetApi(21)

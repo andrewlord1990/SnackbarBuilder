@@ -22,7 +22,7 @@
     <style name="CustomAttrTheme">
         <item name="snackbarBuilder_actionTextColor">#454545</item>
         <item name="snackbarBuilder_messageTextColor">#987654</item>
-        <item name="snackbarBuilder_parentViewId">@id/test_id</item>
+        <item name="snackbarBuilder_parentViewId">@id/snackbar_icon</item>
         <item name="snackbarBuilder_duration">indefinite</item>
         <item name="snackbarBuilder_backgroundColor">#999999</item>
 
