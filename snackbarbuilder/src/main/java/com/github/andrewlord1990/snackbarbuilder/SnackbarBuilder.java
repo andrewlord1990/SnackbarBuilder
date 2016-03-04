@@ -36,6 +36,20 @@ import android.widget.TextView;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
+/**
+ * A builder pattern to easily create and customise Android Design Support
+ * library Snackbars.
+ * On top of the customisations you can make through the Snackbar API,
+ * there are any additional ones. These include:
+ * - Altering text and background colors
+ * - Easier-to-use callbacks
+ * - Appending messages
+ * - Adding an icon
+ * - Providing defaults for all SnackbarBuilders through theme attributes
+ * The builder can either output a constructed Snackbar or a SnackbarWrapper.
+ * The SnackbarWrapper allows you to further customise the Snackbar after
+ * creation and gives you more control than the Snackbar API.
+ */
 public final class SnackbarBuilder {
 
     Context context;
@@ -296,7 +310,8 @@ public final class SnackbarBuilder {
     }
 
     private void loadThemeAttributes() {
-        TypedArray attrs = context.obtainStyledAttributes(R.styleable.SnackbarBuilderStyle);
+        TypedArray attrs = context.obtainStyledAttributes(
+                null, R.styleable.SnackbarBuilderStyle, R.attr.snackbarBuilderStyle, 0);
         try {
             loadMessageTextColor(attrs);
             loadActionTextColor(attrs);
