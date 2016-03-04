@@ -146,23 +146,19 @@ public class ToastBuilder {
     }
 
     private void loadThemeAttributes() {
-        TypedArray attrs = context.obtainStyledAttributes(getAttributes());
+        TypedArray attrs = context.obtainStyledAttributes(
+                null, R.styleable.ToastBuilderStyle, R.attr.toastBuilderStyle, 0);
         try {
-            messageTextColor = attrs.getColor(0, 0);
-            int durationAttr = attrs.getInteger(1, Integer.MIN_VALUE);
+            messageTextColor = attrs.getColor(
+                    R.styleable.ToastBuilderStyle_toastBuilder_messageTextColor, 0);
+            int durationAttr = attrs.getInteger(
+                    R.styleable.ToastBuilderStyle_toastBuilder_duration, Integer.MIN_VALUE);
             if (durationAttr > Integer.MIN_VALUE) {
                 duration = durationAttr;
             }
         } finally {
             attrs.recycle();
         }
-    }
-
-    private int[] getAttributes() {
-        return new int[]{
-                R.attr.toastBuilder_messageTextColor,
-                R.attr.toastBuilder_duration,
-        };
     }
 
 }

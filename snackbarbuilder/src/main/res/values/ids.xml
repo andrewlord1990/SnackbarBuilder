@@ -12,5 +12,5 @@
   -->
 
 <resources>
-    <item name="test_id" type="id" />
+    <item name="snackbarbuilder_icon" type="id" />
 </resources>

@@ -13,28 +13,28 @@
 
 <resources>
 
-    <attr name="snackbarBuilder_messageTextColor" format="color"/>
-    <attr name="snackbarBuilder_actionTextColor" format="color"/>
-    <attr name="snackbarBuilder_parentViewId" format="reference"/>
-    <attr name="snackbarBuilder_duration" format="integer">
-        <enum name="longTime" value="0"/>
-        <enum name="shortTime" value="-1"/>
-        <enum name="indefinite" value="-2"/>
-    </attr>
-    <attr name="snackbarBuilder_backgroundColor" format="color"/>
+    <attr name="toastBuilderStyle" format="reference"/>
 
-    <attr name="toastBuilder_messageTextColor" format="color"/>
-    <attr name="toastBuilder_duration">
-        <enum name="shortTime" value="0"/>
-        <enum name="longTime" value="1"/>
-    </attr>
+    <declare-styleable name="ToastBuilderStyle">
+        <attr name="toastBuilder_messageTextColor" format="color"/>
+        <attr name="toastBuilder_duration">
+            <enum name="shortTime" value="0"/>
+            <enum name="longTime" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <attr name="snackbarBuilderStyle" format="reference"/>
 
     <declare-styleable name="SnackbarBuilderStyle">
-        <attr name="snackbarBuilder_messageTextColor"/>
-        <attr name="snackbarBuilder_actionTextColor"/>
-        <attr name="snackbarBuilder_parentViewId"/>
-        <attr name="snackbarBuilder_duration"/>
-        <attr name="snackbarBuilder_backgroundColor"/>
+        <attr name="snackbarBuilder_messageTextColor" format="color"/>
+        <attr name="snackbarBuilder_actionTextColor" format="color"/>
+        <attr name="snackbarBuilder_backgroundColor" format="color"/>
+        <attr name="snackbarBuilder_parentViewId" format="reference"/>
+        <attr name="snackbarBuilder_duration" format="integer">
+            <enum name="longTime" value="0"/>
+            <enum name="shortTime" value="-1"/>
+            <enum name="indefinite" value="-2"/>
+        </attr>
         <attr name="colorAccent"/>
     </declare-styleable>
 

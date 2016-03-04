@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.github.andrewlord1990.snackbarbuilder.SnackbarBuilder;
+import com.github.andrewlord1990.snackbarbuilder.SnackbarWrapper;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.toastbuilder.ToastBuilder;
 
@@ -176,14 +177,24 @@ public class SampleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new SnackbarBuilder(SampleActivity.this)
                         .message("this")
-                        .appendMessageWithColor(" message", Color.RED)
-                        .appendMessageWithColor(" has", Color.GREEN)
-                        .appendMessageWithColor(" lots", Color.BLUE)
-                        .appendMessageWithColor(" of", Color.GRAY)
-                        .appendMessageWithColor(" colors", Color.MAGENTA)
+                        .appendMessage(" message", Color.RED)
+                        .appendMessage(" has", Color.GREEN)
+                        .appendMessage(" lots", Color.BLUE)
+                        .appendMessage(" of", Color.GRAY)
+                        .appendMessage(" colors", Color.MAGENTA)
                         .duration(Snackbar.LENGTH_LONG)
                         .build()
                         .show();
+            }
+        });
+        samples.put("Using wrapper", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SnackbarWrapper wrapper = new SnackbarBuilder(SampleActivity.this)
+                        .message("Using wrapper")
+                        .duration(Snackbar.LENGTH_LONG)
+                        .buildWrapper();
+                wrapper.appendMessage(" to add more text", Color.YELLOW).show();
             }
         });
         samples.put("Toast with red text", new OnClickListener() {
@@ -191,8 +202,6 @@ public class SampleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new ToastBuilder(SampleActivity.this)
                         .message("Custom toast")
-                        .duration(Toast.LENGTH_LONG)
-                        .messageTextColor(Color.RED)
                         .build()
                         .show();
             }

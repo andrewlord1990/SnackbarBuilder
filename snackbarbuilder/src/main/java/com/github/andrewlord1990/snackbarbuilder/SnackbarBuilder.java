@@ -16,8 +16,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
@@ -25,24 +23,34 @@ import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Duration;
-import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
-public class SnackbarBuilder {
+/**
+ * A builder pattern to easily create and customise Android Design Support
+ * library Snackbars.
+ * On top of the customisations you can make through the Snackbar API,
+ * there are any additional ones. These include:
+ * - Altering text and background colors
+ * - Easier-to-use callbacks
+ * - Appending messages
+ * - Adding an icon
+ * - Providing defaults for all SnackbarBuilders through theme attributes
+ * The builder can either output a constructed Snackbar or a SnackbarWrapper.
+ * The SnackbarWrapper allows you to further customise the Snackbar after
+ * creation and gives you more control than the Snackbar API.
+ */
+public final class SnackbarBuilder {
 
     Context context;
     View parentView;
@@ -107,7 +115,7 @@ public class SnackbarBuilder {
         return appendMessage(context.getString(messageResId));
     }
 
-    public SnackbarBuilder appendMessageWithColor(CharSequence message, @ColorInt int color) {
+    public SnackbarBuilder appendMessage(CharSequence message, @ColorInt int color) {
         initialiseAppendMessages();
         Spannable spannable = new SpannableString(message);
         spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
@@ -116,18 +124,9 @@ public class SnackbarBuilder {
         return this;
     }
 
-    public SnackbarBuilder appendMessageWithColorRes(CharSequence message, @ColorRes int colorResId) {
-        return appendMessageWithColor(message, getColor(colorResId));
-    }
-
-    public SnackbarBuilder appendMessageResWithColor(@StringRes int messageResId,
-                                                     @ColorInt int color) {
-        return appendMessageWithColor(context.getString(messageResId), color);
-    }
-
-    public SnackbarBuilder appendMessageResWithColorRes(@StringRes int messageResId,
-                                                        @ColorRes int colorResId) {
-        return appendMessageWithColor(context.getString(messageResId), getColor(colorResId));
+    public SnackbarBuilder appendMessage(@StringRes int messageResId,
+                                         @ColorRes int colorResId) {
+        return appendMessage(context.getString(messageResId), getColor(colorResId));
     }
 
     public SnackbarBuilder duration(@Duration int duration) {
@@ -155,6 +154,11 @@ public class SnackbarBuilder {
         return this;
     }
 
+    public SnackbarBuilder actionClickListener(OnClickListener actionClickListener) {
+        this.actionClickListener = actionClickListener;
+        return this;
+    }
+
     public SnackbarBuilder backgroundColorRes(@ColorRes int backgroundColor) {
         this.backgroundColor = getColor(backgroundColor);
         return this;
@@ -162,11 +166,6 @@ public class SnackbarBuilder {
 
     public SnackbarBuilder backgroundColor(int backgroundColor) {
         this.backgroundColor = backgroundColor;
-        return this;
-    }
-
-    public SnackbarBuilder actionClickListener(OnClickListener actionClickListener) {
-        this.actionClickListener = actionClickListener;
         return this;
     }
 
@@ -215,6 +214,9 @@ public class SnackbarBuilder {
                 context.getResources().getDimensionPixelSize(iconMarginEnd));
     }
 
+    public SnackbarWrapper buildWrapper() {
+        return new SnackbarWrapper(build());
+    }
 
     public Snackbar build() {
         Snackbar snackbar = Snackbar.make(parentView, message, duration);
@@ -244,12 +246,6 @@ public class SnackbarBuilder {
         return (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
     }
 
-    private void setActionTextColor(Snackbar snackbar) {
-        if (actionTextColor != 0) {
-            snackbar.setActionTextColor(actionTextColor);
-        }
-    }
-
     private void setBackgroundColor(Snackbar snackbar) {
         if (backgroundColor != 0) {
             snackbar.getView().setBackgroundColor(backgroundColor);
@@ -267,6 +263,13 @@ public class SnackbarBuilder {
         if (actionText != null) {
             snackbar.setAction(actionText, actionClickListener);
         }
+        setActionTextColor(snackbar);
+    }
+
+    private void setActionTextColor(Snackbar snackbar) {
+        if (actionTextColor != 0) {
+            snackbar.setActionTextColor(actionTextColor);
+        }
     }
 
     private void setCallback(Snackbar snackbar) {
@@ -279,41 +282,23 @@ public class SnackbarBuilder {
 
     private void setActionAllCaps(Snackbar snackbar) {
         Button action = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
-        if (isApiAtLeast14()) {
-            action.setAllCaps(actionAllCaps);
-        }
+        Compatibility.getInstance().setAllCaps(action, actionAllCaps);
     }
 
     private void setIconImageView(Snackbar snackbar) {
         if (icon != null) {
-            ImageView iconView = new ImageView(context);
-            LayoutParams params = getIconViewLayoutParams();
-            iconView.setLayoutParams(params);
-            iconView.setImageDrawable(icon);
-
-            SnackbarLayout view = (SnackbarLayout) snackbar.getView();
-            view.addView(iconView, 0);
+            SnackbarIconBuilder.builder(snackbar)
+                    .icon(icon)
+                    .iconMarginStartPixels(iconMarginStartPixels)
+                    .iconMarginEndPixels(iconMarginEndPixels)
+                    .bindToSnackbar();
         }
-    }
-
-    private LayoutParams getIconViewLayoutParams() {
-        LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.WRAP_CONTENT);
-        params.gravity = Gravity.CENTER_VERTICAL;
-        params.weight = 0;
-        params.leftMargin = iconMarginStartPixels;
-        params.rightMargin = iconMarginEndPixels;
-        return params;
     }
 
     private void initialiseAppendMessages() {
         if (appendMessages == null) {
             appendMessages = new SpannableStringBuilder();
         }
-    }
-
-    private boolean isApiAtLeast14() {
-        return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
     private int getColor(@ColorRes int color) {
@@ -325,7 +310,8 @@ public class SnackbarBuilder {
     }
 
     private void loadThemeAttributes() {
-        TypedArray attrs = context.obtainStyledAttributes(R.styleable.SnackbarBuilderStyle);
+        TypedArray attrs = context.obtainStyledAttributes(
+                null, R.styleable.SnackbarBuilderStyle, R.attr.snackbarBuilderStyle, 0);
         try {
             loadMessageTextColor(attrs);
             loadActionTextColor(attrs);
@@ -369,18 +355,18 @@ public class SnackbarBuilder {
 
     private void loadFallbackAttributes(TypedArray attrs) {
         if (messageTextColor == 0) {
-            messageTextColor = getColor(R.color.default_message);
+            messageTextColor = getColor(R.color.snackbarbuilder_default_message);
         }
         if (actionTextColor == 0) {
             actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
         }
         if (iconMarginStartPixels == 0) {
             iconMarginStartPixels = context.getResources()
-                    .getDimensionPixelSize(R.dimen.icon_margin_start_default);
+                    .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
         }
         if (iconMarginEndPixels == 0) {
             iconMarginEndPixels = context.getResources()
-                    .getDimensionPixelSize(R.dimen.icon_margin_end_default);
+                    .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
         }
     }
 

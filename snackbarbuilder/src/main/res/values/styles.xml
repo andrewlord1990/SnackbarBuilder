@@ -13,24 +13,41 @@
 
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="SnackbarBuilder">
+        <item name="snackbarBuilder_actionTextColor">?colorAccent</item>
+        <item name="snackbarBuilder_messageTextColor">@color/snackbarbuilder_default_message</item>
+        <item name="snackbarBuilder_duration">longTime</item>
+    </style>
+
+    <style name="ToastBuilder">
+        <item name="toastBuilder_duration">longTime</item>
+    </style>
+
+    <style name="TestSnackbarBuilder_AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <item name="colorPrimary">#3F51B5</item>
         <item name="colorPrimaryDark">#303F9F</item>
         <item name="colorAccent">#FF4081</item>
     </style>
 
-    <style name="CustomAttrTheme">
+    <style name="TestSnackbarBuilder_CustomTheme">
+        <item name="snackbarBuilderStyle">@style/TestSnackbarBuilderStyle</item>
+        <item name="toastBuilderStyle">@style/TestToastBuilderStyle</item>
+    </style>
+
+    <style name="TestSnackbarBuilderStyle" parent="SnackbarBuilder">
         <item name="snackbarBuilder_actionTextColor">#454545</item>
         <item name="snackbarBuilder_messageTextColor">#987654</item>
-        <item name="snackbarBuilder_parentViewId">@id/test_id</item>
+        <item name="snackbarBuilder_parentViewId">@id/snackbarbuilder_icon</item>
         <item name="snackbarBuilder_duration">indefinite</item>
         <item name="snackbarBuilder_backgroundColor">#999999</item>
+    </style>
 
+    <style name="TestToastBuilderStyle" parent="ToastBuilder">
         <item name="toastBuilder_messageTextColor">#123456</item>
         <item name="toastBuilder_duration">shortTime</item>
     </style>
 
-    <style name="FallbackAttrTheme">
+    <style name="TestSnackbarBuilder_FallbackTheme">
         <item name="colorAccent">#232323</item>
     </style>
 

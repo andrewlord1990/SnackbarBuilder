@@ -64,7 +64,7 @@ public class ToastBuilderTest {
     @Test
     public void whenCreated_thenMessageTextColorFromCustomThemeAttribute() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
 
         //When
         ToastBuilder builder = new ToastBuilder(RuntimeEnvironment.application);
@@ -76,7 +76,7 @@ public class ToastBuilderTest {
     @Test
     public void whenCreated_thenDurationFromCustomThemeAttribute() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.CustomAttrTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
 
         //When
         ToastBuilder builder = new ToastBuilder(RuntimeEnvironment.application);
@@ -104,10 +104,10 @@ public class ToastBuilderTest {
         createBuilder();
 
         //When
-        builderUnderTest.customViewMessageViewId(R.id.test_id);
+        builderUnderTest.customViewMessageViewId(R.id.snackbarbuilder_icon);
 
         //Then
-        assertThat(builderUnderTest.customViewMessageViewId).isEqualTo(R.id.test_id);
+        assertThat(builderUnderTest.customViewMessageViewId).isEqualTo(R.id.snackbarbuilder_icon);
     }
 
     @Test
@@ -216,7 +216,7 @@ public class ToastBuilderTest {
         //Given
         int messageTextColor = 0xFF111111;
         String message = "message";
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
 
         //When
         Toast toast = new ToastBuilder(RuntimeEnvironment.application)
@@ -239,7 +239,7 @@ public class ToastBuilderTest {
     @Test
     public void givenCustomView_whenBuild_thenCustomViewSetup() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         View customView = new View(RuntimeEnvironment.application);
 
         //When
@@ -256,14 +256,14 @@ public class ToastBuilderTest {
     @Test
     public void givenCustomViewAndMessageViewId_whenBuild_thenCustomViewSetup() {
         //Given
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         LinearLayout customView = new LinearLayout(RuntimeEnvironment.application);
         customView.setLayoutParams(new LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
         TextView messageView = new TextView(RuntimeEnvironment.application);
         messageView.setLayoutParams(new LayoutParams(
                 LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-        messageView.setId(R.id.test_id);
+        messageView.setId(R.id.snackbarbuilder_icon);
         customView.addView(messageView);
         int messageTextColor = 0xFF111111;
         String message = "message";
@@ -271,7 +271,7 @@ public class ToastBuilderTest {
         //When
         Toast toast = new ToastBuilder(RuntimeEnvironment.application)
                 .customView(customView)
-                .customViewMessageViewId(R.id.test_id)
+                .customViewMessageViewId(R.id.snackbarbuilder_icon)
                 .messageTextColor(messageTextColor)
                 .message(message)
                 .duration(Toast.LENGTH_LONG)
@@ -281,13 +281,13 @@ public class ToastBuilderTest {
         assertThat(toast.getDuration()).isEqualTo(Toast.LENGTH_LONG);
         assertThat(toast.getView()).isEqualTo(customView);
 
-        TextView textView = (TextView) toast.getView().findViewById(R.id.test_id);
+        TextView textView = (TextView) toast.getView().findViewById(R.id.snackbarbuilder_icon);
         assertThat(textView.getCurrentTextColor()).isEqualTo(messageTextColor);
         assertThat(textView.getText().toString()).isEqualTo(message);
     }
 
     private void createBuilder() {
-        RuntimeEnvironment.application.setTheme(R.style.AppTheme);
+        RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
         builderUnderTest = new ToastBuilder(RuntimeEnvironment.application);
     }
 

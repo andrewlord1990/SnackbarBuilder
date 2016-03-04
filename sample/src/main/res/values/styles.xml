@@ -17,10 +17,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="snackbarBuilder_parentViewId">@id/coordinator</item>
-        <item name="snackbarBuilder_duration">shortTime</item>
-        <item name="snackbarBuilder_messageTextColor">@color/messageText</item>
-        <item name="snackbarBuilder_actionTextColor">@color/colorAccent</item>
+        <item name="snackbarBuilderStyle">@style/SampleSnackbarStyle</item>
+        <item name="toastBuilderStyle">@style/SampleToastStyle</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -30,5 +28,17 @@
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="SampleSnackbarStyle" parent="SnackbarBuilder">
+        <item name="snackbarBuilder_parentViewId">@id/coordinator</item>
+        <item name="snackbarBuilder_duration">shortTime</item>
+        <item name="snackbarBuilder_messageTextColor">@color/messageText</item>
+        <item name="snackbarBuilder_actionTextColor">@color/colorAccent</item>
+    </style>
+
+    <style name="SampleToastStyle" parent="ToastBuilder">
+        <item name="toastBuilder_messageTextColor">@color/red</item>
+        <item name="toastBuilder_duration">shortTime</item>
+    </style>
 
 </resources>
