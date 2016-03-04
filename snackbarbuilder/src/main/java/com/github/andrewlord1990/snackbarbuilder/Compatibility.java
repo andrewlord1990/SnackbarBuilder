@@ -16,14 +16,14 @@ import android.os.Build.VERSION;
 import android.os.Build.VERSION_CODES;
 import android.widget.TextView;
 
-public final class Compatibility {
+final class Compatibility {
 
     private static Compatibility instance;
 
     private Compatibility() {
     }
 
-    public static Compatibility getInstance() {
+    static Compatibility getInstance() {
         if (instance == null) {
             instance = new Compatibility();
         }
@@ -34,7 +34,7 @@ public final class Compatibility {
         return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
     }
 
-    public void setAllCaps(TextView textView, boolean allCaps) {
+    void setAllCaps(TextView textView, boolean allCaps) {
         if (isApiAtLeast14()) {
             textView.setAllCaps(allCaps);
         }

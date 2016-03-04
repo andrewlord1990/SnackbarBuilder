@@ -71,7 +71,7 @@ class SnackbarIconBuilder {
         return params;
     }
 
-    public static SnackbarIconBuilder builder(Snackbar snackbar) {
+    static SnackbarIconBuilder builder(Snackbar snackbar) {
         return new SnackbarIconBuilder(snackbar);
     }
 

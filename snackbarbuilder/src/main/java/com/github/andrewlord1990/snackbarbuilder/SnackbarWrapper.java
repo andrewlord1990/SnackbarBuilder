@@ -57,8 +57,6 @@ public final class SnackbarWrapper {
     private Callback callback;
     private SnackbarIconBuilder iconBuilder;
 
-    //TODO: Tests
-
     /**
      * Create by wrapping a {@link Snackbar}.
      *
