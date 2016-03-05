@@ -15,6 +15,7 @@ package com.github.andrewlord1990.snackbarbuilder;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.SnackbarLayout;
+import android.support.v4.view.MarginLayoutParamsCompat;
 import android.view.Gravity;
 import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
@@ -66,8 +67,8 @@ class SnackbarIconBuilder {
                 LayoutParams.WRAP_CONTENT);
         params.gravity = Gravity.CENTER_VERTICAL;
         params.weight = 0;
-        params.leftMargin = iconMarginStartPixels;
-        params.rightMargin = iconMarginEndPixels;
+        MarginLayoutParamsCompat.setMarginStart(params, iconMarginStartPixels);
+        MarginLayoutParamsCompat.setMarginEnd(params, iconMarginEndPixels);
         return params;
     }
 
