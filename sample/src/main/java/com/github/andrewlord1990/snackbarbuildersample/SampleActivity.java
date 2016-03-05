@@ -202,6 +202,7 @@ public class SampleActivity extends AppCompatActivity {
             public void onClick(View v) {
                 new ToastBuilder(SampleActivity.this)
                         .message("Custom toast")
+                        .messageTextColor(Color.RED)
                         .build()
                         .show();
             }

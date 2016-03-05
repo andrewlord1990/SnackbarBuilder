@@ -15,14 +15,29 @@ package com.github.andrewlord1990.snackbarbuilder.callback;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
 
+/**
+ * A wrapper for the standard Callback, which you can inherit from.
+ * This allows you to combine multiple callbacks to the Snackbar.
+ */
 public class SnackbarCallbackWrapper extends Callback {
 
     protected Callback callback;
 
+    /**
+     * Create the callback wrapper from a standard Callback.
+     *
+     * @param callback The callback to wrap.
+     */
     public SnackbarCallbackWrapper(Callback callback) {
         this.callback = callback;
     }
 
+    /**
+     * Notifies that the {@link Snackbar} has been dismissed through some means.
+     *
+     * @param snackbar The Snackbar which has been dismissed.
+     * @param event    The event which caused the dismissal.
+     */
     @Override
     public void onDismissed(Snackbar snackbar, @DismissEvent int event) {
         if (callback != null) {
@@ -30,6 +45,11 @@ public class SnackbarCallbackWrapper extends Callback {
         }
     }
 
+    /**
+     * Notifies that the {@link Snackbar} has been shown (made visible).
+     *
+     * @param snackbar The Snackbar which has been shown.
+     */
     @Override
     public void onShown(Snackbar snackbar) {
         if (callback != null) {

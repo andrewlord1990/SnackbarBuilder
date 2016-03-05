@@ -30,11 +30,8 @@ import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
 /**
  * A builder pattern to easily create and customise Android Design Support
@@ -126,7 +123,8 @@ public final class SnackbarBuilder {
 
     public SnackbarBuilder appendMessage(@StringRes int messageResId,
                                          @ColorRes int colorResId) {
-        return appendMessage(context.getString(messageResId), getColor(colorResId));
+        return appendMessage(context.getString(messageResId),
+                getColor(colorResId));
     }
 
     public SnackbarBuilder duration(@Duration int duration) {
@@ -221,92 +219,22 @@ public final class SnackbarBuilder {
     public Snackbar build() {
         Snackbar snackbar = Snackbar.make(parentView, message, duration);
 
-        customiseMessage(snackbar);
-        setActionTextColor(snackbar);
-        setBackgroundColor(snackbar);
-        setAction(snackbar);
-        setCallback(snackbar);
-        setActionAllCaps(snackbar);
-        setIconImageView(snackbar);
+        new SnackbarCustomiser(snackbar)
+                .customiseMessage(messageTextColor, appendMessages)
+                .setBackgroundColor(backgroundColor)
+                .setAction(actionText, actionClickListener)
+                .setActionTextColor(actionTextColor)
+                .setActionAllCaps(actionAllCaps)
+                .setCallbacks(snackbarCallback, callback)
+                .setIcon(icon, iconMarginStartPixels, iconMarginEndPixels);
 
         return snackbar;
-    }
-
-    private void customiseMessage(Snackbar snackbar) {
-        if (messageTextColor != 0) {
-            TextView messageView = getMessageView(snackbar);
-            messageView.setTextColor(messageTextColor);
-            if (appendMessages != null) {
-                messageView.append(appendMessages);
-            }
-        }
-    }
-
-    private TextView getMessageView(Snackbar snackbar) {
-        return (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
-    }
-
-    private void setBackgroundColor(Snackbar snackbar) {
-        if (backgroundColor != 0) {
-            snackbar.getView().setBackgroundColor(backgroundColor);
-        }
-    }
-
-    private void setAction(Snackbar snackbar) {
-        if (actionClickListener == null) {
-            actionClickListener = new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                }
-            };
-        }
-        if (actionText != null) {
-            snackbar.setAction(actionText, actionClickListener);
-        }
-        setActionTextColor(snackbar);
-    }
-
-    private void setActionTextColor(Snackbar snackbar) {
-        if (actionTextColor != 0) {
-            snackbar.setActionTextColor(actionTextColor);
-        }
-    }
-
-    private void setCallback(Snackbar snackbar) {
-        if (snackbarCallback != null) {
-            snackbar.setCallback(new SnackbarCombinedCallback(snackbarCallback, callback));
-        } else {
-            snackbar.setCallback(callback);
-        }
-    }
-
-    private void setActionAllCaps(Snackbar snackbar) {
-        Button action = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
-        Compatibility.getInstance().setAllCaps(action, actionAllCaps);
-    }
-
-    private void setIconImageView(Snackbar snackbar) {
-        if (icon != null) {
-            SnackbarIconBuilder.builder(snackbar)
-                    .icon(icon)
-                    .iconMarginStartPixels(iconMarginStartPixels)
-                    .iconMarginEndPixels(iconMarginEndPixels)
-                    .bindToSnackbar();
-        }
     }
 
     private void initialiseAppendMessages() {
         if (appendMessages == null) {
             appendMessages = new SpannableStringBuilder();
         }
-    }
-
-    private int getColor(@ColorRes int color) {
-        return ContextCompat.getColor(context, color);
-    }
-
-    private Drawable getDrawable(@DrawableRes int drawableResId) {
-        return ContextCompat.getDrawable(context, drawableResId);
     }
 
     private void loadThemeAttributes() {
@@ -368,6 +296,14 @@ public final class SnackbarBuilder {
             iconMarginEndPixels = context.getResources()
                     .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
         }
+    }
+
+    private int getColor(@ColorRes int color) {
+        return ContextCompat.getColor(context, color);
+    }
+
+    private Drawable getDrawable(@DrawableRes int drawableResId) {
+        return ContextCompat.getDrawable(context, drawableResId);
     }
 
 }

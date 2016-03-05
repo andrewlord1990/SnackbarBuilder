@@ -76,6 +76,23 @@ public class SnackbarCombinedCallbackTest {
     }
 
     @Test
+    public void givenNoCallback_whenCreated_thenSetupCorrectly() {
+        //Given
+        int dismissEvent = Callback.DISMISS_EVENT_ACTION;
+
+        //When
+        SnackbarCombinedCallback testCallback = new SnackbarCombinedCallback(snackbarCallback);
+        testCallback.onShown(snackbar);
+        testCallback.onDismissed(snackbar, dismissEvent);
+
+        //Then
+        assertThat(testCallback.callback).isNull();
+        assertThat(testCallback.snackbarCallback).isEqualTo(snackbarCallback);
+        verify(snackbarCallback).onSnackbarShown(snackbar);
+        verify(snackbarCallback).onSnackbarActionPressed(snackbar);
+    }
+
+    @Test
     public void whenOnDismissed_thenCallbackInformedOfEvent() {
         //Given
         int dismissEvent = Callback.DISMISS_EVENT_MANUAL;

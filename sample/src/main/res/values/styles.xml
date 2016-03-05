@@ -37,7 +37,7 @@
     </style>
 
     <style name="SampleToastStyle" parent="ToastBuilder">
-        <item name="toastBuilder_messageTextColor">@color/red</item>
+        <item name="toastBuilder_messageTextColor">@color/snackbarbuilder_default_message</item>
         <item name="toastBuilder_duration">shortTime</item>
     </style>
 
