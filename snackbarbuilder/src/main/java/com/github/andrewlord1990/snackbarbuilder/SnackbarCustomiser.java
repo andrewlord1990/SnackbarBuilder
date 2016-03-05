@@ -43,7 +43,7 @@ class SnackbarCustomiser {
         return this;
     }
 
-    private TextView getMessageView() {
+    TextView getMessageView() {
         return (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
     }
 
@@ -77,8 +77,7 @@ class SnackbarCustomiser {
     }
 
     SnackbarCustomiser setActionAllCaps(boolean actionAllCaps) {
-        Button action = (Button) snackbar.getView().findViewById(R.id.snackbar_action);
-        Compatibility.getInstance().setAllCaps(action, actionAllCaps);
+        Compatibility.getInstance().setAllCaps(getActionView(), actionAllCaps);
         return this;
     }
 
@@ -100,5 +99,9 @@ class SnackbarCustomiser {
                     .bindToSnackbar();
         }
         return this;
+    }
+
+    Button getActionView() {
+        return (Button) snackbar.getView().findViewById(R.id.snackbar_action);
     }
 }
