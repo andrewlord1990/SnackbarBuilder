@@ -14,14 +14,14 @@ One of the main annoyances with the `Snackbar` is that it has a dark background,
 
 Download via Gradle:
 ```groovy
-compile 'com.github.andrewlord1990:snackbarbuilder:0.4'
+compile 'com.github.andrewlord1990:snackbarbuilder:0.5.0'
 ```
 or Maven:
 ```xml
 <dependency>
   <groupId>com.github.andrewlord1990</groupId>
   <artifactId>snackbarbuilder</artifactId>
-  <version>0.4</version>
+  <version>0.5.0</version>
 </dependency>
 ```
 
