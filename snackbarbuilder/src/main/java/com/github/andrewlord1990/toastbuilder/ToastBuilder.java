@@ -27,9 +27,8 @@ import android.widget.Toast;
 import com.github.andrewlord1990.snackbarbuilder.R;
 
 /**
- * A builder pattern to easily create Toasts. On top of the options
- * provided through the platform API, you can also change the text
- * colour to display the message.
+ * A builder pattern to easily create Toasts. On top of the options provided through the platform
+ * API, you can also change the text colour to display the message.
  */
 public class ToastBuilder {
 
@@ -68,12 +67,9 @@ public class ToastBuilder {
     }
 
     /**
-     * Set the ID of a TextView within the custom view to
-     * set the message on.
+     * Set the ID of a TextView within the custom view to set the message on.
      *
-     * @param customViewMessageViewId The ID of the message
-     *                                TextView within the
-     *                                custom view.
+     * @param customViewMessageViewId The ID of the message TextView within the custom view.
      * @return This instance.
      */
     public ToastBuilder customViewMessageViewId(int customViewMessageViewId) {
@@ -117,8 +113,7 @@ public class ToastBuilder {
     /**
      * Set the color to display the message on the {@link Toast}.
      *
-     * @param messageTextColorResId The resource of the color to
-     *                              display the message.
+     * @param messageTextColorResId The resource of the color to display the message.
      * @return This instance.
      */
     public ToastBuilder messageTextColorRes(@ColorRes int messageTextColorResId) {
@@ -129,8 +124,7 @@ public class ToastBuilder {
     /**
      * Set the duration to display the {@link Toast} for.
      *
-     * @param duration Duration which can be either LENGTH_SHORT
-     *                 or LENGTH_LONG.
+     * @param duration Duration which can be either LENGTH_SHORT or LENGTH_LONG.
      * @return This instance.
      */
     public ToastBuilder duration(@Duration int duration) {
@@ -139,8 +133,8 @@ public class ToastBuilder {
     }
 
     /**
-     * Set the location the {@link Toast} appears on the screen. The
-     * gravity specifies which edge of the screen it is attached to.
+     * Set the location the {@link Toast} appears on the screen. The gravity specifies which edge
+     * of the screen it is attached to.
      *
      * @param gravity The location to display the Toast.
      * @return This instance.
@@ -151,8 +145,7 @@ public class ToastBuilder {
     }
 
     /**
-     * Set the horizontal offset in pixels to apply to the
-     * {@link Toast} location.
+     * Set the horizontal offset in pixels to apply to the {@link Toast} location.
      *
      * @param gravityOffsetX The horizontal offset in pixels.
      * @return This instance.
@@ -163,8 +156,7 @@ public class ToastBuilder {
     }
 
     /**
-     * Set the vertical offset in pixels to apply to the
-     * {@link Toast} location.
+     * Set the vertical offset in pixels to apply to the {@link Toast} location.
      *
      * @param gravityOffsetY The vertical offset in pixels.
      * @return This instance.
@@ -175,8 +167,7 @@ public class ToastBuilder {
     }
 
     /**
-     * Build a {@link Toast} using the options specified in
-     * the builder.
+     * Build a {@link Toast} using the options specified in the builder.
      *
      * @return The constructed Toast.
      */

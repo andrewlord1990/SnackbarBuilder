@@ -16,10 +16,9 @@ import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 /**
- * A callback for use with SnackbarBuilder that allows you to easily respond
- * to the events you are interested in by overriding the appropriate methods.
- * You know longer have to check the value of the dismiss event, as you do
- * with the standard Callback class.
+ * A callback for use with SnackbarBuilder that allows you to easily respond to the events you are
+ * interested in by overriding the appropriate methods. You know longer have to check the value of
+ * the dismiss event, as you do with the standard Callback class.
  */
 public class SnackbarCallback {
 
@@ -44,8 +43,7 @@ public class SnackbarCallback {
     }
 
     /**
-     * Indicates that the {@link Snackbar} was dismissed due to the action
-     * being pressed.
+     * Indicates that the {@link Snackbar} was dismissed due to the action being pressed.
      *
      * @param snackbar The Snackbar.
      */
@@ -54,8 +52,7 @@ public class SnackbarCallback {
     }
 
     /**
-     * Indicates that the {@link Snackbar} was dismissed due to being
-     * swiped away.
+     * Indicates that the {@link Snackbar} was dismissed due to being swiped away.
      *
      * @param snackbar The Snackbar.
      */
@@ -64,8 +61,8 @@ public class SnackbarCallback {
     }
 
     /**
-     * Indicates that the {@link Snackbar} was dismissed due to a timeout,
-     * specified by the duration set.
+     * Indicates that the {@link Snackbar} was dismissed due to a timeout, specified by the
+     * duration set.
      *
      * @param snackbar The Snackbar.
      */
@@ -74,8 +71,7 @@ public class SnackbarCallback {
     }
 
     /**
-     * Indicates that the {@link Snackbar} was dismissed manually via
-     * a call to dismiss().
+     * Indicates that the {@link Snackbar} was dismissed manually via a call to dismiss().
      *
      * @param snackbar The Snackbar.
      */
@@ -84,8 +80,7 @@ public class SnackbarCallback {
     }
 
     /**
-     * Indicates that the {@link Snackbar} was dismissed due to another
-     * Snackbar being shown.
+     * Indicates that the {@link Snackbar} was dismissed due to another Snackbar being shown.
      *
      * @param snackbar The Snackbar.
      */

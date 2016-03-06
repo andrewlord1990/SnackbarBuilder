@@ -17,9 +17,9 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
 
 /**
- * Used to combine an enhanced SnackbarCallback and a standard Callback.
- * This allows both to be notified of any Snackbar events. This is used
- * internally by SnackbarBuilder, but is also available for use outside.
+ * Used to combine an enhanced SnackbarCallback and a standard Callback. This allows both to be
+ * notified of any Snackbar events. This is used internally by SnackbarBuilder, but is also
+ * available for use outside.
  */
 public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
 
@@ -44,8 +44,7 @@ public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Create by combining an enhanced SnackbarCallback and a
-     * standard Callback.
+     * Create by combining an enhanced SnackbarCallback and a standard Callback.
      *
      * @param snackbarCallback The enhanced SnackbarCallback (can be null).
      * @param callback         The standard Callback (can be null).
@@ -58,8 +57,8 @@ public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     /**
-     * Notifies that the {@link Snackbar} has been dismissed through some
-     * event, for example swiping or the action being pressed.
+     * Notifies that the {@link Snackbar} has been dismissed through some event, for example
+     * swiping or the action being pressed.
      *
      * @param snackbar The Snackbar which has been dismissed.
      * @param event    The event which caused the dismissal.

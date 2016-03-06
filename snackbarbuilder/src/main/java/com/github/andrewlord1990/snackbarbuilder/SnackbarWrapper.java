@@ -42,9 +42,9 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallba
  * By wrapping a {@link Snackbar} within it, it provides many customisations that are not
  * available without it. The setter methods also return the {@link SnackbarWrapper} instance,
  * allowing you to chain the calls together fluently.
- * In order to use {@link SnackbarWrapper} wrapper there is the SnackbarBuilder.buildWrapper()
- * method. Alternatively, if you already have a {@link Snackbar} object, you can just create
- * your own {@link SnackbarWrapper} object and pass the {@link Snackbar} into it.
+ * In order to create a {@link SnackbarWrapper} there is the SnackbarBuilder.buildWrapper()
+ * method. Alternatively, if you already have a {@link Snackbar} instance, you can just create
+ * your own {@link SnackbarWrapper} and pass the {@link Snackbar} into it.
  */
 public final class SnackbarWrapper {
 
@@ -82,7 +82,7 @@ public final class SnackbarWrapper {
     /**
      * Set the action to be displayed in the {@link Snackbar}.
      *
-     * @param actionTextResId String resource to display as an action.
+     * @param actionTextResId String resource of the text to display as an action.
      * @return This instance.
      */
     public SnackbarWrapper setActionText(@StringRes int actionTextResId) {
@@ -122,8 +122,8 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the action to be displayed in the {@link Snackbar} and the callback to
-     * invoke when the action is clicked.
+     * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the
+     * action is clicked.
      *
      * @param actionTextResId     String resource to display as an action.
      * @param actionClickListener Callback to be invoked when the action is clicked.
@@ -136,7 +136,8 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the action to be displayed in the {@link Snackbar}.
+     * Set the action to be displayed in the {@link Snackbar} and the callback to invoke when the
+     * action is clicked.
      *
      * @param actionText          Text to display as an action.
      * @param actionClickListener Callback to be invoked when the action is clicked.
@@ -175,11 +176,11 @@ public final class SnackbarWrapper {
     /**
      * Set the text color for the action on the {@link Snackbar}.
      *
-     * @param colorResId Color to make the action text.
+     * @param colorResId Resource of the color to make the action text.
      * @return This instance.
      */
     @NonNull
-    public SnackbarWrapper setActionTextColorResId(@ColorRes int colorResId) {
+    public SnackbarWrapper setActionTextColorRes(@ColorRes int colorResId) {
         snackbar.setActionTextColor(ContextCompat.getColor(context, colorResId));
         return this;
     }
@@ -224,7 +225,9 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Make the action text on the {@link Snackbar} lowercase.
+     * Set the action text on the {@link Snackbar} to start with an uppercase letter and for the
+     * remaining letters to be lowercase. By default on API 14 and above the action will be
+     * displayed all uppercase, this allows you to customise that.
      *
      * @return This instance.
      */
@@ -235,7 +238,7 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Make the action text on the {@link Snackbar} uppercase.
+     * Make the action text on the {@link Snackbar} all uppercase.
      *
      * @return This instance.
      */
@@ -246,8 +249,8 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Update the message in this {@link Snackbar}. This will overwrite
-     * the whole message that is currently shown.
+     * Update the message in this {@link Snackbar}. This will overwrite the whole message that is
+     * currently shown.
      *
      * @param message The new message.
      * @return This instance.
@@ -259,10 +262,10 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Update the message in the {@link Snackbar}. This will overwrite
-     * the whole message that is currently shown.
+     * Update the message in the {@link Snackbar}. This will overwrite the whole message that is
+     * currently shown.
      *
-     * @param messageResId The new message.
+     * @param messageResId String resource of the new message.
      * @return This instance.
      */
     @NonNull
@@ -308,7 +311,7 @@ public final class SnackbarWrapper {
      * @param colorResId The message text color resource.
      * @return This instance.
      */
-    public SnackbarWrapper setTextColorResId(@ColorRes int colorResId) {
+    public SnackbarWrapper setTextColorRes(@ColorRes int colorResId) {
         messageView.setTextColor(ContextCompat.getColor(context, colorResId));
         return this;
     }
@@ -346,7 +349,7 @@ public final class SnackbarWrapper {
     /**
      * Append text to the {@link Snackbar} message.
      *
-     * @param messageResId The resource of the text to append.
+     * @param messageResId The string resource of the text to append.
      * @return This instance.
      */
     public SnackbarWrapper appendMessage(@StringRes int messageResId) {
@@ -371,8 +374,8 @@ public final class SnackbarWrapper {
     /**
      * Append text in the specified color to the {@link Snackbar}.
      *
-     * @param messageResId The resource of the text to append.
-     * @param colorResId   The color resource to apply to the text.
+     * @param messageResId The string resource of the text to append.
+     * @param colorResId   The resource of the color to apply to the text.
      * @return This instance.
      */
     public SnackbarWrapper appendMessage(@StringRes int messageResId,
@@ -404,9 +407,9 @@ public final class SnackbarWrapper {
     /**
      * Set the total time to show the {@link Snackbar} for.
      *
-     * @param duration The length of time for which to show the {@link Snackbar},
-     *                 can either be one of the predefined lengths: LENGTH_SHORT,
-     *                 LENGTH_LONG or a custom duration in milliseconds.
+     * @param duration The length of time for which to show the {@link Snackbar}, can either be one
+     *                 of the predefined lengths: LENGTH_SHORT, LENGTH_LONG or a custom duration
+     *                 in milliseconds.
      * @return This instance.
      */
     @NonNull
@@ -452,14 +455,14 @@ public final class SnackbarWrapper {
      * @param colorResId The background color resource.
      * @return This instance.
      */
-    public SnackbarWrapper setBackgroundColorResId(@ColorRes int colorResId) {
+    public SnackbarWrapper setBackgroundColorRes(@ColorRes int colorResId) {
         getView().setBackgroundColor(ContextCompat.getColor(context, colorResId));
         return this;
     }
 
     /**
-     * Set the callback to be called when the {@link Snackbar} changes visibility.
-     * This will overwrite any callback that has already been set on the {@link Snackbar}.
+     * Set the callback to be called when the {@link Snackbar} changes visibility. This will
+     * overwrite any callback that has already been set on the {@link Snackbar}.
      *
      * @param callback The callback to be called.
      * @return This instance.
@@ -472,9 +475,9 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the callback to be called when the {@link Snackbar} changes visibility.
-     * If {@link this.setCallback(Callback)} has already been called, this will be
-     * combined with the {@link Callback} specified.
+     * Set the callback to be called when the {@link Snackbar} changes visibility. If
+     * {@link this.setCallback(Callback)} has already been called, then that callback will be
+     * combined with the SnackbarCallback specified here.
      *
      * @param callback The callback to be called.
      * @return This instance.
@@ -485,8 +488,8 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the icon at the start of the {@link Snackbar}.  If there is no icon
-     * it will be added, or if there is then it will be replaced.
+     * Set the icon at the start of the {@link Snackbar}.  If there is no icon it will be added,
+     * or if there is then it will be replaced.
      *
      * @param iconResId The icon drawable resource to display.
      * @return This instance.
@@ -496,8 +499,8 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the icon at the start of the {@link Snackbar}. If there is no icon
-     * it will be added, or if there is then it will be replaced.
+     * Set the icon at the start of the {@link Snackbar}. If there is no icon it will be added,
+     * or if there is then it will be replaced.
      *
      * @param icon The icon to display.
      * @return This instance.
@@ -510,11 +513,11 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the margin to have before the icon of the {@link Snackbar}. This
-     * margin will be left of the icon on left-to-right layouts and
-     * right of the icon on right-to-left layouts.
+     * Set the margin to be displayed before the icon. On platform versions that support
+     * bi-directional layouts, this will be the start margin, on platforms before this it will just
+     * be the left margin.
      *
-     * @param iconMarginStart The dimension resource for the margin to have before the icon.
+     * @param iconMarginStart The margin before the icon.
      * @return This instance.
      */
     public SnackbarWrapper setIconMarginStart(@DimenRes int iconMarginStart) {
@@ -522,11 +525,11 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the margin to have before the icon of the {@link Snackbar}. This
-     * margin will be left of the icon on left-to-right layouts and
-     * right of the icon on right-to-left layouts.
+     * Set the margin to be displayed before the icon in pixels. On platform versions that support
+     * bi-directional layouts, this will be the start margin, on platforms before this it will just
+     * be the left margin.
      *
-     * @param iconMarginStartPixels The margin to have before the icon.
+     * @param iconMarginStartPixels The margin before the icon.
      * @return This instance.
      */
     public SnackbarWrapper setIconMarginStartPixels(int iconMarginStartPixels) {
@@ -537,11 +540,11 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the margin to have after the icon of the {@link Snackbar}. This
-     * margin will be right of the icon on left-to-right layouts and
-     * left of the icon on right-to-left layouts.
+     * Set the margin to be displayed after the icon. On platform versions that support
+     * bi-directional layouts, this will be the end margin, on platforms before this it will just
+     * be the right margin.
      *
-     * @param iconMarginEnd The dimension resource for the margin to have after the icon.
+     * @param iconMarginEnd The margin after the icon.
      * @return This instance.
      */
     public SnackbarWrapper setIconMarginEnd(@DimenRes int iconMarginEnd) {
@@ -549,11 +552,11 @@ public final class SnackbarWrapper {
     }
 
     /**
-     * Set the margin to have after the icon of the {@link Snackbar}. This
-     * margin will be right of the icon on left-to-right layouts and
-     * left of the icon on right-to-left layouts.
+     * Set the margin to be displayed after the icon in pixels. On platform versions that support
+     * bi-directional layouts, this will be the end margin, on platforms before this it will just
+     * be the right margin.
      *
-     * @param iconMarginEndPixels The margin to have after the icon.
+     * @param iconMarginEndPixels The margin after the icon.
      * @return This instance.
      */
     public SnackbarWrapper setIconMarginEndPixels(int iconMarginEndPixels) {
@@ -595,8 +598,7 @@ public final class SnackbarWrapper {
     /**
      * Get whether the {@link Snackbar} is showing, or is queued to be shown next.
      *
-     * @return Whether the {@link Snackbar} is currently being shown, or is queued to be
-     * shown next.
+     * @return Whether the {@link Snackbar} is currently being shown, or is queued to be shown next.
      */
     public boolean isShownOrQueued() {
         return snackbar.isShownOrQueued();

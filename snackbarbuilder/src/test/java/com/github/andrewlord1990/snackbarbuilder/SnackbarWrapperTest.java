@@ -203,7 +203,7 @@ public class SnackbarWrapperTest {
     @Test
     public void whenSetActionTextColorResId_thenActionTextColorSet() {
         //When
-        wrapper.setActionTextColorResId(R.color.snackbarbuilder_default_message);
+        wrapper.setActionTextColorRes(R.color.snackbarbuilder_default_message);
 
         //Then
         assertThat(wrapper.getActionCurrentTextColor())
@@ -302,7 +302,7 @@ public class SnackbarWrapperTest {
     @Test
     public void whenSetTextColorResId_thenMessageColorSet() {
         //When
-        wrapper.setTextColorResId(R.color.snackbarbuilder_default_message);
+        wrapper.setTextColorRes(R.color.snackbarbuilder_default_message);
 
         //Then
         assertThat(wrapper.getCurrentTextColor())
@@ -397,7 +397,7 @@ public class SnackbarWrapperTest {
     @Test
     public void whenSetBackgroundColorResId_thenBackgroundColorSet() {
         //When
-        wrapper.setBackgroundColorResId(R.color.snackbarbuilder_default_message);
+        wrapper.setBackgroundColorRes(R.color.snackbarbuilder_default_message);
 
         //Then
         Assertions.assertThat((ColorDrawable) wrapper.getView().getBackground())
