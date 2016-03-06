@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/andrewlord1990/SnackbarBuilder.svg?branch=master)](https://travis-ci.org/andrewlord1990/SnackbarBuilder)
 [![Coverage Status](https://coveralls.io/repos/andrewlord1990/SnackbarBuilder/badge.svg?branch=master&service=github)](https://coveralls.io/github/andrewlord1990/SnackbarBuilder?branch=master)
+[![License](https://img.shields.io/badge/license-Apache%202.0-green.svg) ](https://github.com/andrewlord1990/SnackbarBuilder/blob/master/LICENSE)
 [![API](https://img.shields.io/badge/API-7%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=7)
 [ ![Download](https://api.bintray.com/packages/andrewlord1990/maven/snackbar-builder/images/download.svg) ](https://bintray.com/andrewlord1990/maven/snackbar-builder/_latestVersion)
 
