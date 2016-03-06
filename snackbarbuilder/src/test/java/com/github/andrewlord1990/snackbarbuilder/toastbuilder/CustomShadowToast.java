@@ -16,7 +16,7 @@
  *
  */
 
-package com.github.andrewlord1990.toastbuilder;
+package com.github.andrewlord1990.snackbarbuilder.toastbuilder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

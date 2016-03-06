@@ -10,7 +10,7 @@
  * See the License for the specific language governing permissions and limitations under the License.
  */
 
-package com.github.andrewlord1990.toastbuilder;
+package com.github.andrewlord1990.snackbarbuilder.toastbuilder;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

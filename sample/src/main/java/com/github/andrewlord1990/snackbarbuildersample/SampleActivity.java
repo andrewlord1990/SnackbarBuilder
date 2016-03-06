@@ -34,7 +34,7 @@ import android.widget.Toast;
 import com.github.andrewlord1990.snackbarbuilder.SnackbarBuilder;
 import com.github.andrewlord1990.snackbarbuilder.SnackbarWrapper;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
-import com.github.andrewlord1990.toastbuilder.ToastBuilder;
+import com.github.andrewlord1990.snackbarbuilder.toastbuilder.ToastBuilder;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
