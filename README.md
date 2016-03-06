@@ -106,6 +106,31 @@ new ToastBuilder(this)
 
 The builder allows you to change the text color of the displayed message. If you wish to change the background you can provide a custom view for the `Toast`. By providing the ID of a `TextView` within this view, you can set the message on it through the builder method `message(String)`.
 
+### Theme
+
+You can provide defaults to the `SnackbarBuilder` and the `ToastBuilder` through theme attributes.
+
+```xml
+<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <item name="colorAccent">@color/colorAccent</item>
+
+    <item name="snackbarBuilderStyle">@style/SampleSnackbarStyle</item>
+    <item name="toastBuilderStyle">@style/SampleToastStyle</item>
+</style>
+
+<style name="SampleSnackbarStyle" parent="SnackbarBuilder">
+    <item name="snackbarBuilder_parentViewId">@id/coordinator</item>
+    <item name="snackbarBuilder_duration">shortTime</item>
+    <item name="snackbarBuilder_messageTextColor">@color/messageText</item>
+    <item name="snackbarBuilder_actionTextColor">@color/colorAccent</item>
+</style>
+
+<style name="SampleToastStyle" parent="ToastBuilder">
+    <item name="toastBuilder_messageTextColor">@color/snackbarbuilder_default_message</item>
+    <item name="toastBuilder_duration">shortTime</item>
+</style>
+```
+
 ## Suggestions
 
 If there is any features that have been missed that you are interested in then please open an Issue.
