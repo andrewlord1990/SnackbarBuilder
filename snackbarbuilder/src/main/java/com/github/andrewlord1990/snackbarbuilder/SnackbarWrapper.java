@@ -476,7 +476,7 @@ public final class SnackbarWrapper {
 
     /**
      * Set the callback to be called when the {@link Snackbar} changes visibility. If
-     * {@link this.setCallback(Callback)} has already been called, then that callback will be
+     * setCallback(Callback) has already been called, then that callback will be
      * combined with the SnackbarCallback specified here.
      *
      * @param callback The callback to be called.

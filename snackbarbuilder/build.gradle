@@ -2,20 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 
-apply from: 'bintray-config.gradle'
-
-def generateVersionCode() {
-    def minSdkPart = String.format("%02d", rootProject.ext.minSdk)
-    def majorPart = String.format("%01d", rootProject.ext.versionMajor)
-    def minorPart = String.format("%03d", rootProject.ext.versionMinor)
-    def patchPart = String.format("%03d", rootProject.ext.versionPatch)
-    return "${minSdkPart}${majorPart}${minorPart}${patchPart}".toInteger()
-}
-
-def generateVersionName() {
-    return "${rootProject.ext.versionMajor}.${rootProject.ext.versionMinor}.${rootProject.ext.versionPatch}"
-}
-
 android {
     compileSdkVersion rootProject.ext.compileSdk
     buildToolsVersion rootProject.ext.buildToolsVersion
@@ -23,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdk
         targetSdkVersion rootProject.ext.targetSdk
-        versionCode generateVersionCode()
-        versionName generateVersionName()
+        versionCode rootProject.ext.generateVersionCode()
+        versionName rootProject.ext.generateVersionName()
     }
 }
 
@@ -48,7 +34,6 @@ dependencies {
 
 }
 
-apply from: 'bintray-prepare-build.gradle'
 apply from: 'bintray-upload.gradle'
 apply from: 'coverage.gradle'
 

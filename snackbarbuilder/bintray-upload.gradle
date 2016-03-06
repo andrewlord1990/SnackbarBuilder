@@ -1,25 +1,4 @@
-apply plugin: 'com.jfrog.bintray'
-
-version = libraryVersion
-
-task sourcesJar(type: Jar) {
-    from android.sourceSets.main.java.srcDirs
-    classifier = 'sources'
-}
-
-task javadoc(type: Javadoc) {
-    source = android.sourceSets.main.java.srcDirs
-    classpath += project.files(android.getBootClasspath().join(File.pathSeparator))
-}
-
-task javadocJar(type: Jar, dependsOn: javadoc) {
-    classifier = 'javadoc'
-    from javadoc.destinationDir
-}
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
+apply plugin: 'com.novoda.bintray-release'
 
 Properties properties = new Properties()
 def propertiesFile = project.rootProject.file('local.properties')
@@ -27,26 +6,21 @@ if (propertiesFile.exists()) {
     properties.load(propertiesFile.newDataInputStream())
 }
 
-bintray {
-    user = properties.getProperty("bintray.user")
-    key = properties.getProperty("bintray.apikey")
+publish {
+    userOrg = 'andrewlord1990'
 
-    configurations = ['archives']
-    pkg {
-        repo = bintrayRepo
-        name = bintrayName
-        desc = libraryDescription
-        websiteUrl = siteUrl
-        vcsUrl = gitUrl
-        licenses = allLicenses
-        publish = true
-        publicDownloadNumbers = true
-        version {
-            desc = libraryDescription
-            gpg {
-                sign = true
-                passphrase = properties.getProperty("bintray.gpg.password")
-            }
-        }
-    }
+    groupId = 'com.github.andrewlord1990'
+    artifactId = 'snackbarbuilder'
+    uploadName = 'snackbar-builder'
+
+    publishVersion = rootProject.ext.generateVersionName()
+
+    desc = 'The Android Design Support library introduced a Snackbar class. SnackbarBuilder is a builder pattern that makes Snackbars easier to make and customise.'
+
+    website = 'https://github.com/andrewlord1990/SnackbarBuilder'
+
+    licences = ["Apache-2.0"]
+
+    bintrayUser = properties.getProperty("bintray.user")
+    bintrayKey = properties.getProperty("bintray.apikey")
 }
