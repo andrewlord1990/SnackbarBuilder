@@ -31,8 +31,26 @@ ext {
     compileSdk = 23
     minSdk = 7
 
-    buildToolsVersion = '23.0.1'
+    buildToolsVersion = '23.0.2'
 
     sourceCompatibilityVersion = JavaVersion.VERSION_1_7
     targetCompatibilityVersion = JavaVersion.VERSION_1_7
 }
+ext.deps = [
+
+        // App
+
+        libs: fileTree(include: ['*.jar'], dir: 'libs'),
+
+        support_v7: 'com.android.support:appcompat-v7:23.1.1',
+        support_design: 'com.android.support:design:23.1.1',
+
+
+        // Test
+
+        junit: 'junit:junit:4.12',
+        mockito: 'org.mockito:mockito-core:1.10.19',
+        assertj_core: 'org.assertj:assertj-core:1.7.1',
+        assertj_android: 'com.squareup.assertj:assertj-android:1.1.1',
+        robolectric: 'org.robolectric:robolectric:3.0',
+]
