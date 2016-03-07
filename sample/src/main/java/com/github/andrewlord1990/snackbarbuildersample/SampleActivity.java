@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
+import android.support.design.widget.Snackbar.Callback.DismissEvent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -232,6 +233,11 @@ public class SampleActivity extends AppCompatActivity {
             @Override
             public void onSnackbarDismissed(Snackbar snackbar) {
                 super.onSnackbarDismissed(snackbar);
+            }
+
+            @Override
+            public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
+                super.onSnackbarDismissed(snackbar, dismissEvent);
             }
 
             @Override

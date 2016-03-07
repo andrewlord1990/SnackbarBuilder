@@ -15,13 +15,11 @@ package com.github.andrewlord1990.snackbarbuilder;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.Snackbar.Callback;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
 class SnackbarCustomiser {
@@ -81,12 +79,8 @@ class SnackbarCustomiser {
         return this;
     }
 
-    SnackbarCustomiser setCallbacks(SnackbarCallback snackbarCallback, Callback callback) {
-        if (snackbarCallback != null) {
-            snackbar.setCallback(new SnackbarCombinedCallback(snackbarCallback, callback));
-        } else {
-            snackbar.setCallback(callback);
-        }
+    SnackbarCustomiser setCallbacks(SnackbarCombinedCallback combinedCallback) {
+        snackbar.setCallback(combinedCallback);
         return this;
     }
 

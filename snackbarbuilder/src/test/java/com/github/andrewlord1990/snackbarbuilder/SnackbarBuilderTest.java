@@ -29,6 +29,7 @@ import android.support.annotation.DrawableRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
+import android.support.design.widget.Snackbar.Callback.DismissEvent;
 import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -42,7 +43,15 @@ import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarActionDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallbackBuilderAssert;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarConsecutiveDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarManualDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarShowCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarSwipeDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarTimeoutDismissCallback;
 
 import org.assertj.android.api.Assertions;
 import org.junit.Before;
@@ -482,7 +491,8 @@ public class SnackbarBuilderTest {
         builder.callback(callback);
 
         //Then
-        assertThat(builder.callback).isEqualTo(callback);
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasCallback(callback);
     }
 
     @Test
@@ -495,7 +505,134 @@ public class SnackbarBuilderTest {
         builder.snackbarCallback(callback);
 
         //Then
-        assertThat(builder.snackbarCallback).isEqualTo(callback);
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasSnackbarCallback(callback);
+    }
+
+    @Test
+    public void whenShowCallback_thenCallbackSet() {
+        //Given
+        SnackbarBuilder builder = createBuilder();
+        SnackbarShowCallback callback = new SnackbarShowCallback() {
+            @Override
+            public void onSnackbarShown(Snackbar snackbar) {
+            }
+        };
+
+        //When
+        builder.showCallback(callback);
+
+        //Then
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasShowCallback(callback);
+    }
+
+    @Test
+    public void whenDismissCallback_thenCallbackSet() {
+        //Given
+        SnackbarBuilder builder = createBuilder();
+        SnackbarDismissCallback callback = new SnackbarDismissCallback() {
+            @Override
+            public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
+            }
+        };
+
+        //When
+        builder.dismissCallback(callback);
+
+        //Then
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasDismissCallback(callback);
+    }
+
+    @Test
+    public void whenActionDismissCallback_thenCallbackSet() {
+        //Given
+        SnackbarBuilder builder = createBuilder();
+        SnackbarActionDismissCallback callback = new SnackbarActionDismissCallback() {
+            @Override
+            public void onSnackbarActionPressed(Snackbar snackbar) {
+            }
+        };
+
+        //When
+        builder.actionDismissCallback(callback);
+
+        //Then
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasActionDismissCallback(callback);
+    }
+
+    @Test
+    public void whenSwipeDismissCallback_thenCallbackSet() {
+        //Given
+        SnackbarBuilder builder = createBuilder();
+        SnackbarSwipeDismissCallback callback = new SnackbarSwipeDismissCallback() {
+            @Override
+            public void onSnackbarSwiped(Snackbar snackbar) {
+            }
+        };
+
+        //When
+        builder.swipeDismissCallback(callback);
+
+        //Then
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasSwipeDismissCallback(callback);
+    }
+
+    @Test
+    public void whenTimeoutDismissCallback_thenCallbackSet() {
+        //Given
+        SnackbarBuilder builder = createBuilder();
+        SnackbarTimeoutDismissCallback callback = new SnackbarTimeoutDismissCallback() {
+            @Override
+            public void onSnackbarTimedOut(Snackbar snackbar) {
+            }
+        };
+
+        //When
+        builder.timeoutDismissCallback(callback);
+
+        //Then
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasTimeoutDismissCallback(callback);
+    }
+
+    @Test
+    public void whenManualDismissCallback_thenCallbackSet() {
+        //Given
+        SnackbarBuilder builder = createBuilder();
+        SnackbarManualDismissCallback callback = new SnackbarManualDismissCallback() {
+            @Override
+            public void onSnackbarManuallyDismissed(Snackbar snackbar) {
+            }
+        };
+
+        //When
+        builder.manualDismissCallback(callback);
+
+        //Then
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasManualDismissCallback(callback);
+    }
+
+    @Test
+    public void whenConsecutiveDismissCallback_thenCallbackSet() {
+        //Given
+        SnackbarBuilder builder = createBuilder();
+        SnackbarConsecutiveDismissCallback callback = new SnackbarConsecutiveDismissCallback() {
+            @Override
+            public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
+            }
+        };
+
+        //When
+        builder.consecutiveDismissCallback(callback);
+
+        //Then
+        SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
+                .hasConsecutiveDismissCallback(callback);
     }
 
     @Test

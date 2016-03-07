@@ -31,7 +31,15 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarActionDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarConsecutiveDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarManualDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarShowCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarSwipeDismissCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarTimeoutDismissCallback;
 
 /**
  * A builder pattern to easily create and customise Android Design Support library Snackbars. On
@@ -59,8 +67,7 @@ public final class SnackbarBuilder {
 
     CharSequence actionText;
     OnClickListener actionClickListener;
-    Snackbar.Callback callback;
-    SnackbarCallback snackbarCallback;
+    SnackbarCombinedCallback.Builder callbackBuilder = SnackbarCombinedCallback.builder();
     boolean actionAllCaps = true;
     int backgroundColor;
     int actionTextColor;
@@ -289,7 +296,7 @@ public final class SnackbarBuilder {
      * @return This instance.
      */
     public SnackbarBuilder callback(Snackbar.Callback callback) {
-        this.callback = callback;
+        callbackBuilder.callback(callback);
         return this;
     }
 
@@ -301,7 +308,89 @@ public final class SnackbarBuilder {
      * @return This instance.
      */
     public SnackbarBuilder snackbarCallback(SnackbarCallback snackbarCallback) {
-        this.snackbarCallback = snackbarCallback;
+        callbackBuilder.snackbarCallback(snackbarCallback);
+        return this;
+    }
+
+    /**
+     * Set the callback to be informed of the {@link Snackbar} being shown.
+     *
+     * @param callback The callback.
+     * @return This instance.
+     */
+    public SnackbarBuilder showCallback(SnackbarShowCallback callback) {
+        callbackBuilder.showCallback(callback);
+        return this;
+    }
+
+    /**
+     * Set the callback to be informed of the {@link Snackbar} being dismissed through some means.
+     *
+     * @param callback The callback.
+     * @return This instance.
+     */
+    public SnackbarBuilder dismissCallback(SnackbarDismissCallback callback) {
+        callbackBuilder.dismissCallback(callback);
+        return this;
+    }
+
+    /**
+     * Set the callback to be informed of the {@link Snackbar} being dismissed due to the action
+     * being pressed.
+     *
+     * @param callback The callback.
+     * @return This instance.
+     */
+    public SnackbarBuilder actionDismissCallback(SnackbarActionDismissCallback callback) {
+        callbackBuilder.actionDismissCallback(callback);
+        return this;
+    }
+
+    /**
+     * Set the callback to be informed of the {@link Snackbar} being dismissed due to being
+     * swiped away.
+     *
+     * @param callback The callback.
+     * @return This instance.
+     */
+    public SnackbarBuilder swipeDismissCallback(SnackbarSwipeDismissCallback callback) {
+        callbackBuilder.swipeDismissCallback(callback);
+        return this;
+    }
+
+    /**
+     * Set the callback to be informed of the {@link Snackbar} being dismissed due to a timeout.
+     *
+     * @param callback The callback.
+     * @return This instance.
+     */
+    public SnackbarBuilder timeoutDismissCallback(SnackbarTimeoutDismissCallback callback) {
+        callbackBuilder.timeoutDismissCallback(callback);
+        return this;
+    }
+
+    /**
+     * Set the callback to be informed of the {@link Snackbar} being dismissed manually, due to a
+     * call to dismiss().
+     *
+     * @param callback The callback.
+     * @return This instance.
+     */
+    public SnackbarBuilder manualDismissCallback(SnackbarManualDismissCallback callback) {
+        callbackBuilder.manualDismissCallback(callback);
+        return this;
+    }
+
+    /**
+     * Set the callback to be informed of the {@link Snackbar} being dismissed due to another
+     * Snackbar being shown.
+     *
+     * @param callback The callback.
+     * @return This instance.
+     */
+    public SnackbarBuilder consecutiveDismissCallback(
+            SnackbarConsecutiveDismissCallback callback) {
+        callbackBuilder.consecutiveDismissCallback(callback);
         return this;
     }
 
@@ -414,7 +503,7 @@ public final class SnackbarBuilder {
                 .setAction(actionText, actionClickListener)
                 .setActionTextColor(actionTextColor)
                 .setActionAllCaps(actionAllCaps)
-                .setCallbacks(snackbarCallback, callback)
+                .setCallbacks(callbackBuilder.build())
                 .setIcon(icon, iconMarginStartPixels, iconMarginEndPixels);
 
         return snackbar;

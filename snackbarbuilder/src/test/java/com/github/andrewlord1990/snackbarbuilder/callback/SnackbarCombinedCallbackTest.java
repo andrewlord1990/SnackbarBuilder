@@ -45,6 +45,27 @@ public class SnackbarCombinedCallbackTest {
     @Mock
     Snackbar snackbar;
 
+    @Mock
+    SnackbarShowCallback showCallback;
+
+    @Mock
+    SnackbarDismissCallback dismissCallback;
+
+    @Mock
+    SnackbarActionDismissCallback actionDismissCallback;
+
+    @Mock
+    SnackbarSwipeDismissCallback swipeDismissCallback;
+
+    @Mock
+    SnackbarTimeoutDismissCallback timeoutDismissCallback;
+
+    @Mock
+    SnackbarManualDismissCallback manualDismissCallback;
+
+    @Mock
+    SnackbarConsecutiveDismissCallback consecutiveDismissCallback;
+
     @Before
     public void before() {
         MockitoAnnotations.initMocks(this);
@@ -181,6 +202,45 @@ public class SnackbarCombinedCallbackTest {
         //Then
         verify(callback).onShown(snackbar);
         verify(snackbarCallback).onSnackbarShown(snackbar);
+    }
+
+    @Test
+    public void whenCreatedUsingBuilder_thenAllCallbacksInformedOfEvents() {
+        //Given
+        SnackbarCombinedCallback actual = SnackbarCombinedCallback.builder()
+                .callback(callback)
+                .snackbarCallback(snackbarCallback)
+                .showCallback(showCallback)
+                .dismissCallback(dismissCallback)
+                .actionDismissCallback(actionDismissCallback)
+                .swipeDismissCallback(swipeDismissCallback)
+                .timeoutDismissCallback(timeoutDismissCallback)
+                .manualDismissCallback(manualDismissCallback)
+                .consecutiveDismissCallback(consecutiveDismissCallback)
+                .build();
+
+        //When
+        actual.onShown(snackbar);
+        actual.onDismissed(snackbar, Callback.DISMISS_EVENT_ACTION);
+        actual.onDismissed(snackbar, Callback.DISMISS_EVENT_SWIPE);
+        actual.onDismissed(snackbar, Callback.DISMISS_EVENT_TIMEOUT);
+        actual.onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
+        actual.onDismissed(snackbar, Callback.DISMISS_EVENT_CONSECUTIVE);
+
+        //Then
+        verify(callback).onShown(snackbar);
+        verify(snackbarCallback).onSnackbarShown(snackbar);
+        verify(showCallback).onSnackbarShown(snackbar);
+        verify(dismissCallback).onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_ACTION);
+        verify(dismissCallback).onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_SWIPE);
+        verify(dismissCallback).onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_TIMEOUT);
+        verify(dismissCallback).onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
+        verify(dismissCallback).onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_CONSECUTIVE);
+        verify(actionDismissCallback).onSnackbarActionPressed(snackbar);
+        verify(swipeDismissCallback).onSnackbarSwiped(snackbar);
+        verify(timeoutDismissCallback).onSnackbarTimedOut(snackbar);
+        verify(manualDismissCallback).onSnackbarManuallyDismissed(snackbar);
+        verify(consecutiveDismissCallback).onSnackbarDismissedAfterAnotherShown(snackbar);
     }
 
 }

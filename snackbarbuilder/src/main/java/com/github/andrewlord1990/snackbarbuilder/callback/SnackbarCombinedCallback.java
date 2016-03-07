@@ -25,13 +25,21 @@ public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
 
     protected SnackbarCallback snackbarCallback;
 
+    private SnackbarShowCallback showCallback;
+    private SnackbarDismissCallback dismissCallback;
+    private SnackbarActionDismissCallback actionDismissCallback;
+    private SnackbarSwipeDismissCallback swipeDismissCallback;
+    private SnackbarTimeoutDismissCallback timeoutDismissCallback;
+    private SnackbarManualDismissCallback manualDismissCallback;
+    private SnackbarConsecutiveDismissCallback consecutiveDismissCallback;
+
     /**
      * Create from a standard Callback.
      *
      * @param callback The callback to contain within.
      */
     public SnackbarCombinedCallback(Callback callback) {
-        super(callback);
+        this(null, callback);
     }
 
     /**
@@ -67,13 +75,18 @@ public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     public void onDismissed(Snackbar snackbar, @DismissEvent int event) {
         super.onDismissed(snackbar, event);
 
+        notifySnackbarCallback(snackbar, event);
+        notifySeparateCallbacks(snackbar, event);
+    }
+
+    private void notifySnackbarCallback(Snackbar snackbar, @DismissEvent int event) {
         if (snackbarCallback != null) {
             switch (event) {
-                case Callback.DISMISS_EVENT_SWIPE:
-                    snackbarCallback.onSnackbarSwiped(snackbar);
-                    break;
                 case Callback.DISMISS_EVENT_ACTION:
                     snackbarCallback.onSnackbarActionPressed(snackbar);
+                    break;
+                case Callback.DISMISS_EVENT_SWIPE:
+                    snackbarCallback.onSnackbarSwiped(snackbar);
                     break;
                 case Callback.DISMISS_EVENT_TIMEOUT:
                     snackbarCallback.onSnackbarTimedOut(snackbar);
@@ -89,6 +102,39 @@ public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
         }
     }
 
+    private void notifySeparateCallbacks(Snackbar snackbar, @DismissEvent int event) {
+        if (dismissCallback != null) {
+            switch (event) {
+                case Callback.DISMISS_EVENT_ACTION:
+                    if (actionDismissCallback != null) {
+                        actionDismissCallback.onSnackbarActionPressed(snackbar);
+                    }
+                    break;
+                case Callback.DISMISS_EVENT_SWIPE:
+                    if (swipeDismissCallback != null) {
+                        swipeDismissCallback.onSnackbarSwiped(snackbar);
+                    }
+                    break;
+                case Callback.DISMISS_EVENT_TIMEOUT:
+                    if (timeoutDismissCallback != null) {
+                        timeoutDismissCallback.onSnackbarTimedOut(snackbar);
+                    }
+                    break;
+                case Callback.DISMISS_EVENT_MANUAL:
+                    if (manualDismissCallback != null) {
+                        manualDismissCallback.onSnackbarManuallyDismissed(snackbar);
+                    }
+                    break;
+                case Callback.DISMISS_EVENT_CONSECUTIVE:
+                    if (consecutiveDismissCallback != null) {
+                        consecutiveDismissCallback.onSnackbarDismissedAfterAnotherShown(snackbar);
+                    }
+                    break;
+            }
+            dismissCallback.onSnackbarDismissed(snackbar, event);
+        }
+    }
+
     /**
      * Notifies that the {@link Snackbar} has been shown (made visible).
      *
@@ -101,5 +147,160 @@ public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
         if (snackbarCallback != null) {
             snackbarCallback.onSnackbarShown(snackbar);
         }
+
+        if (showCallback != null) {
+            showCallback.onSnackbarShown(snackbar);
+        }
+    }
+
+    /**
+     * Create a builder.
+     *
+     * @return A builder.
+     */
+    public static Builder builder() {
+        return new Builder();
+    }
+
+    /**
+     * A builder pattern for combined callbacks, this allows you to specify the ones you want
+     * without required many different constructors.
+     */
+    public static class Builder {
+
+        Callback callback;
+        SnackbarCallback snackbarCallback;
+        SnackbarShowCallback showCallback;
+        SnackbarDismissCallback dismissCallback;
+        SnackbarActionDismissCallback actionDismissCallback;
+        SnackbarSwipeDismissCallback swipeDismissCallback;
+        SnackbarTimeoutDismissCallback timeoutDismissCallback;
+        SnackbarManualDismissCallback manualDismissCallback;
+        SnackbarConsecutiveDismissCallback consecutiveDismissCallback;
+
+        /**
+         * Set the standard callback for being informed of the {@link Snackbar} being shown or
+         * dismissed.
+         *
+         * @param callback The callback.
+         * @return This instance.
+         */
+        public Builder callback(Callback callback) {
+            this.callback = callback;
+            return this;
+        }
+
+        /**
+         * Set the enhanced callback for being informed of the {@link Snackbar} being shown or
+         * dismissed, through individual callback methods.
+         *
+         * @param snackbarCallback The callback.
+         * @return This instance.
+         */
+        public Builder snackbarCallback(SnackbarCallback snackbarCallback) {
+            this.snackbarCallback = snackbarCallback;
+            return this;
+        }
+
+        /**
+         * Set the callback to be informed of the {@link Snackbar} being shown.
+         *
+         * @param callback The callback.
+         * @return This instance.
+         */
+        public Builder showCallback(SnackbarShowCallback callback) {
+            showCallback = callback;
+            return this;
+        }
+
+        /**
+         * Set the callback to be informed of the {@link Snackbar} being dismissed through some means.
+         *
+         * @param callback The callback.
+         * @return This instance.
+         */
+        public Builder dismissCallback(SnackbarDismissCallback callback) {
+            dismissCallback = callback;
+            return this;
+        }
+
+        /**
+         * Set the callback to be informed of the {@link Snackbar} being dismissed due to the action
+         * being pressed.
+         *
+         * @param callback The callback.
+         * @return This instance.
+         */
+        public Builder actionDismissCallback(SnackbarActionDismissCallback callback) {
+            actionDismissCallback = callback;
+            return this;
+        }
+
+        /**
+         * Set the callback to be informed of the {@link Snackbar} being dismissed due to being
+         * swiped away.
+         *
+         * @param callback The callback.
+         * @return This instance.
+         */
+        public Builder swipeDismissCallback(SnackbarSwipeDismissCallback callback) {
+            swipeDismissCallback = callback;
+            return this;
+        }
+
+        /**
+         * Set the callback to be informed of the {@link Snackbar} being dismissed due to a timeout.
+         *
+         * @param callback The callback.
+         * @return This instance.
+         */
+        public Builder timeoutDismissCallback(SnackbarTimeoutDismissCallback callback) {
+            timeoutDismissCallback = callback;
+            return this;
+        }
+
+        /**
+         * Set the callback to be informed of the {@link Snackbar} being dismissed manually, due to a
+         * call to dismiss().
+         *
+         * @param callback The callback.
+         * @return This instance.
+         */
+        public Builder manualDismissCallback(SnackbarManualDismissCallback callback) {
+            manualDismissCallback = callback;
+            return this;
+        }
+
+        /**
+         * Set the callback to be informed of the {@link Snackbar} being dismissed due to another
+         * Snackbar being shown.
+         *
+         * @param callback The callback.
+         * @return This instance.
+         */
+        public Builder consecutiveDismissCallback(
+                SnackbarConsecutiveDismissCallback callback) {
+            consecutiveDismissCallback = callback;
+            return this;
+        }
+
+        /**
+         * Create a combined callback from all the provided callbacks.
+         *
+         * @return A combined callback.
+         */
+        public SnackbarCombinedCallback build() {
+            SnackbarCombinedCallback combinedCallback = new SnackbarCombinedCallback(
+                    snackbarCallback, callback);
+            combinedCallback.showCallback = showCallback;
+            combinedCallback.dismissCallback = dismissCallback;
+            combinedCallback.actionDismissCallback = actionDismissCallback;
+            combinedCallback.swipeDismissCallback = swipeDismissCallback;
+            combinedCallback.timeoutDismissCallback = timeoutDismissCallback;
+            combinedCallback.manualDismissCallback = manualDismissCallback;
+            combinedCallback.consecutiveDismissCallback = consecutiveDismissCallback;
+            return combinedCallback;
+        }
+
     }
 }
