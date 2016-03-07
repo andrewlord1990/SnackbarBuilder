@@ -35,6 +35,7 @@ import android.widget.Toast;
 import com.github.andrewlord1990.snackbarbuilder.SnackbarBuilder;
 import com.github.andrewlord1990.snackbarbuilder.SnackbarWrapper;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarTimeoutDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.toastbuilder.ToastBuilder;
 
 import java.util.LinkedHashMap;
@@ -135,6 +136,22 @@ public class SampleActivity extends AppCompatActivity {
                         .message("Message")
                         .actionText("Action")
                         .snackbarCallback(createSnackbarCallback())
+                        .build()
+                        .show();
+            }
+        });
+        samples.put("Timeout callback", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Message")
+                        .actionText("Action")
+                        .timeoutDismissCallback(new SnackbarTimeoutDismissCallback() {
+                            @Override
+                            public void onSnackbarTimedOut(Snackbar snackbar) {
+                                showToast("Timed out");
+                            }
+                        })
                         .build()
                         .show();
             }

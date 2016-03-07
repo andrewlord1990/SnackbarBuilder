@@ -103,34 +103,34 @@ public class SnackbarCombinedCallback extends SnackbarCallbackWrapper {
     }
 
     private void notifySeparateCallbacks(Snackbar snackbar, @DismissEvent int event) {
+        switch (event) {
+            case Callback.DISMISS_EVENT_ACTION:
+                if (actionDismissCallback != null) {
+                    actionDismissCallback.onSnackbarActionPressed(snackbar);
+                }
+                break;
+            case Callback.DISMISS_EVENT_SWIPE:
+                if (swipeDismissCallback != null) {
+                    swipeDismissCallback.onSnackbarSwiped(snackbar);
+                }
+                break;
+            case Callback.DISMISS_EVENT_TIMEOUT:
+                if (timeoutDismissCallback != null) {
+                    timeoutDismissCallback.onSnackbarTimedOut(snackbar);
+                }
+                break;
+            case Callback.DISMISS_EVENT_MANUAL:
+                if (manualDismissCallback != null) {
+                    manualDismissCallback.onSnackbarManuallyDismissed(snackbar);
+                }
+                break;
+            case Callback.DISMISS_EVENT_CONSECUTIVE:
+                if (consecutiveDismissCallback != null) {
+                    consecutiveDismissCallback.onSnackbarDismissedAfterAnotherShown(snackbar);
+                }
+                break;
+        }
         if (dismissCallback != null) {
-            switch (event) {
-                case Callback.DISMISS_EVENT_ACTION:
-                    if (actionDismissCallback != null) {
-                        actionDismissCallback.onSnackbarActionPressed(snackbar);
-                    }
-                    break;
-                case Callback.DISMISS_EVENT_SWIPE:
-                    if (swipeDismissCallback != null) {
-                        swipeDismissCallback.onSnackbarSwiped(snackbar);
-                    }
-                    break;
-                case Callback.DISMISS_EVENT_TIMEOUT:
-                    if (timeoutDismissCallback != null) {
-                        timeoutDismissCallback.onSnackbarTimedOut(snackbar);
-                    }
-                    break;
-                case Callback.DISMISS_EVENT_MANUAL:
-                    if (manualDismissCallback != null) {
-                        manualDismissCallback.onSnackbarManuallyDismissed(snackbar);
-                    }
-                    break;
-                case Callback.DISMISS_EVENT_CONSECUTIVE:
-                    if (consecutiveDismissCallback != null) {
-                        consecutiveDismissCallback.onSnackbarDismissedAfterAnotherShown(snackbar);
-                    }
-                    break;
-            }
             dismissCallback.onSnackbarDismissed(snackbar, event);
         }
     }
