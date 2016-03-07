@@ -19,8 +19,7 @@
 package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
-
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+import android.support.design.widget.Snackbar.Callback;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -70,6 +69,17 @@ public class SnackbarCallbackTest {
         List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
         assertThat(logs).hasSize(1);
         assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed");
+    }
+
+    @Test
+    public void whenOnSnackbarDismissedWithEventType_thenSnackbarDismissedMessageLogged() {
+        //When
+        callbackUnderTest.onSnackbarDismissed(snackbar, Callback.DISMISS_EVENT_TIMEOUT);
+
+        //Then
+        List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
+        assertThat(logs).hasSize(1);
+        assertThat(logs.get(0).msg).isEqualTo("onSnackbarDismissed method = 2");
     }
 
     @Test

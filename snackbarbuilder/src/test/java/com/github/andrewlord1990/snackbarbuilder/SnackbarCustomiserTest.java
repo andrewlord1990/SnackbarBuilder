@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -148,9 +149,11 @@ public class SnackbarCustomiserTest {
     public void whenSetCallbacks_thenCallbacksSetup() {
         //Given
         snackbar.show();
+        SnackbarCombinedCallback combinedCallback = new SnackbarCombinedCallback(
+                snackbarCallback, callback);
 
         //When
-        customiser.setCallbacks(snackbarCallback, callback);
+        customiser.setCallbacks(combinedCallback);
         snackbar.dismiss();
 
         //Then

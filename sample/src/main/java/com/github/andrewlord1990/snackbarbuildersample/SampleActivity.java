@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
+import android.support.design.widget.Snackbar.Callback.DismissEvent;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -34,6 +35,7 @@ import android.widget.Toast;
 import com.github.andrewlord1990.snackbarbuilder.SnackbarBuilder;
 import com.github.andrewlord1990.snackbarbuilder.SnackbarWrapper;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarTimeoutDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.toastbuilder.ToastBuilder;
 
 import java.util.LinkedHashMap;
@@ -138,6 +140,22 @@ public class SampleActivity extends AppCompatActivity {
                         .show();
             }
         });
+        samples.put("Timeout callback", new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new SnackbarBuilder(SampleActivity.this)
+                        .message("Message")
+                        .actionText("Action")
+                        .timeoutDismissCallback(new SnackbarTimeoutDismissCallback() {
+                            @Override
+                            public void onSnackbarTimedOut(Snackbar snackbar) {
+                                showToast("Timed out");
+                            }
+                        })
+                        .build()
+                        .show();
+            }
+        });
         samples.put("Lowercase action", new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,6 +250,11 @@ public class SampleActivity extends AppCompatActivity {
             @Override
             public void onSnackbarDismissed(Snackbar snackbar) {
                 super.onSnackbarDismissed(snackbar);
+            }
+
+            @Override
+            public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
+                super.onSnackbarDismissed(snackbar, dismissEvent);
             }
 
             @Override

@@ -13,6 +13,7 @@
 package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.Snackbar.Callback.DismissEvent;
 import android.util.Log;
 
 /**
@@ -40,6 +41,16 @@ public class SnackbarCallback {
      */
     public void onSnackbarDismissed(Snackbar snackbar) {
         Log.v(TAG, "onSnackbarDismissed");
+    }
+
+    /**
+     * Indicates that the {@link Snackbar} was dismissed through any means.
+     *
+     * @param snackbar The Snackbar.
+     * @param dismissEvent The event through which it was dismissed.
+     */
+    public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
+        Log.v(TAG, "onSnackbarDismissed method = " + dismissEvent);
     }
 
     /**
