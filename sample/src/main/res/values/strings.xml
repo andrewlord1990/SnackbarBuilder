@@ -12,5 +12,5 @@
 
 <resources>
     <string name="app_name">SnackbarBuilderSample</string>
-    <string name="action_settings">Settings</string>
+    <string name="bottom_bar_text">Bottom bar</string>
 </resources>

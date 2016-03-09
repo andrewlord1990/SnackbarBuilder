@@ -17,6 +17,7 @@
     <color name="colorAccent">#FF4081</color>
 
     <color name="messageText">#FFF</color>
+    <color name="bottomBarColor">#DDD</color>
 
     <color name="red">#f00</color>
     <color name="green">#0f0</color>
