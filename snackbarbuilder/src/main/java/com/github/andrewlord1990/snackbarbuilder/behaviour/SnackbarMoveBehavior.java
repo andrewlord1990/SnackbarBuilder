@@ -30,7 +30,7 @@ public class SnackbarMoveBehavior extends CoordinatorLayout.Behavior<View> {
     static boolean BEHAVIOR_ENABLED = VERSION.SDK_INT >= VERSION_CODES.HONEYCOMB;
     private static final float FRACTION_OF_HEIGHT_AT_WHICH_TO_ANIMATE = 0.667f;
 
-    private ObjectAnimator translationAnimator;
+    ObjectAnimator translationAnimator;
     private float verticalTranslation;
 
     public SnackbarMoveBehavior() {
