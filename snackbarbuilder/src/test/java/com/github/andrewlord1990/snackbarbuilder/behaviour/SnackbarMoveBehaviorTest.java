@@ -12,6 +12,7 @@
 
 package com.github.andrewlord1990.snackbarbuilder.behaviour;
 
+import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
 import android.os.Build.VERSION_CODES;
 import android.support.design.widget.CoordinatorLayout;
@@ -30,12 +31,12 @@ import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
-import org.robolectric.shadows.RoboAttributeSet;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.android.api.Assertions.assertThat;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(RobolectricGradleTestRunner.class)
@@ -51,6 +52,9 @@ public class SnackbarMoveBehaviorTest {
 
     @Mock
     AttributeSet attributeSet;
+
+    @Mock
+    ObjectAnimator animator;
 
     @Before
     public void before() {
@@ -153,12 +157,7 @@ public class SnackbarMoveBehaviorTest {
         View child = new View(RuntimeEnvironment.application);
         child.setBottom(200);
         child.setTop(0);
-        List<View> dependencies = new ArrayList<>();
-        dependencies.add(snackbarLayout);
-        when(coordinator.getDependencies(child)).thenReturn(dependencies);
-        when(coordinator.doViewsOverlap(child, snackbarLayout)).thenReturn(true);
-        when(snackbarLayout.getTranslationY()).thenReturn(-20f);
-        when(snackbarLayout.getHeight()).thenReturn(90);
+        setupCoordinatorLayout(child);
 
         //When
         boolean actual = behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
@@ -175,12 +174,7 @@ public class SnackbarMoveBehaviorTest {
         View child = new View(RuntimeEnvironment.application);
         child.setBottom(150);
         child.setTop(0);
-        List<View> dependencies = new ArrayList<>();
-        dependencies.add(snackbarLayout);
-        when(coordinator.getDependencies(child)).thenReturn(dependencies);
-        when(coordinator.doViewsOverlap(child, snackbarLayout)).thenReturn(true);
-        when(snackbarLayout.getTranslationY()).thenReturn(-20f);
-        when(snackbarLayout.getHeight()).thenReturn(90);
+        setupCoordinatorLayout(child);
 
         Robolectric.getForegroundThreadScheduler().pause();
 
@@ -194,6 +188,53 @@ public class SnackbarMoveBehaviorTest {
         Robolectric.getForegroundThreadScheduler().unPause();
 
         assertThat(child).hasTranslationY(-110f);
+    }
+
+    @TargetApi(VERSION_CODES.HONEYCOMB)
+    @Test
+    public void givenAlreadyTranslated_whenOnDependentViewChanged_thenFalse() {
+        //Given
+        View child = new View(RuntimeEnvironment.application);
+        child.setBottom(200);
+        child.setTop(0);
+        setupCoordinatorLayout(child);
+        behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
+
+        //When
+        boolean actual = behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
+
+        //Then
+        Assertions.assertThat(actual).isFalse();
+    }
+
+    @TargetApi(VERSION_CODES.HONEYCOMB)
+    @Test
+    public void givenAnimatorAlreadyStarted_whenOnDependentViewChanged_thenAnimatorCancelled() {
+        //Given
+        View child = new View(RuntimeEnvironment.application);
+        child.setBottom(100);
+        child.setTop(0);
+        setupCoordinatorLayout(child);
+        Robolectric.getForegroundThreadScheduler().pause();
+        behavior.translationAnimator = animator;
+        when(animator.isRunning()).thenReturn(true);
+
+        //When
+        behavior.onDependentViewChanged(coordinator, child, snackbarLayout);
+
+        //Then
+        verify(animator).cancel();
+        verify(animator).start();
+    }
+
+    @TargetApi(VERSION_CODES.HONEYCOMB)
+    private void setupCoordinatorLayout(View child) {
+        List<View> dependencies = new ArrayList<>();
+        dependencies.add(snackbarLayout);
+        when(coordinator.getDependencies(child)).thenReturn(dependencies);
+        when(coordinator.doViewsOverlap(child, snackbarLayout)).thenReturn(true);
+        when(snackbarLayout.getTranslationY()).thenReturn(-20f);
+        when(snackbarLayout.getHeight()).thenReturn(90);
     }
 
 }
