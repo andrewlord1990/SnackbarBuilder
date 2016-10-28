@@ -80,7 +80,7 @@ class SnackbarCustomiser {
   }
 
   SnackbarCustomiser setActionAllCaps(boolean actionAllCaps) {
-    Compatibility.getInstance().setAllCaps(getActionView(), actionAllCaps);
+    TextViewExtension.from(getActionView()).setAllCaps(actionAllCaps);
     return this;
   }
 

@@ -172,6 +172,7 @@ public final class SnackbarBuilder {
    * @param message Text to append to the Snackbar message.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder appendMessage(CharSequence message) {
     initialiseAppendMessages();
     appendMessages.append(message);
@@ -184,6 +185,7 @@ public final class SnackbarBuilder {
    * @param messageResId String resource of the text to append to the Snackbar message.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder appendMessage(@StringRes int messageResId) {
     return appendMessage(context.getString(messageResId));
   }
@@ -211,6 +213,7 @@ public final class SnackbarBuilder {
    * @param colorResId   Resource of the colour to make the appended text.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder appendMessage(@StringRes int messageResId,
                                        @ColorRes int colorResId) {
     return appendMessage(context.getString(messageResId),
@@ -245,6 +248,7 @@ public final class SnackbarBuilder {
    * @param actionTextResId The string resource of the text to set as an action.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder actionText(@StringRes int actionTextResId) {
     this.actionText = context.getString(actionTextResId);
     return this;
@@ -289,6 +293,7 @@ public final class SnackbarBuilder {
    * @param backgroundColor The background colour.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder backgroundColor(@ColorInt int backgroundColor) {
     this.backgroundColor = backgroundColor;
     return this;
@@ -300,6 +305,7 @@ public final class SnackbarBuilder {
    * @param backgroundColorResId The resource of the background colour.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder backgroundColorRes(@ColorRes int backgroundColorResId) {
     this.backgroundColor = getColor(backgroundColorResId);
     return this;
@@ -334,6 +340,7 @@ public final class SnackbarBuilder {
    * @param callback The callback.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder showCallback(SnackbarShowCallback callback) {
     callbackBuilder.showCallback(callback);
     return this;
@@ -345,6 +352,7 @@ public final class SnackbarBuilder {
    * @param callback The callback.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder dismissCallback(SnackbarDismissCallback callback) {
     callbackBuilder.dismissCallback(callback);
     return this;
@@ -356,6 +364,7 @@ public final class SnackbarBuilder {
    * @param callback The callback.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder actionDismissCallback(SnackbarActionDismissCallback callback) {
     callbackBuilder.actionDismissCallback(callback);
     return this;
@@ -367,6 +376,7 @@ public final class SnackbarBuilder {
    * @param callback The callback.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder swipeDismissCallback(SnackbarSwipeDismissCallback callback) {
     callbackBuilder.swipeDismissCallback(callback);
     return this;
@@ -389,6 +399,7 @@ public final class SnackbarBuilder {
    * @param callback The callback.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder manualDismissCallback(SnackbarManualDismissCallback callback) {
     callbackBuilder.manualDismissCallback(callback);
     return this;
@@ -400,6 +411,7 @@ public final class SnackbarBuilder {
    * @param callback The callback.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder consecutiveDismissCallback(
       SnackbarConsecutiveDismissCallback callback) {
     callbackBuilder.consecutiveDismissCallback(callback);
@@ -446,6 +458,7 @@ public final class SnackbarBuilder {
    * @param iconMarginStart The margin before the icon.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder iconMarginStart(int iconMarginStart) {
     this.iconMarginStart = iconMarginStart;
     return this;
@@ -458,6 +471,7 @@ public final class SnackbarBuilder {
    * @param iconMarginStartResId The dimension resource of the margin before the icon.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder iconMarginStartRes(@DimenRes int iconMarginStartResId) {
     return iconMarginStart(
         context.getResources().getDimensionPixelSize(iconMarginStartResId));
@@ -470,6 +484,7 @@ public final class SnackbarBuilder {
    * @param iconMarginEnd The margin after the icon in pixels.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder iconMarginEnd(int iconMarginEnd) {
     this.iconMarginEnd = iconMarginEnd;
     return this;
@@ -482,6 +497,7 @@ public final class SnackbarBuilder {
    * @param iconMarginEndResId The margin after the icon.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder iconMarginEndRes(@DimenRes int iconMarginEndResId) {
     return iconMarginEnd(
         context.getResources().getDimensionPixelSize(iconMarginEndResId));

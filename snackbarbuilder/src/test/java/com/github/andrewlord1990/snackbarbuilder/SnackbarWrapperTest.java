@@ -196,7 +196,7 @@ public class SnackbarWrapperTest {
 
   @Test
   public void whenSetLowercaseActionText_thenActionNotAllCaps() {
-    Compatibility.getInstance().setAllCaps(getActionView(), true);
+    TextViewExtension.from(getActionView()).setAllCaps(true);
 
     wrapper.setLowercaseActionText();
 
@@ -205,7 +205,7 @@ public class SnackbarWrapperTest {
 
   @Test
   public void whenSetUppercaseActionText_thenActionAllCaps() {
-    Compatibility.getInstance().setAllCaps(getActionView(), false);
+    TextViewExtension.from(getActionView()).setAllCaps(false);
 
     wrapper.setUppercaseActionText();
 

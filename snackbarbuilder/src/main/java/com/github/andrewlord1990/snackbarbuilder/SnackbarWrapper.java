@@ -63,6 +63,7 @@ public final class SnackbarWrapper {
    *
    * @param snackbar The Snackbar to wrap.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper(Snackbar snackbar) {
     this.snackbar = snackbar;
     messageView = (TextView) getView().findViewById(R.id.snackbar_text);
@@ -85,6 +86,7 @@ public final class SnackbarWrapper {
    *
    * @return Text displayed as an action.
    */
+  @SuppressWarnings("WeakerAccess")
   public CharSequence getActionText() {
     return actionView.getText();
   }
@@ -95,6 +97,7 @@ public final class SnackbarWrapper {
    * @param actionText String resource of the text to display as an action.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setActionText(@StringRes int actionText) {
     actionView.setText(actionText);
     return this;
@@ -106,6 +109,7 @@ public final class SnackbarWrapper {
    * @param actionText Text to display as an action.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setActionText(CharSequence actionText) {
     actionView.setText(actionText);
     return this;
@@ -117,6 +121,7 @@ public final class SnackbarWrapper {
    * @param actionClickListener Callback to be invoked when the action is clicked.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setActionClickListener(OnClickListener actionClickListener) {
     actionView.setOnClickListener(actionClickListener);
     return this;
@@ -130,6 +135,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setAction(@StringRes int actionText, OnClickListener actionClickListener) {
     snackbar.setAction(actionText, actionClickListener);
     return this;
@@ -143,6 +149,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setAction(CharSequence actionText, OnClickListener actionClickListener) {
     snackbar.setAction(actionText, actionClickListener);
     return this;
@@ -155,6 +162,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setActionTextColor(ColorStateList colors) {
     snackbar.setActionTextColor(colors);
     return this;
@@ -167,6 +175,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setActionTextColor(@ColorInt int color) {
     snackbar.setActionTextColor(color);
     return this;
@@ -179,6 +188,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setActionTextColorRes(@ColorRes int color) {
     snackbar.setActionTextColor(ContextCompat.getColor(context, color));
     return this;
@@ -189,6 +199,7 @@ public final class SnackbarWrapper {
    *
    * @return The action text color.
    */
+  @SuppressWarnings("WeakerAccess")
   public ColorStateList getActionTextColors() {
     return actionView.getTextColors();
   }
@@ -199,6 +210,7 @@ public final class SnackbarWrapper {
    * @return The action text color.
    */
   @ColorInt
+  @SuppressWarnings("WeakerAccess")
   public int getActionCurrentTextColor() {
     return actionView.getCurrentTextColor();
   }
@@ -208,6 +220,7 @@ public final class SnackbarWrapper {
    *
    * @return The action visibility.
    */
+  @SuppressWarnings("WeakerAccess")
   public int getActionVisibility() {
     return actionView.getVisibility();
   }
@@ -218,6 +231,7 @@ public final class SnackbarWrapper {
    * @param visibility The action visibility.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setActionVisibility(int visibility) {
     actionView.setVisibility(visibility);
     return this;
@@ -231,8 +245,9 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setLowercaseActionText() {
-    Compatibility.getInstance().setAllCaps(actionView, false);
+    TextViewExtension.from(actionView).setAllCaps(false);
     return this;
   }
 
@@ -242,8 +257,9 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setUppercaseActionText() {
-    Compatibility.getInstance().setAllCaps(actionView, true);
+    TextViewExtension.from(actionView).setAllCaps(true);
     return this;
   }
 
@@ -308,6 +324,7 @@ public final class SnackbarWrapper {
    * @param color The message text color resource.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setTextColorRes(@ColorRes int color) {
     messageView.setTextColor(ContextCompat.getColor(context, color));
     return this;
@@ -318,6 +335,7 @@ public final class SnackbarWrapper {
    *
    * @return The message text color.
    */
+  @SuppressWarnings("WeakerAccess")
   public ColorStateList getTextColors() {
     return messageView.getTextColors();
   }
@@ -328,6 +346,7 @@ public final class SnackbarWrapper {
    * @return The message text color.
    */
   @ColorInt
+  @SuppressWarnings("WeakerAccess")
   public int getCurrentTextColor() {
     return messageView.getCurrentTextColor();
   }
@@ -338,6 +357,7 @@ public final class SnackbarWrapper {
    * @param message The text to append.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper appendMessage(CharSequence message) {
     messageView.append(message);
     return this;
@@ -349,6 +369,7 @@ public final class SnackbarWrapper {
    * @param message The string resource of the text to append.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper appendMessage(@StringRes int message) {
     return appendMessage(context.getString(message));
   }
@@ -375,6 +396,7 @@ public final class SnackbarWrapper {
    * @param color   The resource of the color to apply to the text.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper appendMessage(@StringRes int message,
                                        @ColorRes int color) {
     return appendMessage(context.getString(message),
@@ -386,6 +408,7 @@ public final class SnackbarWrapper {
    *
    * @return The message visibility.
    */
+  @SuppressWarnings("WeakerAccess")
   public int getMessageVisibility() {
     return messageView.getVisibility();
   }
@@ -396,6 +419,7 @@ public final class SnackbarWrapper {
    * @param visibility The message visibility.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setMessageVisibility(int visibility) {
     messageView.setVisibility(visibility);
     return this;
@@ -440,6 +464,7 @@ public final class SnackbarWrapper {
    * @param color The background color.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setBackgroundColor(@ColorInt int color) {
     getView().setBackgroundColor(color);
     return this;
@@ -451,6 +476,7 @@ public final class SnackbarWrapper {
    * @param color The background color resource.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setBackgroundColorRes(@ColorRes int color) {
     getView().setBackgroundColor(ContextCompat.getColor(context, color));
     return this;
@@ -478,6 +504,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setSnackbarCallback(SnackbarCallback callback) {
     return setCallback(new SnackbarCombinedCallback(callback, this.callback));
   }
@@ -514,6 +541,7 @@ public final class SnackbarWrapper {
    * @param iconMarginStart The margin before the icon.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setIconMarginStart(@DimenRes int iconMarginStart) {
     return setIconMarginStartPixels(context.getResources().getDimensionPixelSize(iconMarginStart));
   }
@@ -525,6 +553,7 @@ public final class SnackbarWrapper {
    * @param iconMarginStartPixels The margin before the icon.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setIconMarginStartPixels(int iconMarginStartPixels) {
     iconBuilder
         .iconMarginStartPixels(iconMarginStartPixels)
@@ -539,6 +568,7 @@ public final class SnackbarWrapper {
    * @param iconMarginEnd The margin after the icon.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setIconMarginEnd(@DimenRes int iconMarginEnd) {
     return setIconMarginEndPixels(context.getResources().getDimensionPixelSize(iconMarginEnd));
   }
@@ -550,6 +580,7 @@ public final class SnackbarWrapper {
    * @param iconMarginEndPixels The margin after the icon.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setIconMarginEndPixels(int iconMarginEndPixels) {
     iconBuilder
         .iconMarginEndPixels(iconMarginEndPixels)
@@ -572,6 +603,7 @@ public final class SnackbarWrapper {
    *
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper dismiss() {
     snackbar.dismiss();
     return this;
@@ -582,6 +614,7 @@ public final class SnackbarWrapper {
    *
    * @return Whether this Snackbar is currently being shown.
    */
+  @SuppressWarnings("WeakerAccess")
   public boolean isShown() {
     return snackbar.isShown();
   }
@@ -591,6 +624,7 @@ public final class SnackbarWrapper {
    *
    * @return Whether the Snackbar is currently being shown, or is queued to be shown next.
    */
+  @SuppressWarnings("WeakerAccess")
   public boolean isShownOrQueued() {
     return snackbar.isShownOrQueued();
   }
