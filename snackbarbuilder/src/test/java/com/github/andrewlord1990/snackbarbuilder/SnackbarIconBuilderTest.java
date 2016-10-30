@@ -22,17 +22,18 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.widget.ImageView;
 
+import com.github.andrewlord1990.snackbarbuilder.robolectric.LibraryRobolectricTestRunner;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static org.assertj.android.api.Assertions.assertThat;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(LibraryRobolectricTestRunner.class)
 public class SnackbarIconBuilderTest {
 
   @Mock

@@ -20,12 +20,13 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
 import android.util.Log;
 
+import com.github.andrewlord1990.snackbarbuilder.robolectric.LibraryRobolectricTestRunner;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.shadows.ShadowLog;
 import org.robolectric.shadows.ShadowLog.LogItem;
 
@@ -33,7 +34,7 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(LibraryRobolectricTestRunner.class)
 public class SnackbarCallbackTest {
 
   @Mock
