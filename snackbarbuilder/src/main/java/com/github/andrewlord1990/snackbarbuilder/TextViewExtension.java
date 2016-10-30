@@ -20,7 +20,7 @@ import android.annotation.SuppressLint;
 import android.os.Build;
 import android.widget.TextView;
 
-class TextViewExtension {
+final class TextViewExtension {
 
   private final TextView textView;
 
