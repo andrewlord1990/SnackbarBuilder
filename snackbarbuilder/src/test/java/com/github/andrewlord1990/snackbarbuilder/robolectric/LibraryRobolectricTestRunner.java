@@ -37,15 +37,10 @@ public class LibraryRobolectricTestRunner extends RobolectricGradleTestRunner {
     if (androidManifestFile.exists()) {
       return appManifest;
     } else {
-      androidManifestFile = FileFsFile.from(getModuleRootPath(config),
-          appManifest.getAndroidManifestFile().getPath().replace("manifests/full", "manifests/aapt"));
+      androidManifestFile = FileFsFile.from(appManifest.getAndroidManifestFile().getPath()
+          .replace("manifests/full", "manifests/aapt"));
       return new AndroidManifest(androidManifestFile, appManifest.getResDirectory(), appManifest.getAssetsDirectory());
     }
-  }
-
-  private String getModuleRootPath(Config config) {
-    String moduleRoot = config.constants().getResource("").toString().replace("file:", "");
-    return moduleRoot.substring(0, moduleRoot.indexOf("/build"));
   }
 
 }
