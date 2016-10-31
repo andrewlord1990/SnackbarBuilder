@@ -35,6 +35,7 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
+import com.github.andrewlord1990.snackbarbuilder.robolectric.LibraryRobolectricTestRunner;
 
 import org.assertj.android.api.Assertions;
 import org.junit.Before;
@@ -42,7 +43,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(LibraryRobolectricTestRunner.class)
 public class SnackbarWrapperTest {
 
   @Mock
@@ -196,7 +196,7 @@ public class SnackbarWrapperTest {
 
   @Test
   public void whenSetLowercaseActionText_thenActionNotAllCaps() {
-    Compatibility.getInstance().setAllCaps(getActionView(), true);
+    TextViewExtension.from(getActionView()).setAllCaps(true);
 
     wrapper.setLowercaseActionText();
 
@@ -205,7 +205,7 @@ public class SnackbarWrapperTest {
 
   @Test
   public void whenSetUppercaseActionText_thenActionAllCaps() {
-    Compatibility.getInstance().setAllCaps(getActionView(), false);
+    TextViewExtension.from(getActionView()).setAllCaps(false);
 
     wrapper.setUppercaseActionText();
 
@@ -267,7 +267,7 @@ public class SnackbarWrapperTest {
 
     wrapper.appendMessage("MORE");
 
-    assertThat(wrapper.getText()).isEqualTo("startingTextMORE");
+    assertThat(wrapper.getText().toString()).isEqualTo("startingTextMORE");
   }
 
   @Test
@@ -276,7 +276,7 @@ public class SnackbarWrapperTest {
 
     wrapper.appendMessage(R.string.snackbarbuilder_action_undo);
 
-    assertThat(wrapper.getText()).isEqualTo("startingTextUndo");
+    assertThat(wrapper.getText().toString()).isEqualTo("startingTextUndo");
   }
 
   @Test

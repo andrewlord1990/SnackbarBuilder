@@ -6,7 +6,7 @@
  *
  * You may obtain a copy of the License at
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on
  * an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -17,36 +17,29 @@
 package com.github.andrewlord1990.snackbarbuilder;
 
 import android.annotation.SuppressLint;
-import android.os.Build.VERSION;
-import android.os.Build.VERSION_CODES;
+import android.os.Build;
 import android.widget.TextView;
 
-final class Compatibility {
+final class TextViewExtension {
 
-  private static Compatibility instance;
-  private static final Object lock = new Object();
+  private final TextView textView;
 
-  private Compatibility() {
-  }
-
-  static Compatibility getInstance() {
-    synchronized (lock) {
-      if (instance == null) {
-        instance = new Compatibility();
-      }
-      return instance;
-    }
-  }
-
-  private boolean isApiAtLeast14() {
-    return VERSION.SDK_INT >= VERSION_CODES.ICE_CREAM_SANDWICH;
+  private TextViewExtension(TextView textView) {
+    this.textView = textView;
   }
 
   @SuppressLint("NewApi")
-  void setAllCaps(TextView textView, boolean allCaps) {
+  void setAllCaps(boolean allCaps) {
     if (isApiAtLeast14()) {
       textView.setAllCaps(allCaps);
     }
   }
 
+  private boolean isApiAtLeast14() {
+    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH;
+  }
+
+  static TextViewExtension from(TextView textView) {
+    return new TextViewExtension(textView);
+  }
 }

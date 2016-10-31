@@ -52,6 +52,7 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarShowCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarSwipeDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarTimeoutDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.parent.SnackbarParentFinder;
+import com.github.andrewlord1990.snackbarbuilder.robolectric.LibraryRobolectricTestRunner;
 
 import org.assertj.android.api.Assertions;
 import org.junit.Before;
@@ -60,7 +61,6 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.Robolectric;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import java.util.ArrayList;
@@ -70,7 +70,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(LibraryRobolectricTestRunner.class)
 public class SnackbarBuilderTest {
 
   @Mock
@@ -329,7 +329,7 @@ public class SnackbarBuilderTest {
 
   private void assertThatMessagesWithColorsAppended(SnackbarBuilder builder, String expected, int... colors) {
     int length = expected.length();
-    assertThat(builder.appendMessages.subSequence(0, length)).isEqualTo(expected);
+    assertThat(builder.appendMessages.subSequence(0, length).toString()).isEqualTo(expected);
     ForegroundColorSpan[] spans = builder.appendMessages
         .getSpans(0, length, ForegroundColorSpan.class);
     assertThat(spans.length).isEqualTo(colors.length);

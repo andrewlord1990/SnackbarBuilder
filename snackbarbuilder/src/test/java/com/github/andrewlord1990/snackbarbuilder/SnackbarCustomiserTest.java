@@ -30,6 +30,7 @@ import android.widget.LinearLayout.LayoutParams;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
+import com.github.andrewlord1990.snackbarbuilder.robolectric.LibraryRobolectricTestRunner;
 
 import org.assertj.core.api.Assertions;
 import org.junit.Before;
@@ -37,13 +38,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.robolectric.RobolectricGradleTestRunner;
 import org.robolectric.RuntimeEnvironment;
 
 import static org.assertj.android.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 
-@RunWith(RobolectricGradleTestRunner.class)
+@RunWith(LibraryRobolectricTestRunner.class)
 public class SnackbarCustomiserTest {
 
   @Mock
@@ -75,7 +75,7 @@ public class SnackbarCustomiserTest {
     customiser.customiseMessage(Color.GREEN, appendMessages);
 
     assertThat(customiser.getMessageView()).hasCurrentTextColor(Color.GREEN);
-    assertThat(customiser.getMessageView()).hasText("onetwothree");
+    Assertions.assertThat(customiser.getMessageView().getText().toString()).isEqualTo("onetwothree");
   }
 
   @Test

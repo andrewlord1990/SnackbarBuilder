@@ -3,7 +3,7 @@ subprojects { project ->
   apply plugin: 'checkstyle'
 
   checkstyle {
-    toolVersion '7.0'
+    toolVersion '7.2'
   }
 
   task checkstyle(type: Checkstyle) {
