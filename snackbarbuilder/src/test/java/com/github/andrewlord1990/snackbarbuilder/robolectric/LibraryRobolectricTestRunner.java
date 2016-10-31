@@ -17,13 +17,13 @@
 package com.github.andrewlord1990.snackbarbuilder.robolectric;
 
 import org.junit.runners.model.InitializationError;
-import org.robolectric.RobolectricGradleTestRunner;
+import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 import org.robolectric.manifest.AndroidManifest;
 import org.robolectric.res.FileFsFile;
 import org.robolectric.res.FsFile;
 
-public class LibraryRobolectricTestRunner extends RobolectricGradleTestRunner {
+public class LibraryRobolectricTestRunner extends RobolectricTestRunner {
 
   public LibraryRobolectricTestRunner(Class<?> klass) throws InitializationError {
     super(klass);
