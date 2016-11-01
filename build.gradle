@@ -23,7 +23,7 @@ task clean(type: Delete) {
 
 ext {
   versionMajor = 0
-  versionMinor = 6
+  versionMinor = 7
   versionPatch = 0
 
   targetSdk = 25
