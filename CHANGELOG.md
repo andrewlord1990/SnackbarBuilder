@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.7.0 (01/11/16)
+
+### Fixes
+
+- Removed marking of public resources, as it was causing all resources in dependenices (such as AppCompat) as private. Will put it back once this problem has been fixed within the build tools.
+
+### Dependencies
+
+- Updated to target API 25
+- Updated Android support library to v25.0.0
+
 ## v0.6.0 (31/07/16)
 
 ### Features
