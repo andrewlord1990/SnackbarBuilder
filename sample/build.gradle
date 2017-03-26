@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
   compileSdkVersion rootProject.ext.compileSdk
-  buildToolsVersion rootProject.ext.buildToolsVersion
+  buildToolsVersion '25.0.2'
 
   defaultConfig {
     applicationId "com.andrewlord.github.snackbarbuildersample"

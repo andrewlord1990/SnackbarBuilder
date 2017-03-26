@@ -26,7 +26,6 @@ import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.Snackbar.Duration;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -65,10 +64,7 @@ public final class SnackbarBuilder {
   View parentView;
   SpannableStringBuilder appendMessages;
   CharSequence message;
-
-  @Duration
   int duration = Snackbar.LENGTH_LONG;
-
   CharSequence actionText;
   OnClickListener actionClickListener;
   SnackbarCombinedCallback.Builder callbackBuilder = SnackbarCombinedCallback.builder();
@@ -226,7 +222,7 @@ public final class SnackbarBuilder {
    * @param duration The duration.
    * @return This instance.
    */
-  public SnackbarBuilder duration(@Duration int duration) {
+  public SnackbarBuilder duration(int duration) {
     this.duration = duration;
     return this;
   }

@@ -17,7 +17,6 @@
 package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.Snackbar.Callback.DismissEvent;
 
 /**
  * A callback for use with SnackbarBuilder that allows you to easily respond to the events you are interested in by
@@ -54,7 +53,7 @@ public class SnackbarCallback {
    * @param snackbar     The Snackbar.
    * @param dismissEvent The event through which it was dismissed.
    */
-  public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
+  public void onSnackbarDismissed(Snackbar snackbar, int dismissEvent) {
     // Override if needed
   }
 

@@ -97,7 +97,7 @@ public class SnackbarCallbackTest {
   }
 
   @Test
-  public void whenOnSnackbarShown_thenSnackbarShownMessageLogged() {
+  public void whenOnSnackbarShown_twhenSnackbarShownMessageLogged() {
     callbackUnderTest.onSnackbarShown(snackbar);
 
     List<LogItem> logs = ShadowLog.getLogsForTag(SnackbarCallback.class.getSimpleName());
