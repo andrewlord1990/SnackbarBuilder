@@ -16,7 +16,6 @@
 
 package com.github.andrewlord1990.snackbarbuilder;
 
-import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -86,17 +85,6 @@ class SnackbarCustomiser {
 
   SnackbarCustomiser setCallbacks(SnackbarCombinedCallback combinedCallback) {
     snackbar.setCallback(combinedCallback);
-    return this;
-  }
-
-  SnackbarCustomiser setIcon(Drawable icon, int iconMarginStartPixels, int iconMarginEndPixels) {
-    if (icon != null) {
-      SnackbarIconBuilder.builder(snackbar)
-          .icon(icon)
-          .iconMarginStartPixels(iconMarginStartPixels)
-          .iconMarginEndPixels(iconMarginEndPixels)
-          .bindToSnackbar();
-    }
     return this;
   }
 

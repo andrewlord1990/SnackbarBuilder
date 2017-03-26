@@ -18,11 +18,8 @@ package com.github.andrewlord1990.snackbarbuilder;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
@@ -53,7 +50,6 @@ public final class SnackbarWrapper {
   private final Snackbar snackbar;
   private final TextView messageView;
   private final Button actionView;
-  private final SnackbarIconBuilder iconBuilder;
 
   private Callback callback;
 
@@ -67,7 +63,6 @@ public final class SnackbarWrapper {
     this.snackbar = snackbar;
     messageView = (TextView) getView().findViewById(R.id.snackbar_text);
     actionView = (Button) getView().findViewById(R.id.snackbar_action);
-    iconBuilder = SnackbarIconBuilder.builder(snackbar);
     context = snackbar.getView().getContext();
   }
 
@@ -505,85 +500,6 @@ public final class SnackbarWrapper {
   @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setSnackbarCallback(SnackbarCallback callback) {
     return setCallback(new SnackbarCombinedCallback(callback, this.callback));
-  }
-
-  /**
-   * Set the icon at the start of the Snackbar.  If there is no icon it will be added, or if there is then it will be
-   * replaced.
-   *
-   * @param icon The icon drawable resource to display.
-   * @return This instance.
-   */
-  public SnackbarWrapper setIcon(@DrawableRes int icon) {
-    return setIcon(ContextCompat.getDrawable(context, icon));
-  }
-
-  /**
-   * Set the icon at the start of the Snackbar. If there is no icon it will be added, or if there is then it will be
-   * replaced.
-   *
-   * @param icon The icon to display.
-   * @return This instance.
-   */
-  public SnackbarWrapper setIcon(Drawable icon) {
-    iconBuilder
-        .icon(icon)
-        .bindToSnackbar();
-    return this;
-  }
-
-  /**
-   * Set the margin to be displayed before the icon. On platform versions that support bi-directional layouts, this will
-   * be the start margin, on platforms before this it will just be the left margin.
-   *
-   * @param iconMarginStart The margin before the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginStart(@DimenRes int iconMarginStart) {
-    return setIconMarginStartPixels(context.getResources().getDimensionPixelSize(iconMarginStart));
-  }
-
-  /**
-   * Set the margin to be displayed before the icon in pixels. On platform versions that support bi-directional layouts,
-   * this will be the start margin, on platforms before this it will just be the left margin.
-   *
-   * @param iconMarginStartPixels The margin before the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginStartPixels(int iconMarginStartPixels) {
-    iconBuilder
-        .iconMarginStartPixels(iconMarginStartPixels)
-        .bindToSnackbar();
-    return this;
-  }
-
-  /**
-   * Set the margin to be displayed after the icon. On platform versions that support bi-directional layouts, this will
-   * be the end margin, on platforms before this it will just be the right margin.
-   *
-   * @param iconMarginEnd The margin after the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginEnd(@DimenRes int iconMarginEnd) {
-    return setIconMarginEndPixels(context.getResources().getDimensionPixelSize(iconMarginEnd));
-  }
-
-  /**
-   * Set the margin to be displayed after the icon in pixels. On platform versions that support bi-directional layouts,
-   * this will be the end margin, on platforms before this it will just be the right margin.
-   *
-   * @param iconMarginEndPixels The margin after the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginEndPixels(int iconMarginEndPixels) {
-    iconBuilder
-        .iconMarginEndPixels(iconMarginEndPixels)
-        .bindToSnackbar();
-    return this;
   }
 
   /**

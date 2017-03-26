@@ -19,11 +19,8 @@ package com.github.andrewlord1990.snackbarbuilder;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
-import android.support.annotation.DimenRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
@@ -73,9 +70,6 @@ public final class SnackbarBuilder {
   int actionTextColor;
   int messageTextColor;
   int parentViewId;
-  Drawable icon;
-  int iconMarginStart;
-  int iconMarginEnd;
 
   /**
    * Create a builder to create a Snackbar. The Snackbar will be attached to the specified parent view.
@@ -426,80 +420,6 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set an icon to display on the Snackbar next to the message.
-   *
-   * @param icon The drawable of the icon.
-   * @return This instance.
-   */
-  public SnackbarBuilder icon(Drawable icon) {
-    this.icon = icon;
-    return this;
-  }
-
-  /**
-   * Set an icon to display on the Snackbar next to the message.
-   *
-   * @param iconResId The drawable resource of the icon.
-   * @return This instance.
-   */
-  public SnackbarBuilder icon(@DrawableRes int iconResId) {
-    icon = getDrawable(iconResId);
-    return this;
-  }
-
-  /**
-   * Set the margin to be displayed before the icon in pixels. On platform versions that support bi-directional layouts,
-   * this will be the start margin, on platforms before this it will just be the left margin.
-   *
-   * @param iconMarginStart The margin before the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder iconMarginStart(int iconMarginStart) {
-    this.iconMarginStart = iconMarginStart;
-    return this;
-  }
-
-  /**
-   * Set the margin to be displayed before the icon. On platform versions that support bi-directional layouts, this will
-   * be the start margin, on platforms before this it will just be the left margin.
-   *
-   * @param iconMarginStartResId The dimension resource of the margin before the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder iconMarginStartRes(@DimenRes int iconMarginStartResId) {
-    return iconMarginStart(
-        context.getResources().getDimensionPixelSize(iconMarginStartResId));
-  }
-
-  /**
-   * Set the margin to be displayed after the icon in pixels. On platform versions that support bi-directional layouts,
-   * this will be the end margin, on platforms before this it will just be the right margin.
-   *
-   * @param iconMarginEnd The margin after the icon in pixels.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder iconMarginEnd(int iconMarginEnd) {
-    this.iconMarginEnd = iconMarginEnd;
-    return this;
-  }
-
-  /**
-   * Set the margin to be displayed after the icon. On platform versions that support bi-directional layouts, this will
-   * be the end margin, on platforms before this it will just be the right margin.
-   *
-   * @param iconMarginEndResId The margin after the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder iconMarginEndRes(@DimenRes int iconMarginEndResId) {
-    return iconMarginEnd(
-        context.getResources().getDimensionPixelSize(iconMarginEndResId));
-  }
-
-  /**
    * Build a Snackbar using the options specified in the builder. Wrap this Snackbar into a SnackbarWrapper, which
    * allows further customisation.
    *
@@ -523,8 +443,7 @@ public final class SnackbarBuilder {
         .setAction(actionText, actionClickListener)
         .setActionTextColor(actionTextColor)
         .setActionAllCaps(actionAllCaps)
-        .setCallbacks(callbackBuilder.build())
-        .setIcon(icon, iconMarginStart, iconMarginEnd);
+        .setCallbacks(callbackBuilder.build());
 
     return snackbar;
   }
@@ -586,24 +505,11 @@ public final class SnackbarBuilder {
     if (actionTextColor == 0) {
       actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
     }
-    if (iconMarginStart == 0) {
-      iconMarginStart = context.getResources()
-          .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
-    }
-    if (iconMarginEnd == 0) {
-      iconMarginEnd = context.getResources()
-          .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
-    }
   }
 
   private int getColor(@ColorRes int color) {
     return ContextCompat.getColor(context, color);
   }
-
-  private Drawable getDrawable(@DrawableRes int drawableResId) {
-    return ContextCompat.getDrawable(context, drawableResId);
-  }
-
 }
 
 
