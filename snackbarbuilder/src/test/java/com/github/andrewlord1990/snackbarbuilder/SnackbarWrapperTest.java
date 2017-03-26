@@ -22,7 +22,6 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DrawableRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
@@ -352,46 +351,6 @@ public class SnackbarWrapperTest {
 
     wrapper.dismiss();
     verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
-  }
-
-  @Test
-  public void whenSetIconWithResource_thenIconSet() {
-    @DrawableRes int drawableResId = 50;
-    resourceCreator.createMockDrawableResId(drawableResId, drawable);
-
-    wrapper.setIcon(drawableResId);
-
-    assertThat(getIconView().getDrawable()).isEqualTo(drawable);
-  }
-
-  @Test
-  public void whenSetIconWithDrawable_thenIconSet() {
-    wrapper.setIcon(drawable);
-
-    assertThat(getIconView().getDrawable()).isEqualTo(drawable);
-  }
-
-  @Test
-  public void whenSetIconMarginsWithResource_thenIconMarginsSet() {
-    Resources resources = RuntimeEnvironment.application.getResources();
-    int start = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
-    int end = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
-
-    wrapper.setIconMarginStart(R.dimen.snackbarbuilder_icon_margin_end_default)
-        .setIconMarginEnd(R.dimen.snackbarbuilder_icon_margin_start_default);
-
-    assertThatIconMarginsEqualTo(start, end);
-  }
-
-  @Test
-  public void whenSetIconMarginsWithPixels_thenIconMarginsSet() {
-    int start = 100;
-    int end = 20;
-
-    wrapper.setIconMarginStartPixels(start)
-        .setIconMarginEndPixels(end);
-
-    assertThatIconMarginsEqualTo(start, end);
   }
 
   @Test
