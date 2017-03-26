@@ -21,8 +21,8 @@ import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.support.v4.view.MarginLayoutParamsCompat;
 import android.view.Gravity;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
 
 class SnackbarIconBuilder {
 
@@ -57,7 +57,7 @@ class SnackbarIconBuilder {
   }
 
   ImageView bindToSnackbar() {
-    LayoutParams params = getIconViewLayoutParams();
+    FrameLayout.LayoutParams params = getIconViewLayoutParams();
     if (iconView == null) {
       iconView = new ImageView(snackbar.getView().getContext());
       iconView.setId(R.id.snackbarbuilder_icon);
@@ -70,11 +70,10 @@ class SnackbarIconBuilder {
     return iconView;
   }
 
-  private LayoutParams getIconViewLayoutParams() {
-    LayoutParams params = new LayoutParams(LayoutParams.WRAP_CONTENT,
-        LayoutParams.WRAP_CONTENT);
+  private FrameLayout.LayoutParams getIconViewLayoutParams() {
+    FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT,
+        FrameLayout.LayoutParams.WRAP_CONTENT);
     params.gravity = Gravity.CENTER_VERTICAL;
-    params.weight = 0;
     MarginLayoutParamsCompat.setMarginStart(params, iconMarginStartPixels);
     MarginLayoutParamsCompat.setMarginEnd(params, iconMarginEndPixels);
     return params;

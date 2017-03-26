@@ -28,7 +28,6 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
-import android.support.design.widget.Snackbar.Callback.DismissEvent;
 import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -37,9 +36,9 @@ import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarActionDismissCallback;
@@ -464,7 +463,7 @@ public class SnackbarBuilderTest {
     SnackbarBuilder builder = createBuilder();
     SnackbarDismissCallback callback = new SnackbarDismissCallback() {
       @Override
-      public void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent) {
+      public void onSnackbarDismissed(Snackbar snackbar, int dismissEvent) {
       }
     };
 
@@ -742,7 +741,7 @@ public class SnackbarBuilderTest {
     assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
     ImageView iconView = (ImageView) firstChildView;
     assertThat(iconView.getDrawable()).isEqualTo(drawable);
-    SnackbarLayout.LayoutParams layoutParams = (LayoutParams) iconView.getLayoutParams();
+    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) iconView.getLayoutParams();
     assertThat(layoutParams.leftMargin).isEqualTo(10);
     assertThat(layoutParams.rightMargin).isEqualTo(20);
   }

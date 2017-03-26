@@ -27,7 +27,6 @@ import android.support.annotation.NonNull;
 import android.support.annotation.StringRes;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
-import android.support.design.widget.Snackbar.Duration;
 import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -430,7 +429,6 @@ public final class SnackbarWrapper {
    *
    * @return The total duration to show for.
    */
-  @Duration
   public int getDuration() {
     return snackbar.getDuration();
   }
@@ -443,7 +441,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
-  public SnackbarWrapper setDuration(@Duration int duration) {
+  public SnackbarWrapper setDuration(int duration) {
     snackbar.setDuration(duration);
     return this;
   }

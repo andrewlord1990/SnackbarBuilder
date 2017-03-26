@@ -17,7 +17,6 @@
 package com.github.andrewlord1990.snackbarbuilder.callback;
 
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.Snackbar.Callback.DismissEvent;
 
 /**
  * A callback to be notified when the Snackbar is dimissed through any means.
@@ -30,6 +29,6 @@ public interface SnackbarDismissCallback {
    * @param snackbar     The Snackbar.
    * @param dismissEvent The event through which it was dismissed.
    */
-  void onSnackbarDismissed(Snackbar snackbar, @DismissEvent int dismissEvent);
+  void onSnackbarDismissed(Snackbar snackbar, int dismissEvent);
 
 }

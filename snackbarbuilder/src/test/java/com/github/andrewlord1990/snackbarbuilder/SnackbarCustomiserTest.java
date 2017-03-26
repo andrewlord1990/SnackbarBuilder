@@ -25,8 +25,8 @@ import android.support.design.widget.Snackbar.Callback;
 import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.text.SpannableStringBuilder;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
@@ -151,7 +151,7 @@ public class SnackbarCustomiserTest {
     assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
     ImageView iconView = (ImageView) firstChildView;
     assertThat(iconView).hasDrawable(drawable);
-    assertThat((LayoutParams) iconView.getLayoutParams())
+    assertThat((FrameLayout.LayoutParams) iconView.getLayoutParams())
         .hasLeftMargin(10)
         .hasRightMargin(20);
   }

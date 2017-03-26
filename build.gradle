@@ -3,8 +3,8 @@ buildscript {
     jcenter()
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.2.2'
-    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1x'
+    classpath 'com.android.tools.build:gradle:2.3.0'
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.8.1'
     classpath 'com.novoda:bintray-release:0.3.4'
   }
 }
@@ -29,8 +29,6 @@ ext {
   targetSdk = 25
   compileSdk = 25
   minSdk = 9
-
-  buildToolsVersion = '25.0.0'
 
   sourceCompatibilityVersion = JavaVersion.VERSION_1_7
   targetCompatibilityVersion = JavaVersion.VERSION_1_7

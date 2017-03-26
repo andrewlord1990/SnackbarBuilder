@@ -26,12 +26,11 @@ import android.support.annotation.DrawableRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
-import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
@@ -439,7 +438,7 @@ public class SnackbarWrapperTest {
   }
 
   private void assertThatIconMarginsEqualTo(int leftMargin, int rightMargin) {
-    SnackbarLayout.LayoutParams layoutParams = (LayoutParams) getIconView().getLayoutParams();
+    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) getIconView().getLayoutParams();
     assertThat(layoutParams.leftMargin).isEqualTo(leftMargin);
     assertThat(layoutParams.rightMargin).isEqualTo(rightMargin);
   }

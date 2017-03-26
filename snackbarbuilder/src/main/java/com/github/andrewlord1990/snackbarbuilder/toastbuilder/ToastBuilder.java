@@ -23,7 +23,6 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
-import android.support.design.widget.Snackbar.Duration;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.TextView;
@@ -42,10 +41,7 @@ public class ToastBuilder {
   View customView;
   int customViewMessageViewId = android.R.id.message;
   int messageTextColor;
-
-  @Duration
   int duration = Toast.LENGTH_LONG;
-
   int gravity;
   int gravityOffsetX;
   int gravityOffsetY;
