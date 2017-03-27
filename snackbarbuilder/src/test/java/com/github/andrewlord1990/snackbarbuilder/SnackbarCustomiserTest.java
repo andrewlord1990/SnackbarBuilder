@@ -22,11 +22,7 @@ import android.graphics.drawable.Drawable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
-import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.text.SpannableStringBuilder;
-import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
@@ -141,19 +137,4 @@ public class SnackbarCustomiserTest {
     verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
     verify(callback).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
   }
-
-  @Test
-  public void whenSetIcon_thenIconAndIconMarginsSet() {
-    customiser.setIcon(drawable, 10, 20);
-
-    SnackbarLayout layout = (SnackbarLayout) snackbar.getView();
-    View firstChildView = layout.getChildAt(0);
-    assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
-    ImageView iconView = (ImageView) firstChildView;
-    assertThat(iconView).hasDrawable(drawable);
-    assertThat((FrameLayout.LayoutParams) iconView.getLayoutParams())
-        .hasLeftMargin(10)
-        .hasRightMargin(20);
-  }
-
 }

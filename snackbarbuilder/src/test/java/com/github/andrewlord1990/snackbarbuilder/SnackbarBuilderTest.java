@@ -22,13 +22,10 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.DimenRes;
-import android.support.annotation.DrawableRes;
 import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
-import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -36,8 +33,6 @@ import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -558,72 +553,6 @@ public class SnackbarBuilderTest {
   }
 
   @Test
-  public void whenIconWithDrawableResource_thenIconSet() {
-    SnackbarBuilder builder = createBuilder();
-    @DrawableRes int drawableResId = 50;
-    getResourceCreator(builder).createMockDrawableResId(drawableResId, drawable);
-
-    builder.icon(drawableResId);
-
-    assertThat(builder.icon).isEqualTo(drawable);
-  }
-
-  @Test
-  public void whenIconWithDrawable_thenIconSet() {
-    SnackbarBuilder builder = createBuilder();
-    @DrawableRes int drawableResId = 50;
-    getResourceCreator(builder).createMockDrawableResId(drawableResId, drawable);
-
-    builder.icon(drawable);
-
-    assertThat(builder.icon).isEqualTo(drawable);
-  }
-
-  @Test
-  public void whenIconMarginStart_thenIconMarinStartSet() {
-    SnackbarBuilder builder = createBuilder();
-    int iconMarginStart = 100;
-
-    builder.iconMarginStart(iconMarginStart);
-
-    assertThat(builder.iconMarginStart).isEqualTo(iconMarginStart);
-  }
-
-  @Test
-  public void whenIconMarginStartRes_thenIconMarinStartSet() {
-    SnackbarBuilder builder = createBuilder();
-    int iconMarginStart = 100;
-    @DimenRes int dimenResId = getResourceCreator(builder)
-        .getDimensionPixelSize(iconMarginStart);
-
-    builder.iconMarginStartRes(dimenResId);
-
-    assertThat(builder.iconMarginStart).isEqualTo(iconMarginStart);
-  }
-
-  @Test
-  public void whenIconMarginEnd_thenIconMarinEndSet() {
-    SnackbarBuilder builder = createBuilder();
-    int iconMarginEnd = 100;
-
-    builder.iconMarginEnd(iconMarginEnd);
-
-    assertThat(builder.iconMarginEnd).isEqualTo(iconMarginEnd);
-  }
-
-  @Test
-  public void whenIconMarginEndRes_thenIconMarinStartSet() {
-    SnackbarBuilder builder = createBuilder();
-    int iconMarginEnd = 100;
-    @DimenRes int dimenResId = getResourceCreator(builder)
-        .getDimensionPixelSize(iconMarginEnd);
-
-    builder.iconMarginEndRes(dimenResId);
-
-    assertThat(builder.iconMarginEnd).isEqualTo(iconMarginEnd);
-  }
-
-  @Test
   public void whenBuildWrapper_thenSnackbarWrapperSetup() {
     RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
     CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
@@ -725,28 +654,6 @@ public class SnackbarBuilderTest {
   }
 
   @Test
-  public void givenIcon_whenBuild_thenIconAddedToSnackbar() {
-    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
-    CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
-
-    Snackbar snackbar = new SnackbarBuilder(parent)
-        .message("messsage")
-        .icon(drawable)
-        .iconMarginStart(10)
-        .iconMarginEnd(20)
-        .build();
-
-    SnackbarLayout layout = (SnackbarLayout) snackbar.getView();
-    View firstChildView = layout.getChildAt(0);
-    assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
-    ImageView iconView = (ImageView) firstChildView;
-    assertThat(iconView.getDrawable()).isEqualTo(drawable);
-    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) iconView.getLayoutParams();
-    assertThat(layoutParams.leftMargin).isEqualTo(10);
-    assertThat(layoutParams.rightMargin).isEqualTo(20);
-  }
-
-  @Test
   public void givenAppendedMessages_whenBuild_thenMessagesAppendedToMainMessage() {
     RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
     CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
@@ -770,11 +677,4 @@ public class SnackbarBuilderTest {
     RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
     return new SnackbarBuilder(parentView);
   }
-
-  private MockResourceCreator getResourceCreator(SnackbarBuilder builder) {
-    return MockResourceCreator.fromBuilder(builder)
-        .withContext(activity)
-        .withResources(resources);
-  }
-
 }
