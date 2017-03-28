@@ -28,7 +28,6 @@ import android.support.annotation.IdRes;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.Snackbar.Callback;
-import android.support.design.widget.Snackbar.SnackbarLayout;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -36,8 +35,6 @@ import android.util.Pair;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -580,47 +577,25 @@ public class SnackbarBuilderTest {
   }
 
   @Test
-  public void whenIconMarginStart_thenIconMarinStartSet() {
+  public void whenIconMargin_thenIconMarinSet() {
     SnackbarBuilder builder = createBuilder();
-    int iconMarginStart = 100;
+    int iconMargin = 100;
 
-    builder.iconMarginStart(iconMarginStart);
+    builder.iconMargin(iconMargin);
 
-    assertThat(builder.iconMarginStart).isEqualTo(iconMarginStart);
+    assertThat(builder.iconMargin).isEqualTo(iconMargin);
   }
 
   @Test
-  public void whenIconMarginStartRes_thenIconMarinStartSet() {
+  public void whenIconMarginRes_thenIconMarinSet() {
     SnackbarBuilder builder = createBuilder();
-    int iconMarginStart = 100;
+    int iconMargin = 100;
     @DimenRes int dimenResId = getResourceCreator(builder)
-        .getDimensionPixelSize(iconMarginStart);
+        .getDimensionPixelSize(iconMargin);
 
-    builder.iconMarginStartRes(dimenResId);
+    builder.iconMarginRes(dimenResId);
 
-    assertThat(builder.iconMarginStart).isEqualTo(iconMarginStart);
-  }
-
-  @Test
-  public void whenIconMarginEnd_thenIconMarinEndSet() {
-    SnackbarBuilder builder = createBuilder();
-    int iconMarginEnd = 100;
-
-    builder.iconMarginEnd(iconMarginEnd);
-
-    assertThat(builder.iconMarginEnd).isEqualTo(iconMarginEnd);
-  }
-
-  @Test
-  public void whenIconMarginEndRes_thenIconMarinStartSet() {
-    SnackbarBuilder builder = createBuilder();
-    int iconMarginEnd = 100;
-    @DimenRes int dimenResId = getResourceCreator(builder)
-        .getDimensionPixelSize(iconMarginEnd);
-
-    builder.iconMarginEndRes(dimenResId);
-
-    assertThat(builder.iconMarginEnd).isEqualTo(iconMarginEnd);
+    assertThat(builder.iconMargin).isEqualTo(iconMargin);
   }
 
   @Test
@@ -732,18 +707,13 @@ public class SnackbarBuilderTest {
     Snackbar snackbar = new SnackbarBuilder(parent)
         .message("messsage")
         .icon(drawable)
-        .iconMarginStart(10)
-        .iconMarginEnd(20)
+        .iconMargin(10)
         .build();
 
-    SnackbarLayout layout = (SnackbarLayout) snackbar.getView();
-    View firstChildView = layout.getChildAt(0);
-    assertThat(firstChildView).isExactlyInstanceOf(ImageView.class);
-    ImageView iconView = (ImageView) firstChildView;
-    assertThat(iconView.getDrawable()).isEqualTo(drawable);
-    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) iconView.getLayoutParams();
-    assertThat(layoutParams.leftMargin).isEqualTo(10);
-    assertThat(layoutParams.rightMargin).isEqualTo(20);
+    TextView messageView = (TextView) snackbar.getView().findViewById(R.id.snackbar_text);
+    Assertions.assertThat(messageView)
+        .hasCompoundDrawablePadding(10);
+    assertThat(messageView.getCompoundDrawables()[0]).isEqualTo(drawable);
   }
 
   @Test

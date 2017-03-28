@@ -361,37 +361,33 @@ public class SnackbarWrapperTest {
 
     wrapper.setIcon(drawableResId);
 
-    assertThat(getIconView().getDrawable()).isEqualTo(drawable);
+    assertThat(getMessageView().getCompoundDrawables()[0]).isEqualTo(drawable);
   }
 
   @Test
   public void whenSetIconWithDrawable_thenIconSet() {
     wrapper.setIcon(drawable);
 
-    assertThat(getIconView().getDrawable()).isEqualTo(drawable);
+    assertThat(getMessageView().getCompoundDrawables()[0]).isEqualTo(drawable);
   }
 
   @Test
-  public void whenSetIconMarginsWithResource_thenIconMarginsSet() {
+  public void whenSetIconMarginWithResource_thenIconMarginSet() {
     Resources resources = RuntimeEnvironment.application.getResources();
-    int start = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
-    int end = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
+    final int expected = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_default);
 
-    wrapper.setIconMarginStart(R.dimen.snackbarbuilder_icon_margin_end_default)
-        .setIconMarginEnd(R.dimen.snackbarbuilder_icon_margin_start_default);
+    wrapper.setIconMargin(R.dimen.snackbarbuilder_icon_margin_default);
 
-    assertThatIconMarginsEqualTo(start, end);
+    assertThat(getMessageView().getCompoundDrawablePadding()).isEqualTo(expected);
   }
 
   @Test
-  public void whenSetIconMarginsWithPixels_thenIconMarginsSet() {
-    int start = 100;
-    int end = 20;
+  public void whenSetIconMarginWithPixels_thenIconMarginSet() {
+    final int expected = 100;
 
-    wrapper.setIconMarginStartPixels(start)
-        .setIconMarginEndPixels(end);
+    wrapper.setIconMarginPixels(expected);
 
-    assertThatIconMarginsEqualTo(start, end);
+    assertThat(getMessageView().getCompoundDrawablePadding()).isEqualTo(expected);
   }
 
   @Test
