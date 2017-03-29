@@ -53,8 +53,6 @@ public final class SnackbarWrapper {
   private final TextView messageView;
   private final Button actionView;
 
-  private Callback callback;
-
   /**
    * Create by wrapping a Snackbar.
    *
