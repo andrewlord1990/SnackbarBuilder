@@ -53,7 +53,6 @@ public final class SnackbarWrapper {
   private final Snackbar snackbar;
   private final TextView messageView;
   private final Button actionView;
-  private final SnackbarIconBuilder iconBuilder;
 
   private Callback callback;
 
@@ -67,7 +66,6 @@ public final class SnackbarWrapper {
     this.snackbar = snackbar;
     messageView = (TextView) getView().findViewById(R.id.snackbar_text);
     actionView = (Button) getView().findViewById(R.id.snackbar_action);
-    iconBuilder = SnackbarIconBuilder.builder(snackbar);
     context = snackbar.getView().getContext();
   }
 
@@ -267,6 +265,7 @@ public final class SnackbarWrapper {
    *
    * @return The message shown.
    */
+  @SuppressWarnings("WeakerAccess")
   public CharSequence getText() {
     return messageView.getText();
   }
@@ -278,6 +277,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setText(@StringRes int message) {
     snackbar.setText(message);
     return this;
@@ -290,6 +290,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setText(@NonNull CharSequence message) {
     snackbar.setText(message);
     return this;
@@ -301,6 +302,7 @@ public final class SnackbarWrapper {
    * @param color The message text color.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setTextColor(@ColorInt int color) {
     messageView.setTextColor(color);
     return this;
@@ -312,6 +314,7 @@ public final class SnackbarWrapper {
    * @param colors The message text color state list.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setTextColor(ColorStateList colors) {
     messageView.setTextColor(colors);
     return this;
@@ -380,6 +383,7 @@ public final class SnackbarWrapper {
    * @param color   The color to apply to the text.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper appendMessage(CharSequence message, @ColorInt int color) {
     Spannable spannable = new SpannableString(message);
     spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
@@ -429,6 +433,7 @@ public final class SnackbarWrapper {
    *
    * @return The total duration to show for.
    */
+  @SuppressWarnings("WeakerAccess")
   public int getDuration() {
     return snackbar.getDuration();
   }
@@ -441,6 +446,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setDuration(int duration) {
     snackbar.setDuration(duration);
     return this;
@@ -452,6 +458,7 @@ public final class SnackbarWrapper {
    * @return This Snackbar's view.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public View getView() {
     return snackbar.getView();
   }
@@ -488,6 +495,7 @@ public final class SnackbarWrapper {
    * @return This instance.
    */
   @NonNull
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setCallback(Callback callback) {
     snackbar.setCallback(callback);
     this.callback = callback;
@@ -514,6 +522,7 @@ public final class SnackbarWrapper {
    * @param icon The icon drawable resource to display.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setIcon(@DrawableRes int icon) {
     return setIcon(ContextCompat.getDrawable(context, icon));
   }
@@ -525,64 +534,32 @@ public final class SnackbarWrapper {
    * @param icon The icon to display.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper setIcon(Drawable icon) {
-    iconBuilder
-        .icon(icon)
-        .bindToSnackbar();
+    messageView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
     return this;
   }
 
   /**
-   * Set the margin to be displayed before the icon. On platform versions that support bi-directional layouts, this will
-   * be the start margin, on platforms before this it will just be the left margin.
+   * Set the margin to be displayed between the icon and the text.
    *
-   * @param iconMarginStart The margin before the icon.
+   * @param iconMargin The margin before the icon.
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginStart(@DimenRes int iconMarginStart) {
-    return setIconMarginStartPixels(context.getResources().getDimensionPixelSize(iconMarginStart));
+  public SnackbarWrapper setIconMargin(@DimenRes int iconMargin) {
+    return setIconMarginPixels(context.getResources().getDimensionPixelSize(iconMargin));
   }
 
   /**
-   * Set the margin to be displayed before the icon in pixels. On platform versions that support bi-directional layouts,
-   * this will be the start margin, on platforms before this it will just be the left margin.
+   * Set the margin to be displayed between the icon and the text.
    *
-   * @param iconMarginStartPixels The margin before the icon.
+   * @param iconMarginPixels The margin before the icon.
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginStartPixels(int iconMarginStartPixels) {
-    iconBuilder
-        .iconMarginStartPixels(iconMarginStartPixels)
-        .bindToSnackbar();
-    return this;
-  }
-
-  /**
-   * Set the margin to be displayed after the icon. On platform versions that support bi-directional layouts, this will
-   * be the end margin, on platforms before this it will just be the right margin.
-   *
-   * @param iconMarginEnd The margin after the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginEnd(@DimenRes int iconMarginEnd) {
-    return setIconMarginEndPixels(context.getResources().getDimensionPixelSize(iconMarginEnd));
-  }
-
-  /**
-   * Set the margin to be displayed after the icon in pixels. On platform versions that support bi-directional layouts,
-   * this will be the end margin, on platforms before this it will just be the right margin.
-   *
-   * @param iconMarginEndPixels The margin after the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginEndPixels(int iconMarginEndPixels) {
-    iconBuilder
-        .iconMarginEndPixels(iconMarginEndPixels)
-        .bindToSnackbar();
+  public SnackbarWrapper setIconMarginPixels(int iconMarginPixels) {
+    messageView.setCompoundDrawablePadding(iconMarginPixels);
     return this;
   }
 
@@ -591,6 +568,7 @@ public final class SnackbarWrapper {
    *
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarWrapper show() {
     snackbar.show();
     return this;

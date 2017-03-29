@@ -89,13 +89,11 @@ class SnackbarCustomiser {
     return this;
   }
 
-  SnackbarCustomiser setIcon(Drawable icon, int iconMarginStartPixels, int iconMarginEndPixels) {
+  SnackbarCustomiser setIcon(Drawable icon, int iconMarginPixels) {
     if (icon != null) {
-      SnackbarIconBuilder.builder(snackbar)
-          .icon(icon)
-          .iconMarginStartPixels(iconMarginStartPixels)
-          .iconMarginEndPixels(iconMarginEndPixels)
-          .bindToSnackbar();
+      TextView messageView = getMessageView();
+      messageView.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+      messageView.setCompoundDrawablePadding(iconMarginPixels);
     }
     return this;
   }

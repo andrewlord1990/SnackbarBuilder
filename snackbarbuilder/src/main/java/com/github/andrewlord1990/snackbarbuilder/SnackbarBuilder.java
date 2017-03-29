@@ -74,8 +74,7 @@ public final class SnackbarBuilder {
   int messageTextColor;
   int parentViewId;
   Drawable icon;
-  int iconMarginStart;
-  int iconMarginEnd;
+  int iconMargin;
 
   /**
    * Create a builder to create a Snackbar. The Snackbar will be attached to the specified parent view.
@@ -448,55 +447,27 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set the margin to be displayed before the icon in pixels. On platform versions that support bi-directional layouts,
-   * this will be the start margin, on platforms before this it will just be the left margin.
+   * Set the margin to be displayed between the icon and the text.
    *
-   * @param iconMarginStart The margin before the icon.
+   * @param iconMargin The margin before the icon.
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder iconMarginStart(int iconMarginStart) {
-    this.iconMarginStart = iconMarginStart;
+  public SnackbarBuilder iconMargin(int iconMargin) {
+    this.iconMargin = iconMargin;
     return this;
   }
 
   /**
-   * Set the margin to be displayed before the icon. On platform versions that support bi-directional layouts, this will
-   * be the start margin, on platforms before this it will just be the left margin.
+   * Set the margin to be displayed between the icon and the text.
    *
-   * @param iconMarginStartResId The dimension resource of the margin before the icon.
+   * @param iconMarginResId The dimension resource of the margin before the icon.
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder iconMarginStartRes(@DimenRes int iconMarginStartResId) {
-    return iconMarginStart(
-        context.getResources().getDimensionPixelSize(iconMarginStartResId));
-  }
-
-  /**
-   * Set the margin to be displayed after the icon in pixels. On platform versions that support bi-directional layouts,
-   * this will be the end margin, on platforms before this it will just be the right margin.
-   *
-   * @param iconMarginEnd The margin after the icon in pixels.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder iconMarginEnd(int iconMarginEnd) {
-    this.iconMarginEnd = iconMarginEnd;
-    return this;
-  }
-
-  /**
-   * Set the margin to be displayed after the icon. On platform versions that support bi-directional layouts, this will
-   * be the end margin, on platforms before this it will just be the right margin.
-   *
-   * @param iconMarginEndResId The margin after the icon.
-   * @return This instance.
-   */
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder iconMarginEndRes(@DimenRes int iconMarginEndResId) {
-    return iconMarginEnd(
-        context.getResources().getDimensionPixelSize(iconMarginEndResId));
+  public SnackbarBuilder iconMarginRes(@DimenRes int iconMarginResId) {
+    return iconMargin(
+        context.getResources().getDimensionPixelSize(iconMarginResId));
   }
 
   /**
@@ -524,7 +495,7 @@ public final class SnackbarBuilder {
         .setActionTextColor(actionTextColor)
         .setActionAllCaps(actionAllCaps)
         .setCallbacks(callbackBuilder.build())
-        .setIcon(icon, iconMarginStart, iconMarginEnd);
+        .setIcon(icon, iconMargin);
 
     return snackbar;
   }
@@ -586,13 +557,9 @@ public final class SnackbarBuilder {
     if (actionTextColor == 0) {
       actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
     }
-    if (iconMarginStart == 0) {
-      iconMarginStart = context.getResources()
-          .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_start_default);
-    }
-    if (iconMarginEnd == 0) {
-      iconMarginEnd = context.getResources()
-          .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_end_default);
+    if (iconMargin == 0) {
+      iconMargin = context.getResources()
+          .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_default);
     }
   }
 
@@ -603,7 +570,6 @@ public final class SnackbarBuilder {
   private Drawable getDrawable(@DrawableRes int drawableResId) {
     return ContextCompat.getDrawable(context, drawableResId);
   }
-
 }
 
 
