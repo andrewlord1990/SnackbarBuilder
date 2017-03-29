@@ -425,7 +425,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set an icon to display on the Snackbar next to the message.
+   * Set an icon to display on the Snackbar next to the message. It is set using compound drawable on the TextView,
+   * so it isn't currently compatible with AppCompat vector drawables unfortunately.
    *
    * @param icon The drawable of the icon.
    * @return This instance.
@@ -436,7 +437,8 @@ public final class SnackbarBuilder {
   }
 
   /**
-   * Set an icon to display on the Snackbar next to the message.
+   * Set an icon to display on the Snackbar next to the message. It is set using compound drawable on the TextView,
+   * so it isn't currently compatible with AppCompat vector drawables unfortunately.
    *
    * @param iconResId The drawable resource of the icon.
    * @return This instance.
