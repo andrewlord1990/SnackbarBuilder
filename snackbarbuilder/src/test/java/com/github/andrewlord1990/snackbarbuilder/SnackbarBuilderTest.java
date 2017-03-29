@@ -40,7 +40,6 @@ import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarActionDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallbackBuilderAssert;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarConsecutiveDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarManualDismissCallback;
@@ -63,6 +62,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -86,6 +86,9 @@ public class SnackbarBuilderTest {
 
   @Mock
   Drawable drawable;
+
+  @Mock
+  Snackbar snackbar;
 
   @Before
   public void before() {
@@ -424,8 +427,7 @@ public class SnackbarBuilderTest {
 
     builder.callback(callback);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasCallback(callback);
+    assertThat(builder.callbacks).containsOnly(callback);
   }
 
   @Test
@@ -436,113 +438,84 @@ public class SnackbarBuilderTest {
 
     builder.snackbarCallback(callback);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasSnackbarCallback(callback);
+    assertThat(builder.callbacks).containsOnly(callback);
   }
 
   @Test
   public void whenShowCallback_thenCallbackSet() {
     SnackbarBuilder builder = createBuilder();
-    SnackbarShowCallback callback = new SnackbarShowCallback() {
-      @Override
-      public void onSnackbarShown(Snackbar snackbar) {
-      }
-    };
+    SnackbarShowCallback callback = mock(SnackbarShowCallback.class);
 
     builder.showCallback(callback);
+    builder.callbacks.get(0).onShown(snackbar);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasShowCallback(callback);
+    verify(callback).onSnackbarShown(snackbar);
   }
 
   @Test
   public void whenDismissCallback_thenCallbackSet() {
     SnackbarBuilder builder = createBuilder();
-    SnackbarDismissCallback callback = new SnackbarDismissCallback() {
-      @Override
-      public void onSnackbarDismissed(Snackbar snackbar, int dismissEvent) {
-      }
-    };
+    SnackbarDismissCallback callback = mock(SnackbarDismissCallback.class);
 
     builder.dismissCallback(callback);
+    builder.callbacks.get(0).onDismissed(snackbar, 0);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasDismissCallback(callback);
+    verify(callback).onSnackbarDismissed(snackbar, 0);
   }
 
   @Test
   public void whenActionDismissCallback_thenCallbackSet() {
     SnackbarBuilder builder = createBuilder();
-    SnackbarActionDismissCallback callback = new SnackbarActionDismissCallback() {
-      @Override
-      public void onSnackbarActionPressed(Snackbar snackbar) {
-      }
-    };
+    SnackbarActionDismissCallback callback = mock(SnackbarActionDismissCallback.class);
 
     builder.actionDismissCallback(callback);
+    builder.callbacks.get(0).onDismissed(snackbar, SnackbarCallback.DISMISS_EVENT_ACTION);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasActionDismissCallback(callback);
+    verify(callback).onSnackbarActionPressed(snackbar);
   }
 
   @Test
   public void whenSwipeDismissCallback_thenCallbackSet() {
     SnackbarBuilder builder = createBuilder();
-    SnackbarSwipeDismissCallback callback = new SnackbarSwipeDismissCallback() {
-      @Override
-      public void onSnackbarSwiped(Snackbar snackbar) {
-      }
-    };
+    SnackbarSwipeDismissCallback callback = mock(SnackbarSwipeDismissCallback.class);
 
     builder.swipeDismissCallback(callback);
+    builder.callbacks.get(0).onDismissed(snackbar, SnackbarCallback.DISMISS_EVENT_SWIPE);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasSwipeDismissCallback(callback);
+    verify(callback).onSnackbarSwiped(snackbar);
   }
 
   @Test
   public void whenTimeoutDismissCallback_thenCallbackSet() {
     SnackbarBuilder builder = createBuilder();
-    SnackbarTimeoutDismissCallback callback = new SnackbarTimeoutDismissCallback() {
-      @Override
-      public void onSnackbarTimedOut(Snackbar snackbar) {
-      }
-    };
+    SnackbarTimeoutDismissCallback callback = mock(SnackbarTimeoutDismissCallback.class);
 
     builder.timeoutDismissCallback(callback);
+    builder.callbacks.get(0).onDismissed(snackbar, SnackbarCallback.DISMISS_EVENT_TIMEOUT);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasTimeoutDismissCallback(callback);
+    verify(callback).onSnackbarTimedOut(snackbar);
   }
 
   @Test
   public void whenManualDismissCallback_thenCallbackSet() {
     SnackbarBuilder builder = createBuilder();
-    SnackbarManualDismissCallback callback = new SnackbarManualDismissCallback() {
-      @Override
-      public void onSnackbarManuallyDismissed(Snackbar snackbar) {
-      }
-    };
+    SnackbarManualDismissCallback callback = mock(SnackbarManualDismissCallback.class);
 
     builder.manualDismissCallback(callback);
+    builder.callbacks.get(0).onDismissed(snackbar, SnackbarCallback.DISMISS_EVENT_MANUAL);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasManualDismissCallback(callback);
+    verify(callback).onSnackbarManuallyDismissed(snackbar);
   }
 
   @Test
   public void whenConsecutiveDismissCallback_thenCallbackSet() {
     SnackbarBuilder builder = createBuilder();
-    SnackbarConsecutiveDismissCallback callback = new SnackbarConsecutiveDismissCallback() {
-      @Override
-      public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
-      }
-    };
+    SnackbarConsecutiveDismissCallback callback = mock(SnackbarConsecutiveDismissCallback.class);
 
     builder.consecutiveDismissCallback(callback);
+    builder.callbacks.get(0).onDismissed(snackbar, SnackbarCallback.DISMISS_EVENT_CONSECUTIVE);
 
-    SnackbarCombinedCallbackBuilderAssert.assertThat(builder.callbackBuilder)
-        .hasConsecutiveDismissCallback(callback);
+    verify(callback).onSnackbarDismissedAfterAnotherShown(snackbar);
   }
 
   @Test

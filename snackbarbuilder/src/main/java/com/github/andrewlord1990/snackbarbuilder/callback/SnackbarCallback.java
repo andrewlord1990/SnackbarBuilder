@@ -23,10 +23,17 @@ import android.support.design.widget.Snackbar;
  * overriding the appropriate methods. You know longer have to check the value of the dismiss event, as you do with the
  * standard Callback class. Override whichever callback methods you are interested in.
  */
-public class SnackbarCallback {
+public class SnackbarCallback extends Snackbar.Callback {
 
   protected SnackbarCallback() {
     // To prevent class being instantiated directly.
+  }
+
+  @Override
+  public final void onShown(Snackbar snackbar) {
+    super.onShown(snackbar);
+
+    onSnackbarShown(snackbar);
   }
 
   /**
@@ -36,6 +43,43 @@ public class SnackbarCallback {
    */
   public void onSnackbarShown(Snackbar snackbar) {
     // Override if needed
+  }
+
+  /**
+   * Notifies that the Snackbar has been dismissed through some event, for example swiping or the action being pressed.
+   *
+   * @param snackbar     The Snackbar which has been dismissed.
+   * @param dismissEvent The event which caused the dismissal.
+   */
+  @Override
+  public final void onDismissed(Snackbar snackbar, int dismissEvent) {
+    super.onDismissed(snackbar, dismissEvent);
+
+    notifySnackbarCallback(snackbar, dismissEvent);
+  }
+
+  private void notifySnackbarCallback(Snackbar snackbar, int dismissEvent) {
+    switch (dismissEvent) {
+      case Snackbar.Callback.DISMISS_EVENT_ACTION:
+        onSnackbarActionPressed(snackbar);
+        break;
+      case Snackbar.Callback.DISMISS_EVENT_SWIPE:
+        onSnackbarSwiped(snackbar);
+        break;
+      case Snackbar.Callback.DISMISS_EVENT_TIMEOUT:
+        onSnackbarTimedOut(snackbar);
+        break;
+      case Snackbar.Callback.DISMISS_EVENT_MANUAL:
+        onSnackbarManuallyDismissed(snackbar);
+        break;
+      case Snackbar.Callback.DISMISS_EVENT_CONSECUTIVE:
+        onSnackbarDismissedAfterAnotherShown(snackbar);
+        break;
+      default:
+        break;
+    }
+    onSnackbarDismissed(snackbar);
+    onSnackbarDismissed(snackbar, dismissEvent);
   }
 
   /**

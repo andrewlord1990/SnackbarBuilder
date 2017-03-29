@@ -24,7 +24,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
+import java.util.List;
 
 class SnackbarCustomiser {
 
@@ -84,8 +84,11 @@ class SnackbarCustomiser {
     return this;
   }
 
-  SnackbarCustomiser setCallbacks(SnackbarCombinedCallback combinedCallback) {
-    snackbar.setCallback(combinedCallback);
+  SnackbarCustomiser setCallbacks(List<Snackbar.Callback> callbacks) {
+    int callbacksSize = callbacks.size();
+    for (int i = 0; i < callbacksSize; i++) {
+      snackbar.addCallback(callbacks.get(i));
+    }
     return this;
   }
 

@@ -337,8 +337,8 @@ public class SnackbarWrapperTest {
   }
 
   @Test
-  public void whenSetCallback_thenCallbackSet() {
-    wrapper.setCallback(callback);
+  public void whenAddCallback_thenCallbackAdded() {
+    wrapper.addCallback(callback);
     wrapper.show();
 
     wrapper.dismiss();
@@ -346,8 +346,8 @@ public class SnackbarWrapperTest {
   }
 
   @Test
-  public void whenSetSnackbarCallback_thenSnackbarCallbackSet() {
-    wrapper.setSnackbarCallback(snackbarCallback);
+  public void whenAddSnackbarCallback_thenSnackbarCallbackAdded() {
+    wrapper.addSnackbarCallback(snackbarCallback);
     wrapper.show();
 
     wrapper.dismiss();
@@ -404,7 +404,7 @@ public class SnackbarWrapperTest {
 
   @Test
   public void whenDismiss_thenSnackbarDismissed() {
-    wrapper.setSnackbarCallback(snackbarCallback);
+    wrapper.addSnackbarCallback(snackbarCallback);
     wrapper.show();
 
     wrapper.dismiss();

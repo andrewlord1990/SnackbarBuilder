@@ -37,7 +37,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 
 /**
  * SnackbarWrapper is an extension to the Snackbar available within the Android Design Support library. By wrapping a
@@ -496,9 +495,8 @@ public final class SnackbarWrapper {
    */
   @NonNull
   @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setCallback(Callback callback) {
-    snackbar.setCallback(callback);
-    this.callback = callback;
+  public SnackbarWrapper addCallback(Callback callback) {
+    snackbar.addCallback(callback);
     return this;
   }
 
@@ -511,8 +509,9 @@ public final class SnackbarWrapper {
    */
   @NonNull
   @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setSnackbarCallback(SnackbarCallback callback) {
-    return setCallback(new SnackbarCombinedCallback(callback, this.callback));
+  public SnackbarWrapper addSnackbarCallback(SnackbarCallback callback) {
+    snackbar.addCallback(callback);
+    return this;
   }
 
   /**

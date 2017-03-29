@@ -26,7 +26,6 @@ import android.text.SpannableStringBuilder;
 import android.widget.TextView;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 import com.github.andrewlord1990.snackbarbuilder.robolectric.LibraryRobolectricTestRunner;
 
 import org.assertj.core.api.Assertions;
@@ -36,6 +35,9 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RuntimeEnvironment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.android.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
@@ -127,12 +129,13 @@ public class SnackbarCustomiserTest {
   }
 
   @Test
-  public void whenSetCallbacks_thenCallbacksSetup() {
+  public void whenSetCallbacks_thenCallbacksAdded() {
     snackbar.show();
-    SnackbarCombinedCallback combinedCallback = new SnackbarCombinedCallback(
-        snackbarCallback, callback);
+    List<Callback> callbacks = new ArrayList<>();
+    callbacks.add(callback);
+    callbacks.add(snackbarCallback);
 
-    customiser.setCallbacks(combinedCallback);
+    customiser.setCallbacks(callbacks);
     snackbar.dismiss();
 
     verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);

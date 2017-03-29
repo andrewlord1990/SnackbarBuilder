@@ -36,7 +36,6 @@ import android.view.View.OnClickListener;
 
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarActionDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCallback;
-import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarCombinedCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarConsecutiveDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarManualDismissCallback;
@@ -44,6 +43,9 @@ import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarShowCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarSwipeDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.callback.SnackbarTimeoutDismissCallback;
 import com.github.andrewlord1990.snackbarbuilder.parent.SnackbarParentFinder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A builder pattern to easily create and customise Android Design Support library Snackbars. On top of the
@@ -67,7 +69,7 @@ public final class SnackbarBuilder {
   int duration = Snackbar.LENGTH_LONG;
   CharSequence actionText;
   OnClickListener actionClickListener;
-  SnackbarCombinedCallback.Builder callbackBuilder = SnackbarCombinedCallback.builder();
+  List<Snackbar.Callback> callbacks = new ArrayList<>();
   boolean actionAllCaps = true;
   int backgroundColor;
   int actionTextColor;
@@ -313,7 +315,7 @@ public final class SnackbarBuilder {
    * @return This instance.
    */
   public SnackbarBuilder callback(Snackbar.Callback callback) {
-    callbackBuilder.callback(callback);
+    callbacks.add(callback);
     return this;
   }
 
@@ -325,7 +327,7 @@ public final class SnackbarBuilder {
    * @return This instance.
    */
   public SnackbarBuilder snackbarCallback(SnackbarCallback snackbarCallback) {
-    callbackBuilder.snackbarCallback(snackbarCallback);
+    callbacks.add(snackbarCallback);
     return this;
   }
 
@@ -336,8 +338,12 @@ public final class SnackbarBuilder {
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder showCallback(SnackbarShowCallback callback) {
-    callbackBuilder.showCallback(callback);
+  public SnackbarBuilder showCallback(final SnackbarShowCallback callback) {
+    callbacks.add(new SnackbarCallback() {
+      public void onSnackbarShown(Snackbar snackbar) {
+        callback.onSnackbarShown(snackbar);
+      }
+    });
     return this;
   }
 
@@ -348,8 +354,12 @@ public final class SnackbarBuilder {
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder dismissCallback(SnackbarDismissCallback callback) {
-    callbackBuilder.dismissCallback(callback);
+  public SnackbarBuilder dismissCallback(final SnackbarDismissCallback callback) {
+    callbacks.add(new SnackbarCallback() {
+      public void onSnackbarDismissed(Snackbar snackbar, int dismissEvent) {
+        callback.onSnackbarDismissed(snackbar, dismissEvent);
+      }
+    });
     return this;
   }
 
@@ -360,8 +370,12 @@ public final class SnackbarBuilder {
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder actionDismissCallback(SnackbarActionDismissCallback callback) {
-    callbackBuilder.actionDismissCallback(callback);
+  public SnackbarBuilder actionDismissCallback(final SnackbarActionDismissCallback callback) {
+    callbacks.add(new SnackbarCallback() {
+      public void onSnackbarActionPressed(Snackbar snackbar) {
+        callback.onSnackbarActionPressed(snackbar);
+      }
+    });
     return this;
   }
 
@@ -372,8 +386,12 @@ public final class SnackbarBuilder {
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder swipeDismissCallback(SnackbarSwipeDismissCallback callback) {
-    callbackBuilder.swipeDismissCallback(callback);
+  public SnackbarBuilder swipeDismissCallback(final SnackbarSwipeDismissCallback callback) {
+    callbacks.add(new SnackbarCallback() {
+      public void onSnackbarSwiped(Snackbar snackbar) {
+        callback.onSnackbarSwiped(snackbar);
+      }
+    });
     return this;
   }
 
@@ -383,8 +401,12 @@ public final class SnackbarBuilder {
    * @param callback The callback.
    * @return This instance.
    */
-  public SnackbarBuilder timeoutDismissCallback(SnackbarTimeoutDismissCallback callback) {
-    callbackBuilder.timeoutDismissCallback(callback);
+  public SnackbarBuilder timeoutDismissCallback(final SnackbarTimeoutDismissCallback callback) {
+    callbacks.add(new SnackbarCallback() {
+      public void onSnackbarTimedOut(Snackbar snackbar) {
+        callback.onSnackbarTimedOut(snackbar);
+      }
+    });
     return this;
   }
 
@@ -395,8 +417,12 @@ public final class SnackbarBuilder {
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder manualDismissCallback(SnackbarManualDismissCallback callback) {
-    callbackBuilder.manualDismissCallback(callback);
+  public SnackbarBuilder manualDismissCallback(final SnackbarManualDismissCallback callback) {
+    callbacks.add(new SnackbarCallback() {
+      public void onSnackbarManuallyDismissed(Snackbar snackbar) {
+        callback.onSnackbarManuallyDismissed(snackbar);
+      }
+    });
     return this;
   }
 
@@ -407,9 +433,12 @@ public final class SnackbarBuilder {
    * @return This instance.
    */
   @SuppressWarnings("WeakerAccess")
-  public SnackbarBuilder consecutiveDismissCallback(
-      SnackbarConsecutiveDismissCallback callback) {
-    callbackBuilder.consecutiveDismissCallback(callback);
+  public SnackbarBuilder consecutiveDismissCallback(final SnackbarConsecutiveDismissCallback callback) {
+    callbacks.add(new SnackbarCallback() {
+      public void onSnackbarDismissedAfterAnotherShown(Snackbar snackbar) {
+        callback.onSnackbarDismissedAfterAnotherShown(snackbar);
+      }
+    });
     return this;
   }
 
@@ -496,7 +525,7 @@ public final class SnackbarBuilder {
         .setAction(actionText, actionClickListener)
         .setActionTextColor(actionTextColor)
         .setActionAllCaps(actionAllCaps)
-        .setCallbacks(callbackBuilder.build())
+        .setCallbacks(callbacks)
         .setIcon(icon, iconMargin);
 
     return snackbar;
@@ -573,5 +602,3 @@ public final class SnackbarBuilder {
     return ContextCompat.getDrawable(context, drawableResId);
   }
 }
-
-
