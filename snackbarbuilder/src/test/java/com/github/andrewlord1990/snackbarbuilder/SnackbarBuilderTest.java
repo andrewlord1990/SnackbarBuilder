@@ -205,6 +205,25 @@ public class SnackbarBuilderTest {
   }
 
   @Test
+  public void whenCreated_thenIconMarginFromCustomThemeAttribute() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
+
+    SnackbarBuilder builder = new SnackbarBuilder(parentView);
+
+    assertThat(builder.iconMargin).isEqualTo(16);
+  }
+
+  @Test
+  public void givenNoCustomThemeAttribute_whenCreated_thenIconMarginFromDimension() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_FallbackTheme);
+
+    SnackbarBuilder builder = new SnackbarBuilder(parentView);
+
+    assertThat(builder.iconMargin).isEqualTo(RuntimeEnvironment.application.getResources()
+        .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_default));
+  }
+
+  @Test
   public void whenMessageWithString_thenMessageSet() {
     SnackbarBuilder builder = createBuilder();
 
@@ -719,5 +738,4 @@ public class SnackbarBuilderTest {
         .withContext(activity)
         .withResources(resources);
   }
-
 }

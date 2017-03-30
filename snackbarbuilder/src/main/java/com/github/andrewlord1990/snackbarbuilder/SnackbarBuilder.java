@@ -546,6 +546,7 @@ public final class SnackbarBuilder {
       loadParentViewId(attrs);
       loadDuration(attrs);
       loadBackgroundColor(attrs);
+      loadIconMargin(attrs);
 
       loadFallbackAttributes(attrs);
     } finally {
@@ -579,6 +580,11 @@ public final class SnackbarBuilder {
   private void loadMessageTextColor(TypedArray attrs) {
     messageTextColor = attrs.getColor(
         R.styleable.SnackbarBuilderStyle_snackbarBuilder_messageTextColor, 0);
+  }
+
+  private void loadIconMargin(TypedArray attrs) {
+    iconMargin = attrs.getDimensionPixelSize(
+        R.styleable.SnackbarBuilderStyle_snackbarBuilder_iconMargin, 0);
   }
 
   private void loadFallbackAttributes(TypedArray attrs) {

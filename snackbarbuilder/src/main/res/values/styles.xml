@@ -22,6 +22,7 @@
     <item name="snackbarBuilder_actionTextColor">?colorAccent</item>
     <item name="snackbarBuilder_messageTextColor">@color/snackbarbuilder_default_message</item>
     <item name="snackbarBuilder_duration">longTime</item>
+    <item name="snackbarBuilder_iconMargin">@dimen/snackbarbuilder_icon_margin_default</item>
   </style>
 
   <style name="ToastBuilder">
@@ -50,6 +51,7 @@
     <item name="snackbarBuilder_parentViewId">@id/snackbarbuilder_icon</item>
     <item name="snackbarBuilder_duration">indefinite</item>
     <item name="snackbarBuilder_backgroundColor">#999999</item>
+    <item name="snackbarBuilder_iconMargin">16dp</item>
   </style>
 
   <style name="TestToastBuilderStyle"
