@@ -224,6 +224,24 @@ public class SnackbarBuilderTest {
   }
 
   @Test
+  public void whenCreated_thenActionAllCapsFalseFromCustomThemeAttribute() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_CustomTheme);
+
+    SnackbarBuilder builder = new SnackbarBuilder(parentView);
+
+    assertThat(builder.actionAllCaps).isFalse();
+  }
+
+  @Test
+  public void givenNoCustomThemeAttribute_whenCreated_thenActionAllCapsTrue() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_FallbackTheme);
+
+    SnackbarBuilder builder = new SnackbarBuilder(parentView);
+
+    assertThat(builder.actionAllCaps).isTrue();
+  }
+
+  @Test
   public void whenMessageWithString_thenMessageSet() {
     SnackbarBuilder builder = createBuilder();
 

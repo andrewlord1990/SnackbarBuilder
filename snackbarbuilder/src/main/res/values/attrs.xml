@@ -41,6 +41,7 @@
       <enum name="indefinite" value="-2"/>
     </attr>
     <attr name="snackbarBuilder_iconMargin" format="dimension"/>
+    <attr name="snackbarBuilder_actionAllCaps" format="boolean"/>
     <attr name="colorAccent"/>
   </declare-styleable>
 

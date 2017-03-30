@@ -70,7 +70,7 @@ public final class SnackbarBuilder {
   CharSequence actionText;
   OnClickListener actionClickListener;
   List<Snackbar.Callback> callbacks = new ArrayList<>();
-  boolean actionAllCaps = true;
+  boolean actionAllCaps;
   int backgroundColor;
   int actionTextColor;
   int messageTextColor;
@@ -547,6 +547,7 @@ public final class SnackbarBuilder {
       loadDuration(attrs);
       loadBackgroundColor(attrs);
       loadIconMargin(attrs);
+      loadActionAllCaps(attrs);
 
       loadFallbackAttributes(attrs);
     } finally {
@@ -584,7 +585,12 @@ public final class SnackbarBuilder {
 
   private void loadIconMargin(TypedArray attrs) {
     iconMargin = attrs.getDimensionPixelSize(
-        R.styleable.SnackbarBuilderStyle_snackbarBuilder_iconMargin, 0);
+        R.styleable.SnackbarBuilderStyle_snackbarBuilder_iconMargin, context.getResources()
+            .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_default));
+  }
+
+  private void loadActionAllCaps(TypedArray attrs) {
+    actionAllCaps = attrs.getBoolean(R.styleable.SnackbarBuilderStyle_snackbarBuilder_actionAllCaps, true);
   }
 
   private void loadFallbackAttributes(TypedArray attrs) {
@@ -593,10 +599,6 @@ public final class SnackbarBuilder {
     }
     if (actionTextColor == 0) {
       actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
-    }
-    if (iconMargin == 0) {
-      iconMargin = context.getResources()
-          .getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_default);
     }
   }
 
