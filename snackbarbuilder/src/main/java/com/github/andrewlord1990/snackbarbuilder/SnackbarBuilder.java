@@ -70,7 +70,7 @@ public final class SnackbarBuilder {
   CharSequence actionText;
   OnClickListener actionClickListener;
   List<Snackbar.Callback> callbacks = new ArrayList<>();
-  boolean actionAllCaps;
+  boolean actionAllCaps = true;
   int backgroundColor;
   int actionTextColor;
   int messageTextColor;
