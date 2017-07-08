@@ -115,6 +115,7 @@ public class SnackbarBuilderTest {
 
     SnackbarBuilder builder = new SnackbarBuilder(activity);
 
+    assertThat(builder.parentViewId).isEqualTo(R.id.snackbarbuilder_icon);
     assertThat(builder.parentView).isEqualTo(layout);
     assertThat(builder.context).isEqualTo(activity);
     assertThat(builder.actionTextColor).isEqualTo(0xFF454545);

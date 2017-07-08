@@ -136,6 +136,7 @@ public final class SnackbarBuilder {
    * @param messageResId String resource of the text to display.
    * @return This instance.
    */
+  @SuppressWarnings("WeakerAccess")
   public SnackbarBuilder message(@StringRes int messageResId) {
     this.message = context.getString(messageResId);
     return this;
