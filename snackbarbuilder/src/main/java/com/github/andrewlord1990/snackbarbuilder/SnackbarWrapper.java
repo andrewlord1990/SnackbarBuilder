@@ -391,7 +391,7 @@ public final class SnackbarWrapper {
    */
   @NonNull
   @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper appendMessage(CharSequence message) {
+  public SnackbarWrapper appendMessage(@NonNull CharSequence message) {
     messageView.append(message);
     return this;
   }
@@ -417,7 +417,7 @@ public final class SnackbarWrapper {
    */
   @NonNull
   @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper appendMessage(CharSequence message, @ColorInt int color) {
+  public SnackbarWrapper appendMessage(@NonNull CharSequence message, @ColorInt int color) {
     Spannable spannable = new SpannableString(message);
     spannable.setSpan(new ForegroundColorSpan(color), 0, spannable.length(),
         Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -584,26 +584,26 @@ public final class SnackbarWrapper {
   /**
    * Set the margin to be displayed between the icon and the text.
    *
-   * @param iconMargin The margin before the icon.
-   * @return This instance.
-   */
-  @NonNull
-  @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMargin(@DimenRes int iconMargin) {
-    return setIconMarginPixels(context.getResources().getDimensionPixelSize(iconMargin));
-  }
-
-  /**
-   * Set the margin to be displayed between the icon and the text.
-   *
    * @param iconMarginPixels The margin before the icon.
    * @return This instance.
    */
   @NonNull
   @SuppressWarnings("WeakerAccess")
-  public SnackbarWrapper setIconMarginPixels(int iconMarginPixels) {
+  public SnackbarWrapper setIconMargin(int iconMarginPixels) {
     messageView.setCompoundDrawablePadding(iconMarginPixels);
     return this;
+  }
+
+  /**
+   * Set the margin to be displayed between the icon and the text.
+   *
+   * @param iconMargin The margin before the icon.
+   * @return This instance.
+   */
+  @NonNull
+  @SuppressWarnings("WeakerAccess")
+  public SnackbarWrapper setIconMarginRes(@DimenRes int iconMargin) {
+    return setIconMargin(context.getResources().getDimensionPixelSize(iconMargin));
   }
 
   /**

@@ -29,7 +29,6 @@ import android.support.design.widget.Snackbar.Callback;
 import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -207,7 +206,7 @@ public class SnackbarWrapperTest {
     TextViewExtension.from(getActionView()).setAllCaps(true);
 
     wrapper.setAllCapsActionText(false);
-    
+
     assertThat(getActionView().getTransformationMethod()).isNull();
   }
 
@@ -390,20 +389,20 @@ public class SnackbarWrapperTest {
   }
 
   @Test
-  public void whenSetIconMarginWithResource_thenIconMarginSet() {
-    Resources resources = RuntimeEnvironment.application.getResources();
-    final int expected = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_default);
+  public void whenSetIconMargin_thenIconMarginSet() {
+    final int expected = 100;
 
-    wrapper.setIconMargin(R.dimen.snackbarbuilder_icon_margin_default);
+    wrapper.setIconMargin(expected);
 
     assertThat(getMessageView().getCompoundDrawablePadding()).isEqualTo(expected);
   }
 
   @Test
-  public void whenSetIconMarginWithPixels_thenIconMarginSet() {
-    final int expected = 100;
+  public void whenSetIconMarginRes_thenIconMarginSet() {
+    Resources resources = RuntimeEnvironment.application.getResources();
+    final int expected = resources.getDimensionPixelSize(R.dimen.snackbarbuilder_icon_margin_default);
 
-    wrapper.setIconMarginPixels(expected);
+    wrapper.setIconMarginRes(R.dimen.snackbarbuilder_icon_margin_default);
 
     assertThat(getMessageView().getCompoundDrawablePadding()).isEqualTo(expected);
   }
@@ -450,11 +449,4 @@ public class SnackbarWrapperTest {
     int[] colors = new int[] {Color.RED, Color.CYAN};
     return new ColorStateList(states, colors);
   }
-
-  private void assertThatIconMarginsEqualTo(int leftMargin, int rightMargin) {
-    FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) getIconView().getLayoutParams();
-    assertThat(layoutParams.leftMargin).isEqualTo(leftMargin);
-    assertThat(layoutParams.rightMargin).isEqualTo(rightMargin);
-  }
-
 }

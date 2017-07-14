@@ -510,16 +510,34 @@ public final class SnackbarBuilder {
    */
   public SnackbarWrapper buildWrapper() {
     Snackbar snackbar = Snackbar.make(parentView, message, duration);
-    return new SnackbarWrapper(snackbar)
-        .setAction(actionText, actionClickListener)
+    SnackbarWrapper wrapper = new SnackbarWrapper(snackbar)
+        .setAction(actionText, sanitisedActionClickListener())
         .setActionTextColor(actionTextColor)
         .setAllCapsActionText(actionAllCaps)
         .setTextColor(messageTextColor)
-        .appendMessage(appendMessages)
-        .setBackgroundColor(backgroundColor)
         .addCallbacks(callbacks)
-        .setIcon(icon)
         .setIconMargin(iconMargin);
+    if (appendMessages != null) {
+      wrapper.appendMessage(appendMessages);
+    }
+    if (backgroundColor != 0) {
+      wrapper.setBackgroundColor(backgroundColor);
+    }
+    if (icon != null) {
+      wrapper.setIcon(icon);
+    }
+    return wrapper;
+  }
+
+  private OnClickListener sanitisedActionClickListener() {
+    if (actionClickListener == null) {
+      return new OnClickListener() {
+        @Override
+        public void onClick(View view) {
+        }
+      };
+    }
+    return actionClickListener;
   }
 
   /**
@@ -598,7 +616,8 @@ public final class SnackbarBuilder {
       messageTextColor = getColor(R.color.snackbarbuilder_default_message);
     }
     if (actionTextColor == 0) {
-      actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent, 0);
+      actionTextColor = attrs.getColor(R.styleable.SnackbarBuilderStyle_colorAccent,
+          getColor(R.color.snackbarbuilder_default_message));
     }
   }
 
