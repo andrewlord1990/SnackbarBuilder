@@ -194,6 +194,24 @@ public class SnackbarWrapperTest {
   }
 
   @Test
+  public void givenTrue_whenSetAllCapsActionText_thenActionAllCaps() {
+    TextViewExtension.from(getActionView()).setAllCaps(false);
+
+    wrapper.setAllCapsActionText(true);
+
+    assertThat(getActionView().getTransformationMethod()).isNotNull();
+  }
+
+  @Test
+  public void givenFalse_whenSetAllCapsActionText_thenActionNotAllCaps() {
+    TextViewExtension.from(getActionView()).setAllCaps(true);
+
+    wrapper.setAllCapsActionText(false);
+    
+    assertThat(getActionView().getTransformationMethod()).isNull();
+  }
+
+  @Test
   public void whenSetLowercaseActionText_thenActionNotAllCaps() {
     TextViewExtension.from(getActionView()).setAllCaps(true);
 

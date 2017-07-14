@@ -509,7 +509,17 @@ public final class SnackbarBuilder {
    * @return A SnackbarWrapper, a class which wraps a Snackbar for further customisation.
    */
   public SnackbarWrapper buildWrapper() {
-    return new SnackbarWrapper(build());
+    Snackbar snackbar = Snackbar.make(parentView, message, duration);
+    return new SnackbarWrapper(snackbar)
+        .setAction(actionText, actionClickListener)
+        .setActionTextColor(actionTextColor)
+        .setAllCapsActionText(actionAllCaps)
+        .setTextColor(messageTextColor)
+        .appendMessage(appendMessages)
+        .setBackgroundColor(backgroundColor)
+        .addCallbacks(callbacks)
+        .setIcon(icon)
+        .setIconMargin(iconMargin);
   }
 
   /**
@@ -518,18 +528,7 @@ public final class SnackbarBuilder {
    * @return A Snackbar.
    */
   public Snackbar build() {
-    Snackbar snackbar = Snackbar.make(parentView, message, duration);
-
-    new SnackbarCustomiser(snackbar)
-        .customiseMessage(messageTextColor, appendMessages)
-        .setBackgroundColor(backgroundColor)
-        .setAction(actionText, actionClickListener)
-        .setActionTextColor(actionTextColor)
-        .setActionAllCaps(actionAllCaps)
-        .setCallbacks(callbacks)
-        .setIcon(icon, iconMargin);
-
-    return snackbar;
+    return buildWrapper().getSnackbar();
   }
 
   private void initialiseAppendMessages() {
