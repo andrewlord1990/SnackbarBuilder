@@ -363,6 +363,20 @@ public class SnackbarWrapperTest {
   }
 
   @Test
+  public void whenAddCallbacks_thenCallbacksAdded() {
+    List<Snackbar.Callback> callbacks = new ArrayList<>();
+    callbacks.add(callback);
+    callbacks.add(snackbarCallback);
+
+    wrapper.addCallbacks(callbacks);
+    wrapper.show();
+
+    wrapper.dismiss();
+    verify(callback).onDismissed(snackbar, Callback.DISMISS_EVENT_MANUAL);
+    verify(snackbarCallback).onSnackbarManuallyDismissed(snackbar);
+  }
+
+  @Test
   public void whenAddSnackbarCallback_thenSnackbarCallbackAdded() {
     wrapper.addSnackbarCallback(snackbarCallback);
     wrapper.show();
