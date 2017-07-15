@@ -534,6 +534,7 @@ public final class SnackbarBuilder {
       return new OnClickListener() {
         @Override
         public void onClick(View view) {
+          // Not needed
         }
       };
     }
