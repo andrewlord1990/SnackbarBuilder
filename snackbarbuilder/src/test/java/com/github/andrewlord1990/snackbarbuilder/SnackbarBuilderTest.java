@@ -626,6 +626,18 @@ public class SnackbarBuilderTest {
   }
 
   @Test
+  public void givenActionTextNoClick_whenBuildWrapper_thenActionTextSet() {
+    RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_AppTheme);
+    CoordinatorLayout parent = new CoordinatorLayout(RuntimeEnvironment.application);
+
+    SnackbarWrapper wrapper = new SnackbarBuilder(parent)
+        .actionText("action")
+        .buildWrapper();
+
+    assertThat(wrapper.getActionText()).isEqualTo("action");
+  }
+
+  @Test
   @TargetApi(11)
   public void whenBuild_thenSnackbarSetup() {
     int messageTextColor = 0xFF111111;
