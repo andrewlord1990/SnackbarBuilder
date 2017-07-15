@@ -156,12 +156,12 @@ public class SnackbarBuilderTest {
   }
 
   @Test
-  public void givenNoCustomThemeAttribute_whenCreated_thenActionTextColorFromColorAccentThemeAttribute() {
+  public void givenNoCustomThemeAttribute_whenCreated_thenActionTextColorNotSet() {
     RuntimeEnvironment.application.setTheme(R.style.TestSnackbarBuilder_FallbackTheme);
 
     SnackbarBuilder builder = new SnackbarBuilder(parentView);
 
-    assertThat(builder.actionTextColor).isEqualTo(0xFF232323);
+    assertThat(builder.actionTextColor).isEqualTo(0);
   }
 
   @Test
@@ -174,10 +174,10 @@ public class SnackbarBuilderTest {
   }
 
   @Test
-  public void givenNoCustomThemeAttribute_whenCreated_thenMessageTextColorFromColorAccentThemeAttribute() {
+  public void givenNoCustomThemeAttribute_whenCreated_thenMessageTextColorNotSet() {
     SnackbarBuilder builder = new SnackbarBuilder(parentView);
 
-    assertThat(builder.messageTextColor).isEqualTo(Color.WHITE);
+    assertThat(builder.messageTextColor).isEqualTo(0);
   }
 
   @Test
@@ -203,6 +203,13 @@ public class SnackbarBuilderTest {
     SnackbarBuilder builder = new SnackbarBuilder(parentView);
 
     assertThat(builder.backgroundColor).isEqualTo(0xFF999999);
+  }
+
+  @Test
+  public void givenNoCustomThemeAttribute_whenCreated_thenBackgroundColorNotSet() {
+    SnackbarBuilder builder = new SnackbarBuilder(parentView);
+
+    assertThat(builder.backgroundColor).isEqualTo(0);
   }
 
   @Test
